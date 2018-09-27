@@ -1,0 +1,2 @@
+& ./gradlew generateClientStubs publishStubsPublicationToMavenRepository
+

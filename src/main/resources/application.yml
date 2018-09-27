@@ -1,0 +1,38 @@
+logging:
+  level:
+    org.springframework: WARN
+---
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+  jpa:
+    database: MYSQL
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: true
+  datasource:
+    url: jdbc:mysql://localhost:3306/customerservice?createDatabaseIfNotExist=true&allowPublicKeyRetrieval=true&useSSL=false
+    username: root
+    password: root
+---
+spring:
+  profiles: testing
+  jpa:
+    database: H2
+    properties:
+      hibernate:
+        show_sql: false
+        use_sql_comments: true
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+  h2:
+    console:
+      enabled: true
+
