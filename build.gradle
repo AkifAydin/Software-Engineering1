@@ -37,7 +37,6 @@ configurations {
 dependencies {
 
     // compiletime dependencies
-    compile 'org.springframework.boot:spring-boot-starter-web'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa'
     compile 'javax.xml.bind:jaxb-api'
     compile 'org.json:json:20180813'
