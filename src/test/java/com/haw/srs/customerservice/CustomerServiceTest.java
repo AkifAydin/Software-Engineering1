@@ -52,10 +52,10 @@ class CustomerServiceTest {
 
         customerService.transferReservations(from.getLastName(), to.getLastName());
 
-        // versuche hier from & to von oben zu verwenden...warum klappt es nicht?
-        Customer fromRefreshed = realCustomerRepository.findByLastName(from.getLastName()).get();
-        Customer toRefreshed = realCustomerRepository.findByLastName(to.getLastName()).get();
-        assertThat(fromRefreshed.getReservations()).size().isEqualTo(0);
-        assertThat(toRefreshed.getReservations()).size().isEqualTo(2);
+        // versuche es hier einmal ohne Neuladen...warum klappt es nicht?
+        from = realCustomerRepository.findByLastName(from.getLastName()).get();
+        to   = realCustomerRepository.findByLastName(to.getLastName()).get();
+        assertThat(from.getReservations()).size().isEqualTo(0);
+        assertThat(to.getReservations()).size().isEqualTo(2);
     }
 }
