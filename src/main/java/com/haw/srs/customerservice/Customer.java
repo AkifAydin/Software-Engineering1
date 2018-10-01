@@ -26,7 +26,7 @@ public class Customer {
 
     private PhoneNumber phoneNumber;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     private List<Reservation> reservations = new ArrayList<>();
 
@@ -36,6 +36,14 @@ public class Customer {
         this.gender = gender;
         this.email = email;
         this.phoneNumber = phoneNumber;
+    }
+
+    public Customer(String firstName, String lastName, Gender gender) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.email = null;
+        this.phoneNumber = null;
     }
 
     public void addReservation(Reservation reservation) {

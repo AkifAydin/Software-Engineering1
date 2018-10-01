@@ -18,4 +18,25 @@ public class CustomerService {
     public List<Customer> getCustomers() {
         return customerRepository.findAll();
     }
+
+    public void transferReservations(String fromCustomer, String toCustomer) throws CustomerNotFoundException {
+
+// Alternativ zu unten:
+//        Optional<Customer> from = customerRepository.findByLastName(fromCustomer);
+//        if (!from.isPresent()) {
+//            throw new CustomerNotFoundException(fromCustomer);
+//        }
+        Customer from = customerRepository
+                .findByLastName(fromCustomer)
+                .orElseThrow(() -> new CustomerNotFoundException(fromCustomer));
+        Customer to = customerRepository
+                .findByLastName(toCustomer)
+                .orElseThrow(() -> new CustomerNotFoundException(toCustomer));
+
+        to.getReservations().addAll(from.getReservations());
+        from.getReservations().clear();
+
+        customerRepository.save(from);
+        customerRepository.save(to);
+    }
 }
