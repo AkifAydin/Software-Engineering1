@@ -37,8 +37,8 @@ class PopulateTestDataRunner implements CommandLineRunner {
                 );
 
         Customer customer = new Customer("Stefan", "Sarstedt", Gender.MALE, "stefan.sarstedt@haw-hamburg.de", null);
-        Reservation reservation = new Reservation("James Bond 007");
-        customer.addReservation(reservation);
+        Course course = new Course("SE1");
+        customer.addCourse(course);
         customerRepository.save(customer);
     }
 }

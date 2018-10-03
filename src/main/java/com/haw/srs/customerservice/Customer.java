@@ -28,7 +28,7 @@ public class Customer {
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
-    private List<Reservation> reservations = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     public Customer(String firstName, String lastName, Gender gender, String email, PhoneNumber phoneNumber) {
         this.firstName = firstName;
@@ -46,7 +46,7 @@ public class Customer {
         this.phoneNumber = null;
     }
 
-    public void addReservation(Reservation reservation) {
-        this.reservations.add(reservation);
+    public void addCourse(Course course) {
+        this.courses.add(course);
     }
 }

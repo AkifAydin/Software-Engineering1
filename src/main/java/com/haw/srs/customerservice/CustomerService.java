@@ -35,8 +35,8 @@ public class CustomerService {
                 .findByLastName(toCustomer)
                 .orElseThrow(() -> new CustomerNotFoundException(toCustomer));
 
-        to.getReservations().addAll(from.getReservations());
-        from.getReservations().clear();
+        to.getCourses().addAll(from.getCourses());
+        from.getCourses().clear();
 
         customerRepository.save(from);
         customerRepository.save(to);

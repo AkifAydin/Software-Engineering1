@@ -36,26 +36,25 @@ class CustomerServiceTest {
     }
 
     @Test
-    void transferReservationsSuccess() throws CustomerNotFoundException {
+    void transferCoursesSuccess() throws CustomerNotFoundException {
 
         realCustomerRepository.deleteAll();
 
         Customer from = new Customer("John", "Smith", Gender.MALE);
-        from.addReservation(new Reservation("James Bond 007"));
-        from.addReservation(new Reservation("Rosamunde Pilcher"));
+        from.addCourse(new Course("SE1"));
+        from.addCourse(new Course("SE2"));
         realCustomerRepository.save(from);
         Customer to = new Customer("Eva", "Miller", Gender.FEMALE);
         realCustomerRepository.save(to);
 
-        assertThat(from.getReservations()).size().isEqualTo(2);
-        assertThat(to.getReservations()).size().isEqualTo(0);
+        assertThat(from.getCourses()).size().isEqualTo(2);
+        assertThat(to.getCourses()).size().isEqualTo(0);
 
         customerService.transferReservations(from.getLastName(), to.getLastName());
 
-        // versuche es hier einmal ohne Neuladen...warum klappt es nicht?
         from = realCustomerRepository.findByLastName(from.getLastName()).get();
         to   = realCustomerRepository.findByLastName(to.getLastName()).get();
-        assertThat(from.getReservations()).size().isEqualTo(0);
-        assertThat(to.getReservations()).size().isEqualTo(2);
+        assertThat(from.getCourses()).size().isEqualTo(0);
+        assertThat(to.getCourses()).size().isEqualTo(2);
     }
 }

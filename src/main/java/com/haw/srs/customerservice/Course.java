@@ -12,16 +12,16 @@ import javax.persistence.Id;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Reservation {
+public class Course {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String movie;
+    private String name;
 
-    public Reservation(String movie) {
+    public Course(String name) {
 
-        this.movie = movie;
+        this.name = name;
     }
 }

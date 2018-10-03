@@ -5,12 +5,12 @@
 # Java class files
 *.class
 
-# Eclipse project files
+# Eclipse course files
 .classpath
-.project
+.course
 .settings/
 
-# Intellij project files
+# Intellij course files
 *.iml
 *.ipr
 *.iws
@@ -24,7 +24,6 @@ build/
 bin/
 out/
 
-gradle.properties
 
 
 
