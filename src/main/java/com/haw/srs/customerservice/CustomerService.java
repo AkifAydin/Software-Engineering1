@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerService {
@@ -16,14 +17,30 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public List<Customer> getCustomers() {
+    public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
+    }
+
+    public Customer findCustomerByLastname(String lastName) throws CustomerNotFoundException {
+
+        return customerRepository
+                .findByLastName(lastName)
+                .orElseThrow(() -> new CustomerNotFoundException(lastName));
+    }
+
+    public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
+        Customer customer = customerRepository
+                .findByLastName(lastName)
+                .orElseThrow(() -> new CustomerNotFoundException(lastName));
+
+        customer.addCourse(course);
+        customerRepository.save(customer);
     }
 
     @Transactional
     public void transferReservations(String fromCustomer, String toCustomer) throws CustomerNotFoundException {
 
-// Alternativ zu unten:
+// Alternative Formulierung zu unten:
 //        Optional<Customer> from = customerRepository.findByLastName(fromCustomer);
 //        if (!from.isPresent()) {
 //            throw new CustomerNotFoundException(fromCustomer);
