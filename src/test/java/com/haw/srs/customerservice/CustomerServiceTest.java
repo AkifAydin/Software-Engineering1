@@ -31,6 +31,8 @@ class CustomerServiceTest {
 
     @Test
     void getAllCustomersSuccess() {
+        assertThat(customerService.findAllCustomers()).size().isEqualTo(0);
+
         Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
         customerRepository.save(customer);
 

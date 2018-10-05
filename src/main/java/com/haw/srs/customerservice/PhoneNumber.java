@@ -28,8 +28,8 @@ public class PhoneNumber {
             throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
         }
 
-        countryCode = matcher.group(0);
-        areaCode = matcher.group(1);
-        subscriberNumber = matcher.group(2);
+        countryCode = matcher.group(1);
+        areaCode = matcher.group(2);
+        subscriberNumber = matcher.group(3);
     }
 }

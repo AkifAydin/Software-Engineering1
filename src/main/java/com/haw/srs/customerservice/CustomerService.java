@@ -22,7 +22,6 @@ public class CustomerService {
     }
 
     public Customer findCustomerByLastname(String lastName) throws CustomerNotFoundException {
-
         return customerRepository
                 .findByLastName(lastName)
                 .orElseThrow(() -> new CustomerNotFoundException(lastName));
@@ -39,7 +38,6 @@ public class CustomerService {
 
     @Transactional
     public void transferReservations(String fromCustomer, String toCustomer) throws CustomerNotFoundException {
-
 // Alternative Formulierung zu unten:
 //        Optional<Customer> from = customerRepository.findByLastName(fromCustomer);
 //        if (!from.isPresent()) {
