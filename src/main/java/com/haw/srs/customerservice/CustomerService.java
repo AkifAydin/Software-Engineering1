@@ -37,7 +37,7 @@ public class CustomerService {
     }
 
     @Transactional
-    public void transferReservations(String fromCustomer, String toCustomer) throws CustomerNotFoundException {
+    public void transferCourses(String fromCustomer, String toCustomer) throws CustomerNotFoundException {
 // Alternative Formulierung zu unten:
 //        Optional<Customer> from = customerRepository.findByLastName(fromCustomer);
 //        if (!from.isPresent()) {

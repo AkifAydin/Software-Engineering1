@@ -73,7 +73,7 @@ class CustomerServiceTest {
         assertThat(from.getCourses()).size().isEqualTo(2);
         assertThat(to.getCourses()).size().isEqualTo(0);
 
-        customerService.transferReservations(from.getLastName(), to.getLastName());
+        customerService.transferCourses(from.getLastName(), to.getLastName());
 
         assertThat(customerService.findCustomerByLastname(from.getLastName()).getCourses())
                 .size().isEqualTo(0);
