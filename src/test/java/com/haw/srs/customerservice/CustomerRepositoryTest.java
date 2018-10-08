@@ -13,7 +13,6 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ActiveProfiles(profiles = "testing")
 class CustomerRepositoryTest {
 
     @Autowired

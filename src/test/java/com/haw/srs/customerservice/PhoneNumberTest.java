@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-@ActiveProfiles(profiles = "testing")
 class PhoneNumberTest {
 
     @ParameterizedTest
