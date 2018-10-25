@@ -13,6 +13,7 @@ buildscript {
 
 plugins {
     id "io.spring.dependency-management" version "1.0.6.RELEASE"
+    id "com.github.ben-manes.versions" version "0.20.0"
 }
 
 apply plugin: 'java'
@@ -49,7 +50,7 @@ dependencies {
     runtime 'mysql:mysql-connector-java'
 
     // dependencies for test-execution
-    testCompile 'org.assertj:assertj-core:3.10.0'
+    testCompile 'org.assertj:assertj-core:3.11.1'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testCompile 'org.junit.jupiter:junit-jupiter-params:5.3.1'
