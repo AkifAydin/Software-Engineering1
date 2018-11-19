@@ -22,6 +22,7 @@ public class Customer {
 
     private String lastName;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     private String email;

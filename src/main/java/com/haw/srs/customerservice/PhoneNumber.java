@@ -15,6 +15,9 @@ import java.util.regex.Pattern;
 @NoArgsConstructor
 @Embeddable
 public class PhoneNumber {
+
+    private static final String PHONENUMBER_PATTERN = "^(\\+\\d{2})-(\\d{2,3})-(\\d{4,})$";
+
     private String countryCode;
 
     private String areaCode;
@@ -22,7 +25,7 @@ public class PhoneNumber {
     private String subscriberNumber;
 
     public PhoneNumber(String phoneNumber) throws IllegalArgumentException {
-        Pattern pattern = Pattern.compile("(\\+\\d{2})-(\\d{2,3})-(\\d{4,})");
+        Pattern pattern = Pattern.compile(PHONENUMBER_PATTERN);
         Matcher matcher = pattern.matcher(phoneNumber);
         if (!matcher.matches()) {
             throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
@@ -31,5 +34,12 @@ public class PhoneNumber {
         countryCode = matcher.group(1);
         areaCode = matcher.group(2);
         subscriberNumber = matcher.group(3);
+    }
+
+    public static boolean isValid(String phoneNumber) {
+        if (phoneNumber == null)
+            return false;
+        else
+            return phoneNumber.matches(PHONENUMBER_PATTERN);
     }
 }

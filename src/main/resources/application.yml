@@ -5,6 +5,9 @@ logging:
 spring:
   jpa:
     database: H2
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: false

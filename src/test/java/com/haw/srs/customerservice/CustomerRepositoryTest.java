@@ -23,8 +23,6 @@ class CustomerRepositoryTest {
         Customer customer = this.customerRepository.save(new Customer("Stefan", "Sarstedt", Gender.MALE,
                 "stefan.sarstedt@haw-hamburg.de",
                 new PhoneNumber("+49", "040", "428758434")));
-
-        customerRepository.save(customer);
     }
 
     @Test
