@@ -1,8 +1,11 @@
 package com.haw.srs.customerservice;
 
 import lombok.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Value
+@ResponseStatus(HttpStatus.NOT_FOUND)
 class CustomerNotFoundException extends Exception {
 
     private final Long customerId;
