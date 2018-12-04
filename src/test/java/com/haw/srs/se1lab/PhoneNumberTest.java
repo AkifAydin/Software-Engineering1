@@ -1,4 +1,4 @@
-package com.haw.srs.customerservice;
+package com.haw.srs.se1lab;
 
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;

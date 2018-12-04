@@ -1,4 +1,4 @@
-package com.haw.srs.customerservice;
+package com.haw.srs.se1lab;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,17 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-class CustomerServiceTest {
+class CourseServiceTest {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private CourseService courseService;
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -28,25 +29,13 @@ class CustomerServiceTest {
     }
 
     @Test
-    void getAllCustomersSuccess() {
-        assertThat(customerService.findAllCustomers()).size().isEqualTo(0);
-
-        Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
-        customerRepository.save(customer);
-
-        List<Customer> actual = customerService.findAllCustomers();
-        assertThat(actual).size().isEqualTo(1);
-        assertThat(actual.get(0).getFirstName()).isEqualTo("Jane");
-    }
-
-    @Test
     void enrollCustomerInCourseSuccess() throws CustomerNotFoundException {
         Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
         customerRepository.save(customer);
 
         assertThat(customer.getCourses()).size().isEqualTo(0);
 
-        customerService.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
+        courseService.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
 
         assertThat(customerService.findCustomerByLastname(customer.getLastName()).getCourses())
                 .size().isEqualTo(1);
@@ -55,7 +44,7 @@ class CustomerServiceTest {
     @Test
     void enrollCustomerInCourseFailBecauseOfCustomerNotFound() {
         assertThatExceptionOfType(CustomerNotFoundException.class)
-                .isThrownBy(() -> customerService.enrollInCourse("notExisting", new Course("Software Engineering 1")))
+                .isThrownBy(() -> courseService.enrollInCourse("notExisting", new Course("Software Engineering 1")))
                 .withMessageContaining("Could not find customer with lastname notExisting.");
     }
 
@@ -71,11 +60,36 @@ class CustomerServiceTest {
         assertThat(from.getCourses()).size().isEqualTo(2);
         assertThat(to.getCourses()).size().isEqualTo(0);
 
-        customerService.transferCourses(from.getLastName(), to.getLastName());
+        courseService.transferCourses(from.getLastName(), to.getLastName());
 
         assertThat(customerService.findCustomerByLastname(from.getLastName()).getCourses())
                 .size().isEqualTo(0);
         assertThat(customerService.findCustomerByLastname(to.getLastName()).getCourses())
                 .size().isEqualTo(2);
     }
+
+//    @Test
+//    void testCancelOk() {
+//        Customer customer = customerRepository.save(new Customer("Jane", "Doe", Gender.FEMALE));
+//        Course course = new Course("SE1");
+//        try {
+//            courseService.cancelMembership(new CustomerNumber(customer.getId()), new CourseNumber(1L));
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    @Test
+//    void testCancelNok() {
+//        Course course = new Course("SE1");
+//        try {
+//            courseService.cancelMembership(new CustomerNumber(10L), new CourseNumber(course.getId()));
+//        } catch (CustomerNotFoundException e) {
+//            assertThat(e.getCustomerId()).isEqualTo(10L);
+//        } catch (CourseNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
 }

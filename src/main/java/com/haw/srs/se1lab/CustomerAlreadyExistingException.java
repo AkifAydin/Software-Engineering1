@@ -1,4 +1,4 @@
-package com.haw.srs.customerservice;
+package com.haw.srs.se1lab;
 
 import lombok.Value;
 import org.springframework.http.HttpStatus;

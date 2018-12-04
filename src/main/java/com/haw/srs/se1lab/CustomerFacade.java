@@ -1,4 +1,4 @@
-package com.haw.srs.customerservice;
+package com.haw.srs.se1lab;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
