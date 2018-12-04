@@ -19,7 +19,7 @@ import static org.hamcrest.Matchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerControllerTest {
+class CustomerFacadeTest {
 
     private final Log log = LogFactory.getLog(getClass());
 

@@ -17,4 +17,14 @@ spring:
   h2:
     console:
       enabled: true
-
+  mail:
+    host: fakehost
+    port: 587
+    username: fake
+    password: fake
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

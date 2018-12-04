@@ -26,6 +26,14 @@ public class CustomerService {
                 .orElseThrow(() -> new CustomerNotFoundException(lastName));
     }
 
+    public Customer createCustomer(String firstName, String lastName, Gender gender) throws CustomerAlreadyExistingException {
+        if (customerRepository.findByLastName(lastName).isPresent()) {
+            throw new CustomerAlreadyExistingException(lastName);
+        }
+
+        return customerRepository.save(new Customer(firstName,lastName,gender));
+    }
+
     public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
         Customer customer = customerRepository
                 .findByLastName(lastName)

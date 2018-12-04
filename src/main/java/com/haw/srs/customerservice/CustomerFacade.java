@@ -42,6 +42,7 @@ public class CustomerFacade {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Customer createCustomer(@RequestBody Customer customer) {
+
         return customerRepository.save(customer);
     }
 
