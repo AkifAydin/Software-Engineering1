@@ -5,10 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+
+import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -22,6 +26,9 @@ class CourseServiceTest {
 
     @Autowired
     private CustomerRepository customerRepository;
+
+    @MockBean
+    private MailGateway mailGateway;
 
     @BeforeEach
     void setup() {
@@ -68,28 +75,38 @@ class CourseServiceTest {
                 .size().isEqualTo(2);
     }
 
-//    @Test
-//    void testCancelOk() {
-//        Customer customer = customerRepository.save(new Customer("Jane", "Doe", Gender.FEMALE));
-//        Course course = new Course("SE1");
-//        try {
-//            courseService.cancelMembership(new CustomerNumber(customer.getId()), new CourseNumber(1L));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    @Test
-//    void testCancelNok() {
-//        Course course = new Course("SE1");
-//        try {
-//            courseService.cancelMembership(new CustomerNumber(10L), new CourseNumber(course.getId()));
-//        } catch (CustomerNotFoundException e) {
-//            assertThat(e.getCustomerId()).isEqualTo(10L);
-//        } catch (CourseNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    void cancelMembershipSuccess() throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSent {
+        // set up customer and course here
+        // ...
 
+        // configure MailGateway-mock
+        when(mailGateway.sendMail(anyString(), anyString(), anyString())).thenReturn(true);
 
+        courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
+    }
+
+    @Test
+    void cancelMembershipFailBecauseOfUnableToSendMail() {
+        // set up customer and course here
+        // ...
+
+        // configure MailGateway-mock
+        when(mailGateway.sendMail(anyString(), anyString(), anyString())).thenReturn(false);
+
+        assertThatExceptionOfType(MembershipMailNotSent.class)
+                .isThrownBy(() -> courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L)))
+                .withMessageContaining("Could not send membership mail to");
+    }
+    
+    @Test
+    void cancelMembershipSuccessBDDStyle() throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSent {
+        // set up customer and course here
+        // ...
+
+        // configure MailGateway-mock with BDD-style
+        given(mailGateway.sendMail(anyString(), anyString(), anyString())).willReturn(true);
+
+        courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
+    }
 }

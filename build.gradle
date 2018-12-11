@@ -58,7 +58,6 @@ dependencies {
     testImplementation 'mysql:mysql-connector-java'
 }
 
-
 test {
     useJUnitPlatform()
     failFast = false
