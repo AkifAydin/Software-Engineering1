@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.6.RELEASE'
+        springBootVersion = '2.3.4.RELEASE'
     }
     repositories {
         jcenter()
@@ -12,8 +12,8 @@ buildscript {
 }
 
 plugins {
-    id "io.spring.dependency-management" version "1.0.6.RELEASE"
-    id "com.github.ben-manes.versions" version "0.20.0"
+    id "io.spring.dependency-management" version "1.0.10.RELEASE"
+    id "com.github.ben-manes.versions" version "0.33.0"
 }
 
 apply plugin: 'java'
@@ -24,38 +24,35 @@ apply plugin: 'jacoco'
 
 group = "com.haw.srs"
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 10
+sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     jcenter()
     maven { url "http://repo.spring.io/release" }
 }
 
-configurations {
-    testCompile.exclude group: 'junit', module: 'junit'
-}
-
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'javax.xml.bind:jaxb-api'
-    implementation 'org.json:json:20180813'
+    implementation 'org.json:json:20200518'
     implementation 'org.springframework.boot:spring-boot-starter-mail'
-    compileOnly 'org.projectlombok:lombok:1.18.2'
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
     
-    testImplementation 'org.assertj:assertj-core:3.11.1'
-    testImplementation 'io.rest-assured:rest-assured:3.2.0'
-    testImplementation 'io.rest-assured:spring-mock-mvc:3.2.0'
+    testImplementation 'org.assertj:assertj-core:3.17.2'
+    testImplementation 'io.rest-assured:spring-mock-mvc:4.3.1'
+    testImplementation 'io.rest-assured:json-path:4.3.1'
+    testImplementation 'io.rest-assured:xml-path:4.3.1'
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.3.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
     testImplementation 'mysql:mysql-connector-java'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
 }
 
 test {
@@ -67,6 +64,8 @@ test {
     }
 }
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.10.2'
+allprojects {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
 }

@@ -3,7 +3,7 @@ stages:
 
 build-and-test:
   stage: build-and-test
-  image: openjdk:10.0.2-jdk-slim
+  image: openjdk:8-jdk-slim
   script:
     - chmod +x ./gradlew
     - ./gradlew build jacocoTestReport

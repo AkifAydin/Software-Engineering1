@@ -1,8 +1,10 @@
 package com.haw.srs.se1lab;
 
+import lombok.EqualsAndHashCode;
 import lombok.Value;
 
 @Value
+@EqualsAndHashCode(callSuper=false)
 class CourseNotFoundException extends Exception {
 
     private final int courseNumber;
