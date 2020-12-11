@@ -1,17 +1,44 @@
 package com.haw.srs.se1lab;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Value
-@EqualsAndHashCode(callSuper=false)
+// TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
+//import lombok.EqualsAndHashCode;
+//import lombok.Value;
+//
+//@Value
+//@EqualsAndHashCode(callSuper = false)
 class CourseNotFoundException extends Exception {
 
-    private final int courseNumber;
+	/* ---- Class Fields ---- */
 
-    CourseNotFoundException(int courseNumber) {
-        super(String.format("Could not find course with number %d.", courseNumber));
+	private static final long serialVersionUID = 1L;
 
-        this.courseNumber = courseNumber;
-    }
+	/* ---- Member Fields ---- */
+
+	private final int courseNumber;
+
+	/* ---- Constructors ---- */
+
+	CourseNotFoundException(int courseNumber) {
+		super(String.format("Could not find course with number %d.", courseNumber));
+		this.courseNumber = courseNumber;
+	}
+
+	/* ---- Getters/Setters ---- */
+
+	public int getCourseNumber() {
+		return courseNumber;
+	}
+
+	/* ---- Overridden Methods ---- */
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	/* ---- Custom Methods ---- */
+
 }

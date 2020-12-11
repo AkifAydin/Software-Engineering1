@@ -1,14 +1,33 @@
 package com.haw.srs.se1lab;
 
-import lombok.EqualsAndHashCode;
-import lombok.Value;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-@Value
-@EqualsAndHashCode(callSuper=false)
+// TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
+//import lombok.EqualsAndHashCode;
+//import lombok.Value;
+//
+//@Value
+//@EqualsAndHashCode(callSuper=false)
 class MembershipMailNotSent extends Exception {
 
-    MembershipMailNotSent(String recipient) {
-        super(String.format("Could not send membership mail to %s.", recipient));
+	/* ---- Class Fields ---- */
 
-    }
+	private static final long serialVersionUID = 1L;
+
+	/* ---- Constructors ---- */
+
+	MembershipMailNotSent(String recipient) {
+		super(String.format("Could not send membership mail to %s.", recipient));
+	}
+
+	/* ---- Overridden Methods ---- */
+
+	@Override
+	public String toString() {
+		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+	}
+
+	/* ---- Custom Methods ---- */
+
 }
