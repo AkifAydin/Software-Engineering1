@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //
 //@Value
 //@EqualsAndHashCode(callSuper = false)
-class CourseNotFoundException extends Exception {
+public class CourseNotFoundException extends Exception {
 
 	/* ---- Class Fields ---- */
 
@@ -17,18 +17,18 @@ class CourseNotFoundException extends Exception {
 
 	/* ---- Member Fields ---- */
 
-	private final int courseNumber;
+	private final long courseNumber;
 
 	/* ---- Constructors ---- */
 
-	CourseNotFoundException(int courseNumber) {
+	public CourseNotFoundException(long courseNumber) {
 		super(String.format("Could not find course with number %d.", courseNumber));
 		this.courseNumber = courseNumber;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public int getCourseNumber() {
+	public long getCourseNumber() {
 		return courseNumber;
 	}
 

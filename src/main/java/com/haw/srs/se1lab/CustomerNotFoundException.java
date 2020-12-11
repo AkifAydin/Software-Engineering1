@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 //@Value
 //@EqualsAndHashCode(callSuper=false)
 @ResponseStatus(HttpStatus.NOT_FOUND)
-class CustomerNotFoundException extends Exception {
+public class CustomerNotFoundException extends Exception {
 
 	/* ---- Class Fields ---- */
 
 	private static final long serialVersionUID = 1L;
+
+	public static final String CUSTOMER_WITH_ID_NOT_FOUND_MESSAGE = "Could not find customer with ID %d.";
+
+	public static final String CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE = "Could not find customer with last name %s.";
 
 	/* ---- Member Fields ---- */
 
@@ -26,14 +30,14 @@ class CustomerNotFoundException extends Exception {
 
 	/* ---- Constructors ---- */
 
-	CustomerNotFoundException(Long customerId) {
-		super(String.format("Could not find customer with number %d.", customerId));
+	public CustomerNotFoundException(Long customerId) {
+		super(String.format(CUSTOMER_WITH_ID_NOT_FOUND_MESSAGE, customerId));
 		this.customerId = customerId;
 		this.lastName = "";
 	}
 
-	CustomerNotFoundException(String lastName) {
-		super(String.format("Could not find customer with lastname %s.", lastName));
+	public CustomerNotFoundException(String lastName) {
+		super(String.format(CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, lastName));
 		this.customerId = 0L;
 		this.lastName = lastName;
 	}

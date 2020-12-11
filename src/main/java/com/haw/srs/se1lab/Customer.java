@@ -136,7 +136,7 @@ public class Customer {
 	/* ---- Custom Methods ---- */
 
 	public void addCourse(Course course) {
-		this.courses.add(course);
+		courses.add(course);
 	}
 
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 //@Value
 //@EqualsAndHashCode(callSuper=false)
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-class CustomerAlreadyExistingException extends Exception {
+public class CustomerAlreadyExistingException extends Exception {
 
 	/* ---- Class Fields ---- */
 
@@ -24,7 +24,7 @@ class CustomerAlreadyExistingException extends Exception {
 
 	/* ---- Constructors ---- */
 
-	CustomerAlreadyExistingException(String lastName) {
+	public CustomerAlreadyExistingException(String lastName) {
 		super(String.format("Customer with name %s does already exist.", lastName));
 		this.lastName = lastName;
 	}
