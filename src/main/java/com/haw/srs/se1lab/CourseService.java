@@ -45,7 +45,7 @@ public class CourseService {
 	 */
 	@Transactional
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
-			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSent {
+			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// some implementation goes here
 		// find customer, find course, look for membership, remove membership, etc.
 		String customerMail = "customer@domain.com";
@@ -57,7 +57,7 @@ public class CourseService {
 			// do some error handling here (including e.g. transaction rollback, etc.)
 			// ...
 
-			throw new MembershipMailNotSent(customerMail);
+			throw new MembershipMailNotSentException(customerMail);
 		}
 	}
 

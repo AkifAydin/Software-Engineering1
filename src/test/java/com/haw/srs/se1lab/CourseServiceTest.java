@@ -82,7 +82,7 @@ public class CourseServiceTest {
 
 	@Test
 	public void cancelMembership_Success()
-			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSent {
+			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// [GIVEN]
 		// set up customer and course here
 		// ...
@@ -100,7 +100,7 @@ public class CourseServiceTest {
 
 	@Test
 	public void cancelMembership_SuccessBDDStyle()
-			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSent {
+			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// [GIVEN]
 		// set up customer and course here
 		// ...
@@ -127,7 +127,7 @@ public class CourseServiceTest {
 
 		// [WHEN]
 		// [THEN]
-		assertThatExceptionOfType(MembershipMailNotSent.class)
+		assertThatExceptionOfType(MembershipMailNotSentException.class)
 				.isThrownBy(() -> courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L)))
 				.withMessageContaining("Could not send membership mail to");
 	}

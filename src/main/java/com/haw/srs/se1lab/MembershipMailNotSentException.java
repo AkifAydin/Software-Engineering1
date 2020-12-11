@@ -9,7 +9,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //
 //@Value
 //@EqualsAndHashCode(callSuper=false)
-public class MembershipMailNotSent extends Exception {
+public class MembershipMailNotSentException extends Exception {
 
 	/* ---- Class Fields ---- */
 
@@ -17,7 +17,7 @@ public class MembershipMailNotSent extends Exception {
 
 	/* ---- Constructors ---- */
 
-	public MembershipMailNotSent(String recipient) {
+	public MembershipMailNotSentException(String recipient) {
 		super(String.format("Could not send membership mail to %s.", recipient));
 	}
 
