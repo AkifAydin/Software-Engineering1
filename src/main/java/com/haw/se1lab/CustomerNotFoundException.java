@@ -1,4 +1,4 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

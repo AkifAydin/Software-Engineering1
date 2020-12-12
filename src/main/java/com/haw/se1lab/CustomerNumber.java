@@ -1,35 +1,35 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
-//import lombok.EqualsAndHashCode;
 //import lombok.Value;
 //
 //@Value
-//@EqualsAndHashCode(callSuper = false)
-public class CourseNotFoundException extends Exception {
-
-	/* ---- Class Fields ---- */
-
-	private static final long serialVersionUID = 1L;
+public class CustomerNumber {
 
 	/* ---- Member Fields ---- */
 
-	private final long courseNumber;
+	private Long customerNumber;
 
 	/* ---- Constructors ---- */
 
-	public CourseNotFoundException(long courseNumber) {
-		super(String.format("Could not find course with number %d.", courseNumber));
-		this.courseNumber = courseNumber;
+	public CustomerNumber() {
+	}
+
+	public CustomerNumber(Long customerNumber) {
+		this.customerNumber = customerNumber;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public long getCourseNumber() {
-		return courseNumber;
+	public Long getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(Long customerNumber) {
+		this.customerNumber = customerNumber;
 	}
 
 	/* ---- Overridden Methods ---- */

@@ -1,38 +1,24 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.EqualsAndHashCode;
 //import lombok.Value;
-
+//
 //@Value
 //@EqualsAndHashCode(callSuper=false)
-@ResponseStatus(HttpStatus.BAD_REQUEST)
-public class CustomerAlreadyExistingException extends Exception {
+public class MembershipMailNotSentException extends Exception {
 
 	/* ---- Class Fields ---- */
 
 	private static final long serialVersionUID = 1L;
 
-	/* ---- Member Fields ---- */
-
-	private final String lastName;
-
 	/* ---- Constructors ---- */
 
-	public CustomerAlreadyExistingException(String lastName) {
-		super(String.format("Customer with name %s does already exist.", lastName));
-		this.lastName = lastName;
-	}
-
-	/* ---- Getters/Setters ---- */
-
-	public String getLastName() {
-		return lastName;
+	public MembershipMailNotSentException(String recipient) {
+		super(String.format("Could not send membership mail to %s.", recipient));
 	}
 
 	/* ---- Overridden Methods ---- */

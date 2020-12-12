@@ -1,4 +1,4 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -13,6 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.haw.se1lab.Application;
+import com.haw.se1lab.Course;
+import com.haw.se1lab.CourseNotFoundException;
+import com.haw.se1lab.CourseNumber;
+import com.haw.se1lab.CourseUseCase;
+import com.haw.se1lab.Customer;
+import com.haw.se1lab.CustomerNotFoundException;
+import com.haw.se1lab.CustomerNumber;
+import com.haw.se1lab.CustomerRepository;
+import com.haw.se1lab.CustomerUseCase;
+import com.haw.se1lab.Gender;
+import com.haw.se1lab.MailUseCase;
+import com.haw.se1lab.MembershipMailNotSentException;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)

@@ -1,4 +1,4 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -7,29 +7,29 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //import lombok.Value;
 //
 //@Value
-public class CustomerNumber {
+public class CourseNumber {
 
 	/* ---- Member Fields ---- */
 
-	private Long customerNumber;
+	private Long courseNumber;
 
 	/* ---- Constructors ---- */
 
-	public CustomerNumber() {
+	public CourseNumber() {
 	}
 
-	public CustomerNumber(Long customerNumber) {
-		this.customerNumber = customerNumber;
+	public CourseNumber(Long courseNumber) {
+		this.courseNumber = courseNumber;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public Long getCustomerNumber() {
-		return customerNumber;
+	public Long getCourseNumber() {
+		return courseNumber;
 	}
 
-	public void setCustomerNumber(Long customerNumber) {
-		this.customerNumber = customerNumber;
+	public void setCourseNumber(Long courseNumber) {
+		this.courseNumber = courseNumber;
 	}
 
 	/* ---- Overridden Methods ---- */

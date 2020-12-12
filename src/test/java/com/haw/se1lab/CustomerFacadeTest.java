@@ -1,4 +1,4 @@
-package com.haw.srs.se1lab;
+package com.haw.se1lab;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -14,6 +14,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import com.haw.se1lab.Application;
+import com.haw.se1lab.Customer;
+import com.haw.se1lab.CustomerRepository;
+import com.haw.se1lab.Gender;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
