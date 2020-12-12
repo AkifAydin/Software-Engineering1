@@ -6,12 +6,15 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import com.haw.se1lab.logic.api.usecase.MailUseCase;
+
 @Service
-public class MailUseCaseImpl {
+public class MailUseCaseImpl implements MailUseCase {
 
 	@Autowired
 	public JavaMailSender emailSender;
 
+	@Override
 	public boolean sendMail(String to, String subject, String text) {
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();

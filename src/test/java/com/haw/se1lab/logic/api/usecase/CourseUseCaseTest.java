@@ -24,25 +24,22 @@ import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
-import com.haw.se1lab.logic.impl.usecase.CourseUseCaseImpl;
-import com.haw.se1lab.logic.impl.usecase.CustomerUseCaseImpl;
-import com.haw.se1lab.logic.impl.usecase.MailUseCaseImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CourseUseCaseTest {
 
 	@Autowired
-	private CustomerUseCaseImpl customerUseCase;
+	private CustomerUseCase customerUseCase;
 
 	@Autowired
-	private CourseUseCaseImpl courseUseCase;
+	private CourseUseCase courseUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@MockBean
-	private MailUseCaseImpl mailGateway;
+	private MailUseCase mailUseCase;
 
 	@BeforeEach
 	void setup() {
@@ -102,7 +99,7 @@ public class CourseUseCaseTest {
 		// ...
 
 		// configure mock for MailGateway
-		when(mailGateway.sendMail(anyString(), anyString(), anyString())).thenReturn(true);
+		when(mailUseCase.sendMail(anyString(), anyString(), anyString())).thenReturn(true);
 
 		// [WHEN]
 		courseUseCase.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
@@ -120,7 +117,7 @@ public class CourseUseCaseTest {
 		// ...
 
 		// configure MailGateway-mock with BDD-style
-		given(mailGateway.sendMail(anyString(), anyString(), anyString())).willReturn(true);
+		given(mailUseCase.sendMail(anyString(), anyString(), anyString())).willReturn(true);
 
 		// [WHEN]
 		courseUseCase.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
@@ -137,7 +134,7 @@ public class CourseUseCaseTest {
 		// ...
 
 		// configure MailGateway-mock
-		when(mailGateway.sendMail(anyString(), anyString(), anyString())).thenReturn(false);
+		when(mailUseCase.sendMail(anyString(), anyString(), anyString())).thenReturn(false);
 
 		// [WHEN]
 		// [THEN]

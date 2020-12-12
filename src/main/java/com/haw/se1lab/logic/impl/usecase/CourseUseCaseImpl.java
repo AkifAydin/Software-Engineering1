@@ -12,16 +12,19 @@ import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
+import com.haw.se1lab.logic.api.usecase.CourseUseCase;
+import com.haw.se1lab.logic.api.usecase.MailUseCase;
 
 @Service
-public class CourseUseCaseImpl {
+public class CourseUseCaseImpl implements CourseUseCase {
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@Autowired
-	private MailUseCaseImpl mailUseCase;
+	private MailUseCase mailUseCase;
 
+	@Override
 	@Transactional
 	public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
 		Customer customer = customerRepository.findByLastName(lastName)
@@ -30,6 +33,7 @@ public class CourseUseCaseImpl {
 		customerRepository.save(customer);
 	}
 
+	@Override
 	@Transactional
 	public void transferCourses(String fromCustomerLastName, String toCustomerLastName)
 			throws CustomerNotFoundException {
@@ -45,6 +49,7 @@ public class CourseUseCaseImpl {
 		customerRepository.save(to);
 	}
 
+	@Override
 	@Transactional
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
