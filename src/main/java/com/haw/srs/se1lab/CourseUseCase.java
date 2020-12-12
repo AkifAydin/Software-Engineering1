@@ -5,13 +5,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class CourseService {
+public class CourseUseCase {
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@Autowired
-	private MailGateway mailGateway;
+	private MailUseCase mailUseCase;
 
 	@Transactional
 	public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
@@ -50,7 +50,7 @@ public class CourseService {
 		// find customer, find course, look for membership, remove membership, etc.
 		String customerMail = "customer@domain.com";
 
-		boolean mailWasSent = mailGateway.sendMail(customerMail, "Oh, we're sorry that you canceled your membership!",
+		boolean mailWasSent = mailUseCase.sendMail(customerMail, "Oh, we're sorry that you canceled your membership!",
 				"Some text to make her/him come back again...");
 
 		if (!mailWasSent) {

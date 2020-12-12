@@ -16,19 +16,19 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class CourseServiceTest {
+public class CourseUseCaseTest {
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerUseCase customerUseCase;
 
 	@Autowired
-	private CourseService courseService;
+	private CourseUseCase courseUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@MockBean
-	private MailGateway mailGateway;
+	private MailUseCase mailGateway;
 
 	@BeforeEach
 	void setup() {
@@ -42,10 +42,10 @@ public class CourseServiceTest {
 		customerRepository.save(customer);
 
 		// [WHEN]
-		courseService.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
+		courseUseCase.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
 
 		// [THEN]
-		Customer loadedCustomer = customerService.findCustomerByLastName(customer.getLastName());
+		Customer loadedCustomer = customerUseCase.findCustomerByLastName(customer.getLastName());
 		assertThat(loadedCustomer.getCourses()).size().isEqualTo(1);
 	}
 
@@ -56,7 +56,7 @@ public class CourseServiceTest {
 		// [WHEN]
 		// [THEN]
 		assertThatExceptionOfType(CustomerNotFoundException.class)
-				.isThrownBy(() -> courseService.enrollInCourse("Not-Existing", new Course("Software Engineering 1")))
+				.isThrownBy(() -> courseUseCase.enrollInCourse("Not-Existing", new Course("Software Engineering 1")))
 				.withMessageContaining(String
 						.format(CustomerNotFoundException.CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, "Not-Existing"));
 	}
@@ -73,11 +73,11 @@ public class CourseServiceTest {
 		customerRepository.save(to);
 
 		// [WHEN]
-		courseService.transferCourses(from.getLastName(), to.getLastName());
+		courseUseCase.transferCourses(from.getLastName(), to.getLastName());
 
 		// [THEN]
-		assertThat(customerService.findCustomerByLastName(from.getLastName()).getCourses()).size().isEqualTo(0);
-		assertThat(customerService.findCustomerByLastName(to.getLastName()).getCourses()).size().isEqualTo(2);
+		assertThat(customerUseCase.findCustomerByLastName(from.getLastName()).getCourses()).size().isEqualTo(0);
+		assertThat(customerUseCase.findCustomerByLastName(to.getLastName()).getCourses()).size().isEqualTo(2);
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class CourseServiceTest {
 		when(mailGateway.sendMail(anyString(), anyString(), anyString())).thenReturn(true);
 
 		// [WHEN]
-		courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
+		courseUseCase.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
 
 		// [THEN]
 		// check that MailGateway was called
@@ -109,7 +109,7 @@ public class CourseServiceTest {
 		given(mailGateway.sendMail(anyString(), anyString(), anyString())).willReturn(true);
 
 		// [WHEN]
-		courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
+		courseUseCase.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L));
 
 		// [THEN]
 		// check that MailGateway was called
@@ -128,7 +128,7 @@ public class CourseServiceTest {
 		// [WHEN]
 		// [THEN]
 		assertThatExceptionOfType(MembershipMailNotSentException.class)
-				.isThrownBy(() -> courseService.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L)))
+				.isThrownBy(() -> courseUseCase.cancelMembership(new CustomerNumber(1L), new CourseNumber(1L)))
 				.withMessageContaining("Could not send membership mail to");
 	}
 

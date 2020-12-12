@@ -13,10 +13,10 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
-public class CustomerServiceTest {
+public class CustomerUseCaseTest {
 
 	@Autowired
-	private CustomerService customerService;
+	private CustomerUseCase customerUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -33,7 +33,7 @@ public class CustomerServiceTest {
 		customerRepository.save(customer);
 
 		// [WHEN]
-		List<Customer> customers = customerService.findAllCustomers();
+		List<Customer> customers = customerUseCase.findAllCustomers();
 
 		// [THEN]
 		assertThat(customers).size().isEqualTo(1);
