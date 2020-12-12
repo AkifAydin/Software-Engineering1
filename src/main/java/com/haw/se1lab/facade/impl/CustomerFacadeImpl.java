@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
+import com.haw.se1lab.facade.api.CustomerFacade;
 
 @RestController
 @RequestMapping(path = "/customers")
-public class CustomerFacadeImpl {
+public class CustomerFacadeImpl implements CustomerFacade {
 
 	private final CustomerRepository customerRepository;
 
@@ -29,16 +30,19 @@ public class CustomerFacadeImpl {
 		this.customerRepository = customerRepository;
 	}
 
+	@Override
 	@GetMapping
 	public List<Customer> getCustomers() {
 		return customerRepository.findAll();
 	}
 
+	@Override
 	@GetMapping(value = "/{id:[\\d]+}")
 	public Customer getCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
 		return customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
 	}
 
+	@Override
 	@DeleteMapping("/{id:[\\d]+}")
 	@ResponseStatus(HttpStatus.OK)
 	public void deleteCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
@@ -47,12 +51,14 @@ public class CustomerFacadeImpl {
 		customerRepository.delete(customer);
 	}
 
+	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Customer createCustomer(@RequestBody Customer customer) {
 		return customerRepository.save(customer);
 	}
 
+	@Override
 	@PutMapping
 	public Customer updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
 		// check if customer exists
