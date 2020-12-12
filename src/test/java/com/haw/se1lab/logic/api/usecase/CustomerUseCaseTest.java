@@ -15,14 +15,14 @@ import com.haw.se1lab.Application;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
-import com.haw.se1lab.logic.impl.usecase.CustomerUseCase;
+import com.haw.se1lab.logic.impl.usecase.CustomerUseCaseImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerUseCaseTest {
 
 	@Autowired
-	private CustomerUseCase customerUseCase;
+	private CustomerUseCaseImpl customerUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;

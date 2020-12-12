@@ -14,13 +14,13 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @Service
-public class CourseUseCase {
+public class CourseUseCaseImpl {
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@Autowired
-	private MailUseCase mailUseCase;
+	private MailUseCaseImpl mailUseCase;
 
 	@Transactional
 	public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
@@ -45,13 +45,6 @@ public class CourseUseCase {
 		customerRepository.save(to);
 	}
 
-	/**
-	 * Cancels a course membership. An e-mail is sent to all possible participants
-	 * on the waiting list for this course. If customer is not member of the
-	 * provided course, the operation is ignored.
-	 *
-	 * @throws IllegalArgumentException if customerNumber or courseNumber is <null>
-	 */
 	@Transactional
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {

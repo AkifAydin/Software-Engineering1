@@ -24,25 +24,25 @@ import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
-import com.haw.se1lab.logic.impl.usecase.CourseUseCase;
-import com.haw.se1lab.logic.impl.usecase.CustomerUseCase;
-import com.haw.se1lab.logic.impl.usecase.MailUseCase;
+import com.haw.se1lab.logic.impl.usecase.CourseUseCaseImpl;
+import com.haw.se1lab.logic.impl.usecase.CustomerUseCaseImpl;
+import com.haw.se1lab.logic.impl.usecase.MailUseCaseImpl;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CourseUseCaseTest {
 
 	@Autowired
-	private CustomerUseCase customerUseCase;
+	private CustomerUseCaseImpl customerUseCase;
 
 	@Autowired
-	private CourseUseCase courseUseCase;
+	private CourseUseCaseImpl courseUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	@MockBean
-	private MailUseCase mailGateway;
+	private MailUseCaseImpl mailGateway;
 
 	@BeforeEach
 	void setup() {

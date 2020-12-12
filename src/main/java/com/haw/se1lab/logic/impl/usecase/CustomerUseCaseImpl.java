@@ -12,12 +12,12 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @Service
-public class CustomerUseCase {
+public class CustomerUseCaseImpl {
 
 	private final CustomerRepository customerRepository;
 
 	@Autowired
-	public CustomerUseCase(CustomerRepository customerRepository) {
+	public CustomerUseCaseImpl(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 
