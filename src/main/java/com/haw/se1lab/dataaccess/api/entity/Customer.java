@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.dataaccess.api.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,9 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.AccessLevel;

@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.facade.api;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -16,9 +16,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
-import com.haw.se1lab.Customer;
-import com.haw.se1lab.CustomerRepository;
-import com.haw.se1lab.Gender;
+import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;

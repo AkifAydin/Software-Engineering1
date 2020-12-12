@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.logic.impl.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;

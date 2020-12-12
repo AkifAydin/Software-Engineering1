@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.common.api.exception;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

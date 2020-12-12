@@ -1,9 +1,15 @@
-package com.haw.se1lab;
+package com.haw.se1lab.logic.impl.usecase;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.common.api.exception.CustomerAlreadyExistingException;
+import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
+import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @Service
 public class CustomerUseCase {

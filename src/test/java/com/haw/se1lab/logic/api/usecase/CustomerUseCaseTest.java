@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.logic.api.usecase;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -12,10 +12,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
-import com.haw.se1lab.Customer;
-import com.haw.se1lab.CustomerRepository;
-import com.haw.se1lab.CustomerUseCase;
-import com.haw.se1lab.Gender;
+import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
+import com.haw.se1lab.logic.impl.usecase.CustomerUseCase;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)

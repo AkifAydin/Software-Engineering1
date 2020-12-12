@@ -1,35 +1,24 @@
-package com.haw.se1lab;
+package com.haw.se1lab.common.api.exception;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
+//import lombok.EqualsAndHashCode;
 //import lombok.Value;
 //
 //@Value
-public class CourseNumber {
+//@EqualsAndHashCode(callSuper=false)
+public class MembershipMailNotSentException extends Exception {
 
-	/* ---- Member Fields ---- */
+	/* ---- Class Fields ---- */
 
-	private Long courseNumber;
+	private static final long serialVersionUID = 1L;
 
 	/* ---- Constructors ---- */
 
-	public CourseNumber() {
-	}
-
-	public CourseNumber(Long courseNumber) {
-		this.courseNumber = courseNumber;
-	}
-
-	/* ---- Getters/Setters ---- */
-
-	public Long getCourseNumber() {
-		return courseNumber;
-	}
-
-	public void setCourseNumber(Long courseNumber) {
-		this.courseNumber = courseNumber;
+	public MembershipMailNotSentException(String recipient) {
+		super(String.format("Could not send membership mail to %s.", recipient));
 	}
 
 	/* ---- Overridden Methods ---- */

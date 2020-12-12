@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.common.api.datatype;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
@@ -9,7 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
-import com.haw.se1lab.PhoneNumber;
+import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)

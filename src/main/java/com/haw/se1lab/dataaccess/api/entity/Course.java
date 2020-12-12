@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.dataaccess.api.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

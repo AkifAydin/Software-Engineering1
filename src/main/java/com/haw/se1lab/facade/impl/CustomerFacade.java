@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.facade.impl;
 
 import java.util.List;
 
@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
+import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @RestController
 @RequestMapping(path = "/customers")

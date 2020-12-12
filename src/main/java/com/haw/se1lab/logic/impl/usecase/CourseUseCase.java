@@ -1,8 +1,17 @@
-package com.haw.se1lab;
+package com.haw.se1lab.logic.impl.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.haw.se1lab.common.api.datatype.CourseNumber;
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
+import com.haw.se1lab.common.api.exception.CourseNotFoundException;
+import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
+import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
+import com.haw.se1lab.dataaccess.api.entity.Course;
+import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @Service
 public class CourseUseCase {

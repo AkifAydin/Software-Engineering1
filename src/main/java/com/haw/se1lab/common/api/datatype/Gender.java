@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.common.api.datatype;
 
 public enum Gender {
 
