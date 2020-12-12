@@ -20,12 +20,12 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 @RestController
 @RequestMapping(path = "/customers")
-public class CustomerFacade {
+public class CustomerFacadeImpl {
 
 	private final CustomerRepository customerRepository;
 
 	@Autowired
-	public CustomerFacade(CustomerRepository customerRepository) {
+	public CustomerFacadeImpl(CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
 
