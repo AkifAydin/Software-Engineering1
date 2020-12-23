@@ -15,16 +15,17 @@ import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
 @Service
 public class CustomerUseCaseImpl implements CustomerUseCase {
 
-	private final CustomerRepository customerRepository;
-
 	@Autowired
-	public CustomerUseCaseImpl(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
-	}
+	private CustomerRepository customerRepository;
 
 	@Override
 	public List<Customer> findAllCustomers() {
 		return customerRepository.findAll();
+	}
+
+	@Override
+	public Customer findCustomerById(Long id) throws CustomerNotFoundException {
+		return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
 	}
 
 	@Override
@@ -39,7 +40,21 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 			throw new CustomerAlreadyExistingException(lastName);
 		}
 
-		return customerRepository.save(new Customer(firstName, lastName, gender));
+		Customer customer = new Customer(firstName, lastName, gender);
+		return customerRepository.save(customer);
+	}
+
+	@Override
+	public Customer updateCustomer(Customer customer) throws CustomerNotFoundException {
+		// make sure the customer to be updated exists
+		findCustomerById(customer.getId());
+		return customerRepository.save(customer);
+	}
+
+	@Override
+	public void deleteCustomer(Long id) throws CustomerNotFoundException {
+		Customer customer = findCustomerById(id);
+		customerRepository.delete(customer);
 	}
 
 }

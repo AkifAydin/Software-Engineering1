@@ -14,57 +14,49 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.haw.se1lab.common.api.exception.CustomerAlreadyExistingException;
 import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
-import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 import com.haw.se1lab.facade.api.CustomerFacade;
+import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
 
 @RestController
 @RequestMapping(path = "/customers")
 public class CustomerFacadeImpl implements CustomerFacade {
 
-	private final CustomerRepository customerRepository;
-
 	@Autowired
-	public CustomerFacadeImpl(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
-	}
+	private CustomerUseCase customerUseCase;
 
 	@Override
 	@GetMapping
 	public List<Customer> getCustomers() {
-		return customerRepository.findAll();
+		return customerUseCase.findAllCustomers();
 	}
 
 	@Override
 	@GetMapping(value = "/{id:[\\d]+}")
-	public Customer getCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
-		return customerRepository.findById(customerId).orElseThrow(() -> new CustomerNotFoundException(customerId));
-	}
-
-	@Override
-	@DeleteMapping("/{id:[\\d]+}")
-	@ResponseStatus(HttpStatus.OK)
-	public void deleteCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
-		Customer customer = customerRepository.findById(customerId)
-				.orElseThrow(() -> new CustomerNotFoundException(customerId));
-		customerRepository.delete(customer);
+	public Customer getCustomer(@PathVariable("id") Long id) throws CustomerNotFoundException {
+		return customerUseCase.findCustomerById(id);
 	}
 
 	@Override
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Customer createCustomer(@RequestBody Customer customer) {
-		return customerRepository.save(customer);
+	public Customer createCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistingException {
+		return customerUseCase.createCustomer(customer.getFirstName(), customer.getLastName(), customer.getGender());
 	}
 
 	@Override
 	@PutMapping
 	public Customer updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
-		// check if customer exists
-		customerRepository.findById(customer.getId())
-				.orElseThrow(() -> new CustomerNotFoundException(customer.getId()));
-		return customerRepository.save(customer);
+		return customerUseCase.updateCustomer(customer);
+	}
+
+	@Override
+	@DeleteMapping("/{id:[\\d]+}")
+	@ResponseStatus(HttpStatus.OK)
+	public void deleteCustomer(@PathVariable("id") Long id) throws CustomerNotFoundException {
+		customerUseCase.deleteCustomer(id);
 	}
 
 }

@@ -11,8 +11,14 @@ public interface CustomerUseCase {
 
 	List<Customer> findAllCustomers();
 
+	Customer findCustomerById(Long id) throws CustomerNotFoundException;
+
 	Customer findCustomerByLastName(String lastName) throws CustomerNotFoundException;
 
 	Customer createCustomer(String firstName, String lastName, Gender gender) throws CustomerAlreadyExistingException;
+
+	Customer updateCustomer(Customer customer) throws CustomerNotFoundException;
+
+	void deleteCustomer(Long id) throws CustomerNotFoundException;
 
 }

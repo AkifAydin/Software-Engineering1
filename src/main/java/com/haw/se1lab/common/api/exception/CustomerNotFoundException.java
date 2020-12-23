@@ -24,28 +24,28 @@ public class CustomerNotFoundException extends Exception {
 
 	/* ---- Member Fields ---- */
 
-	private final Long customerId;
+	private final Long id;
 
 	private final String lastName;
 
 	/* ---- Constructors ---- */
 
-	public CustomerNotFoundException(Long customerId) {
-		super(String.format(CUSTOMER_WITH_ID_NOT_FOUND_MESSAGE, customerId));
-		this.customerId = customerId;
+	public CustomerNotFoundException(Long id) {
+		super(String.format(CUSTOMER_WITH_ID_NOT_FOUND_MESSAGE, id));
+		this.id = id;
 		this.lastName = "";
 	}
 
 	public CustomerNotFoundException(String lastName) {
 		super(String.format(CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, lastName));
-		this.customerId = 0L;
+		this.id = 0L;
 		this.lastName = lastName;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public Long getCustomerId() {
-		return customerId;
+	public Long getId() {
+		return id;
 	}
 
 	public String getLastName() {
