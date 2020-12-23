@@ -42,7 +42,7 @@ public class CourseUseCaseTest {
 	private MailUseCase mailUseCase;
 
 	@BeforeEach
-	void setup() {
+	void setUp() {
 		customerRepository.deleteAll();
 	}
 

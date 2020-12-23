@@ -27,12 +27,12 @@ public class CustomerUseCaseTest {
 	private CustomerRepository customerRepository;
 
 	@BeforeEach
-	public void setup() {
+	public void setUp() {
 		customerRepository.deleteAll();
 	}
 
 	@Test
-	public void getAllCustomersSuccess() {
+	public void findAllCustomers_Success() {
 		// [GIVEN]
 		Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
 		customerRepository.save(customer);

@@ -47,7 +47,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void getAllCustomersSuccess() {
+	public void getCustomers_Success() {
 		// @formatter:off
 		// [GIVEN]
 		given()
@@ -63,7 +63,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void getCustomerSuccess() {
+	public void getCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
 		given()
@@ -77,7 +77,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void getCustomerFailBecauseOfNotFound() {
+	public void getCustomer_FailBecauseNotFound() {
 		// @formatter:off
 		// [GIVEN]
 		given()
@@ -91,10 +91,10 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void createCustomerSuccess() {
+	public void createCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		given().contentType(ContentType.JSON).body(new Customer("Arne", "Busch", Gender.MALE))
+		given().contentType(ContentType.JSON).body(new Customer("Jane", "Doe", Gender.FEMALE))
 
 				// [WHEN]
 				.when().post("/customers")
@@ -105,7 +105,21 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void updateCustomerSuccess() {
+	public void createCustomer_FailBecauseAlreadyExisting() {
+		// @formatter:off
+		// [GIVEN]
+		given().contentType(ContentType.JSON).body(new Customer("Arne", "Busch", Gender.MALE))
+
+				// [WHEN]
+				.when().post("/customers")
+
+				// [THEN]
+				.then().statusCode(HttpStatus.BAD_REQUEST.value());
+		// @formatter:on
+	}
+
+	@Test
+	public void updateCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
 		customer.setFirstName("Anne");
@@ -129,7 +143,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void deleteCustomerSuccess() {
+	public void deleteCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
 		given()

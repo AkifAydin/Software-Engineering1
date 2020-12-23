@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
-import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -17,13 +16,13 @@ public class PhoneNumberTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "+49-40-58967572", "+49-040-58967572", "+49-040-5896" })
-	public void createPhoneNumberSuccess(String phoneNumber) {
+	public void createPhoneNumber_Success(String phoneNumber) {
 		new PhoneNumber(phoneNumber);
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "+4-040-5896", "49-040-5896", "+49-0-5896", "+49-040-896" })
-	public void createPhoneNumberFail(String phoneNumber) {
+	public void createPhoneNumber_Fail(String phoneNumber) {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new PhoneNumber(phoneNumber))
 				.withMessageContaining("Invalid phone number");
 	}
