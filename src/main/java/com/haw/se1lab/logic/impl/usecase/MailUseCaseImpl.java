@@ -8,11 +8,16 @@ import org.springframework.stereotype.Service;
 
 import com.haw.se1lab.logic.api.usecase.MailUseCase;
 
+/**
+ * Default implementation for {@link MailUseCase}.
+ * 
+ * @author Arne Busch
+ */
 @Service
 public class MailUseCaseImpl implements MailUseCase {
 
 	@Autowired
-	public JavaMailSender emailSender;
+	public JavaMailSender mailSender;
 
 	@Override
 	public boolean sendMail(String to, String subject, String text) {
@@ -21,9 +26,11 @@ public class MailUseCaseImpl implements MailUseCase {
 			message.setTo(to);
 			message.setSubject(subject);
 			message.setText(text);
-			emailSender.send(message);
+			mailSender.send(message);
 		} catch (MailException ex) {
-			// do some logging and handling here
+			// do some logging and error handling here
+			// ...
+
 			return false;
 		}
 

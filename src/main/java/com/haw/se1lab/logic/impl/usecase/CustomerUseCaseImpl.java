@@ -12,6 +12,11 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
 
+/**
+ * Default implementation for {@link CustomerUseCase}.
+ * 
+ * @author Arne Busch
+ */
 @Service
 public class CustomerUseCaseImpl implements CustomerUseCase {
 

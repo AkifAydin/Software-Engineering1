@@ -18,6 +18,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
+/**
+ * Represents a customer of the application. Customers can e.g. subscribe to
+ * courses.
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.AccessLevel;
 //import lombok.Data;

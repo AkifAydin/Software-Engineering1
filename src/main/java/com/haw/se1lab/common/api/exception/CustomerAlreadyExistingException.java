@@ -5,6 +5,12 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Represents the exception when a customer could not be created because he
+ * already exists.
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.EqualsAndHashCode;
 //import lombok.Value;

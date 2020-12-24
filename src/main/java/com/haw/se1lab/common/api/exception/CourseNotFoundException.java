@@ -3,6 +3,12 @@ package com.haw.se1lab.common.api.exception;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * Represents the exception when a course could not be found by the given search
+ * criteria.
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.EqualsAndHashCode;
 //import lombok.Value;

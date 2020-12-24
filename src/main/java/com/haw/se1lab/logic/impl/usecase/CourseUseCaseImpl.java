@@ -15,6 +15,11 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 import com.haw.se1lab.logic.api.usecase.CourseUseCase;
 import com.haw.se1lab.logic.api.usecase.MailUseCase;
 
+/**
+ * Default implementation for {@link CourseUseCase}.
+ * 
+ * @author Arne Busch
+ */
 @Service
 public class CourseUseCaseImpl implements CourseUseCase {
 
@@ -37,16 +42,16 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	@Transactional
 	public void transferCourses(String fromCustomerLastName, String toCustomerLastName)
 			throws CustomerNotFoundException {
-		Customer from = customerRepository.findByLastName(fromCustomerLastName)
+		Customer fromCustomer = customerRepository.findByLastName(fromCustomerLastName)
 				.orElseThrow(() -> new CustomerNotFoundException(fromCustomerLastName));
-		Customer to = customerRepository.findByLastName(toCustomerLastName)
+		Customer toCustomer = customerRepository.findByLastName(toCustomerLastName)
 				.orElseThrow(() -> new CustomerNotFoundException(toCustomerLastName));
 
-		to.getCourses().addAll(from.getCourses());
-		from.getCourses().clear();
+		toCustomer.getCourses().addAll(fromCustomer.getCourses());
+		fromCustomer.getCourses().clear();
 
-		customerRepository.save(from);
-		customerRepository.save(to);
+		customerRepository.save(fromCustomer);
+		customerRepository.save(toCustomer);
 	}
 
 	@Override
@@ -55,6 +60,8 @@ public class CourseUseCaseImpl implements CourseUseCase {
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// some implementation goes here
 		// find customer, find course, look for membership, remove membership, etc.
+		// ...
+
 		String customerMail = "customer@domain.com";
 
 		boolean mailWasSent = mailUseCase.sendMail(customerMail, "Oh, we're sorry that you canceled your membership!",

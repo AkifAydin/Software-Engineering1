@@ -8,6 +8,12 @@ import javax.persistence.Id;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * Represents a course for personal education. Customers can subscribe to
+ * courses.
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.AccessLevel;
 //import lombok.Data;

@@ -14,15 +14,30 @@ import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
+/**
+ * Main application class used for running the application.
+ * 
+ * @author Arne Busch
+ */
 @SpringBootApplication
 public class Application {
 
+	/**
+	 * Starts the application.
+	 * 
+	 * @param args the command line arguments
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
 }
 
+/**
+ * Inserts some test data into the database at startup.
+ * 
+ * @author Arne Busch
+ */
 @Component
 class PopulateTestDataRunner implements CommandLineRunner {
 

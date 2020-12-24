@@ -8,6 +8,13 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * Represents a phone number in the international phone number format ("+"
+ * followed by 2 digits, "-", 2-3 digits, "-" and finally a minimum of 4 digits.
+ * Example: +49-170-1234567
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.AllArgsConstructor;
 //import lombok.Getter;
@@ -21,7 +28,8 @@ public class PhoneNumber {
 
 	/* ---- Class Fields ---- */
 
-	private static final String PHONENUMBER_PATTERN = "^(\\+\\d{2})-(\\d{2,3})-(\\d{4,})$";
+	/** The pattern for a valid phone number. Example: +49-170-1234567 */
+	private static final String PHONE_NUMBER_PATTERN = "^(\\+\\d{2})-(\\d{2,3})-(\\d{4,})$";
 
 	/* ---- Member Fields ---- */
 
@@ -37,7 +45,7 @@ public class PhoneNumber {
 	}
 
 	public PhoneNumber(String phoneNumber) throws IllegalArgumentException {
-		Pattern pattern = Pattern.compile(PHONENUMBER_PATTERN);
+		Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN);
 		Matcher matcher = pattern.matcher(phoneNumber);
 
 		if (!matcher.matches()) {
@@ -94,7 +102,7 @@ public class PhoneNumber {
 		if (phoneNumber == null) {
 			return false;
 		} else {
-			return phoneNumber.matches(PHONENUMBER_PATTERN);
+			return phoneNumber.matches(PHONE_NUMBER_PATTERN);
 		}
 	}
 

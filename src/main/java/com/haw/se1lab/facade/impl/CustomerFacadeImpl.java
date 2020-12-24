@@ -20,6 +20,12 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.facade.api.CustomerFacade;
 import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
 
+/**
+ * Default implementation for {@link CustomerFacade}. This implementation uses
+ * REST to provide the defined functionality.
+ * 
+ * @author Arne Busch
+ */
 @RestController
 @RequestMapping(path = "/customers")
 public class CustomerFacadeImpl implements CustomerFacade {

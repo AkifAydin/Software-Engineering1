@@ -7,18 +7,65 @@ import com.haw.se1lab.common.api.exception.CustomerAlreadyExistingException;
 import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 
+/**
+ * Defines use case functionality for {@link Customer} entities.
+ * 
+ * @author Arne Busch
+ */
 public interface CustomerUseCase {
 
+	/**
+	 * Returns all available customers.
+	 * 
+	 * @return the found customers
+	 */
 	List<Customer> findAllCustomers();
 
+	/**
+	 * Returns the customer with the given ID.
+	 * 
+	 * @param id the customer's technical ID
+	 * @return the found customer
+	 * @throws CustomerNotFoundException in case the customer could not be found
+	 */
 	Customer findCustomerById(Long id) throws CustomerNotFoundException;
 
+	/**
+	 * Returns the customer with the given last name.
+	 * 
+	 * @param lastName the customer's last name
+	 * @return the found customer
+	 * @throws CustomerNotFoundException in case the customer could not be found
+	 */
 	Customer findCustomerByLastName(String lastName) throws CustomerNotFoundException;
 
+	/**
+	 * Creates a customer with the given data.
+	 * 
+	 * @param firstName the customer's first name
+	 * @param lastName  the customer's last name
+	 * @param gender    the customer's gender
+	 * @return the created customer
+	 * @throws CustomerAlreadyExistingException in case a customer with the given
+	 *                                          data already exists
+	 */
 	Customer createCustomer(String firstName, String lastName, Gender gender) throws CustomerAlreadyExistingException;
 
+	/**
+	 * Updates a customer with the given data.
+	 * 
+	 * @param customer the customer to be updated
+	 * @return the updated customer
+	 * @throws CustomerNotFoundException in case the customer could not be found
+	 */
 	Customer updateCustomer(Customer customer) throws CustomerNotFoundException;
 
+	/**
+	 * Deletes the customer with the given ID.
+	 * 
+	 * @param id the customer's technical ID
+	 * @throws CustomerNotFoundException in case the customer could not be found
+	 */
 	void deleteCustomer(Long id) throws CustomerNotFoundException;
 
 }

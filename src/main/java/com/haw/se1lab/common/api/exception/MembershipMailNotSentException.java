@@ -3,6 +3,12 @@ package com.haw.se1lab.common.api.exception;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+/**
+ * Represents the exception when an e-mail containing information about a
+ * customer's course membership could not be sent.
+ * 
+ * @author Arne Busch
+ */
 // TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
 //import lombok.EqualsAndHashCode;
 //import lombok.Value;
