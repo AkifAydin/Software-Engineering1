@@ -16,6 +16,11 @@ import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
+/**
+ * Test class for {@link CustomerUseCase}.
+ * 
+ * @author Arne Busch
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerUseCaseTest {
@@ -44,5 +49,7 @@ public class CustomerUseCaseTest {
 		assertThat(customers).size().isEqualTo(1);
 		assertThat(customers.get(0).getFirstName()).isEqualTo("Jane");
 	}
+
+	// TODO Add test methods for yet untested methods
 
 }

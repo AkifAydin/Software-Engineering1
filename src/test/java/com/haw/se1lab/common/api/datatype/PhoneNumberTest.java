@@ -10,19 +10,24 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
 
+/**
+ * Test class for {@link PhoneNumber}.
+ * 
+ * @author Arne Busch
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class PhoneNumberTest {
 
 	@ParameterizedTest
 	@ValueSource(strings = { "+49-40-58967572", "+49-040-58967572", "+49-040-5896" })
-	public void createPhoneNumber_Success(String phoneNumber) {
+	public void constructPhoneNumber_Success(String phoneNumber) {
 		new PhoneNumber(phoneNumber);
 	}
 
 	@ParameterizedTest
 	@ValueSource(strings = { "+4-040-5896", "49-040-5896", "+49-0-5896", "+49-040-896" })
-	public void createPhoneNumber_Fail(String phoneNumber) {
+	public void constructPhoneNumber_FailBecausePhoneNumberInvalid(String phoneNumber) {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new PhoneNumber(phoneNumber))
 				.withMessageContaining("Invalid phone number");
 	}

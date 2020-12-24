@@ -25,15 +25,20 @@ import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
+/**
+ * Test class for {@link CourseUseCase}.
+ * 
+ * @author Arne Busch
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CourseUseCaseTest {
 
 	@Autowired
-	private CustomerUseCase customerUseCase;
+	private CourseUseCase courseUseCase;
 
 	@Autowired
-	private CourseUseCase courseUseCase;
+	private CustomerUseCase customerUseCase;
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -116,7 +121,7 @@ public class CourseUseCaseTest {
 		// set up customer and course here
 		// ...
 
-		// configure MailGateway-mock with BDD-style
+		// configure mock for MailGateway in BDD style
 		given(mailUseCase.sendMail(anyString(), anyString(), anyString())).willReturn(true);
 
 		// [WHEN]
@@ -133,7 +138,7 @@ public class CourseUseCaseTest {
 		// set up customer and course here
 		// ...
 
-		// configure MailGateway-mock
+		// configure mock for MailGateway
 		when(mailUseCase.sendMail(anyString(), anyString(), anyString())).thenReturn(false);
 
 		// [WHEN]

@@ -23,6 +23,11 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
+/**
+ * Test class for {@link CustomerFacade}.
+ * 
+ * @author Arne Busch
+ */
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerFacadeTest {
