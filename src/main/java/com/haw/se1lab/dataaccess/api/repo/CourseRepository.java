@@ -1,7 +1,6 @@
 package com.haw.se1lab.dataaccess.api.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import com.haw.se1lab.dataaccess.api.entity.Course;
 
@@ -11,7 +10,6 @@ import com.haw.se1lab.dataaccess.api.entity.Course;
  * 
  * @author Arne Busch
  */
-@Repository
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
 }
