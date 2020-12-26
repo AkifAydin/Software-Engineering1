@@ -23,6 +23,7 @@ import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
 import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CourseRepository;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 /**
@@ -43,6 +44,9 @@ public class CourseUseCaseTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Autowired
+	private CourseRepository courseRepository;
+
 	@MockBean
 	private MailUseCase mailUseCase;
 
@@ -52,48 +56,57 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void enrollInCourse_Success() throws CustomerNotFoundException {
+	public void enrollInCourse_Success() throws CustomerNotFoundException, CourseNotFoundException {
 		// [GIVEN]
 		Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
 		customerRepository.save(customer);
 
+		String courseName = "Software Engineering 1";
+
 		// [WHEN]
-		courseUseCase.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
+		courseUseCase.enrollInCourse(customer.getLastName(), courseName);
 
 		// [THEN]
-		Customer loadedCustomer = customerUseCase.findCustomerByLastName(customer.getLastName());
-		assertThat(loadedCustomer.getCourses()).size().isEqualTo(1);
+		customer = customerUseCase.findCustomerByLastName(customer.getLastName());
+		assertThat(customer.getCourses()).size().isEqualTo(1);
+		assertThat(customer.getCourses().get(0).getName()).isEqualTo(courseName);
 	}
 
 	@Test
 	public void enrollInCourse_FailBecauseCustomerNotFound() {
 		// [GIVEN]
+		String customerLastName = "Not-Existing";
+		String courseName = "Software Engineering 1";
 
 		// [WHEN]
 		// [THEN]
 		assertThatExceptionOfType(CustomerNotFoundException.class)
-				.isThrownBy(() -> courseUseCase.enrollInCourse("Not-Existing", new Course("Software Engineering 1")))
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerLastName, courseName))
 				.withMessageContaining(String
-						.format(CustomerNotFoundException.CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, "Not-Existing"));
+						.format(CustomerNotFoundException.CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, customerLastName));
 	}
 
 	@Test
 	public void transferCourses_Success() throws CustomerNotFoundException {
 		// [GIVEN]
-		Customer from = new Customer("John", "Smith", Gender.MALE);
-		from.addCourse(new Course("Software Engineering 1"));
-		from.addCourse(new Course("Software Engineering 2"));
-		customerRepository.save(from);
+		Course course = courseRepository.findByName("Software Engineering 1").get();
 
-		Customer to = new Customer("Eva", "Miller", Gender.FEMALE);
-		customerRepository.save(to);
+		Customer fromCustomer = new Customer("John", "Smith", Gender.MALE);
+		fromCustomer.addCourse(course);
+		customerRepository.save(fromCustomer);
+
+		Customer toCustomer = new Customer("Eva", "Miller", Gender.FEMALE);
+		customerRepository.save(toCustomer);
 
 		// [WHEN]
-		courseUseCase.transferCourses(from.getLastName(), to.getLastName());
+		courseUseCase.transferCourses(fromCustomer.getLastName(), toCustomer.getLastName());
 
 		// [THEN]
-		assertThat(customerUseCase.findCustomerByLastName(from.getLastName()).getCourses()).size().isEqualTo(0);
-		assertThat(customerUseCase.findCustomerByLastName(to.getLastName()).getCourses()).size().isEqualTo(2);
+		fromCustomer = customerUseCase.findCustomerByLastName(fromCustomer.getLastName());
+		toCustomer = customerUseCase.findCustomerByLastName(toCustomer.getLastName());
+		assertThat(fromCustomer.getCourses()).size().isEqualTo(0);
+		assertThat(toCustomer.getCourses()).size().isEqualTo(1);
+		assertThat(toCustomer.getCourses().get(0).getName()).isEqualTo(course.getName());
 	}
 
 	@Test
