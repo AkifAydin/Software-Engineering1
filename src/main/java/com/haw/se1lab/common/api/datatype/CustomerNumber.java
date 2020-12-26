@@ -9,33 +9,33 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * 
  * @author Arne Busch
  */
-// TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
-//import lombok.Value;
-//
-//@Value
+//TODO Uncomment Lombok annotations to auto-generate getters/setters/constructors etc. in compiled classes
+//import lombok.AllArgsConstructor;
+//import lombok.Getter;
+//import lombok.NoArgsConstructor;
+////the following annotations represent an immutable data type (@Value can't be used, but Hibernate needs an argumentless constructor when deserializing)
+//@Getter
+//@AllArgsConstructor
+//@NoArgsConstructor
 public class CustomerNumber {
 
 	/* ---- Member Fields ---- */
 
-	private Long customerNumber;
+	private Long number;
 
 	/* ---- Constructors ---- */
 
 	public CustomerNumber() {
 	}
 
-	public CustomerNumber(Long customerNumber) {
-		this.customerNumber = customerNumber;
+	public CustomerNumber(Long number) {
+		this.number = number;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public Long getCustomerNumber() {
-		return customerNumber;
-	}
-
-	public void setCustomerNumber(Long customerNumber) {
-		this.customerNumber = customerNumber;
+	public Long getNumber() {
+		return number;
 	}
 
 	/* ---- Overridden Methods ---- */

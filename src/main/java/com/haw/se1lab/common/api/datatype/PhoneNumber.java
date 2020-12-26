@@ -29,7 +29,11 @@ public class PhoneNumber {
 	/* ---- Class Fields ---- */
 
 	/** The pattern for a valid phone number. Example: +49-170-1234567 */
-	private static final String PHONE_NUMBER_PATTERN = "^(\\+\\d{2})-(\\d{2,3})-(\\d{4,})$";
+	private static final String COUNTRY_CODE_PATTERN = "\\+\\d{2}";
+	private static final String AREA_CODE_PATTERN = "\\d{2,3}";
+	private static final String SUBSCRIBER_NUMBER_PATTERN = "\\d{4,}";
+	private static final String PHONE_NUMBER_PATTERN = "^(" + COUNTRY_CODE_PATTERN + ")-(" + AREA_CODE_PATTERN + ")-("
+			+ SUBSCRIBER_NUMBER_PATTERN + ")$";
 
 	/* ---- Member Fields ---- */
 
@@ -45,12 +49,13 @@ public class PhoneNumber {
 	}
 
 	public PhoneNumber(String phoneNumber) throws IllegalArgumentException {
-		Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN);
-		Matcher matcher = pattern.matcher(phoneNumber);
-
-		if (!matcher.matches()) {
+		if (!isValid(phoneNumber)) {
 			throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
 		}
+
+		Pattern pattern = Pattern.compile(PHONE_NUMBER_PATTERN);
+		Matcher matcher = pattern.matcher(phoneNumber);
+		matcher.matches();
 
 		countryCode = matcher.group(1);
 		areaCode = matcher.group(2);
@@ -58,6 +63,18 @@ public class PhoneNumber {
 	}
 
 	public PhoneNumber(String countryCode, String areaCode, String subscriberNumber) {
+		if (!countryCode.matches(COUNTRY_CODE_PATTERN)) {
+			throw new IllegalArgumentException("Invalid country code: " + countryCode);
+		}
+
+		if (!areaCode.matches(AREA_CODE_PATTERN)) {
+			throw new IllegalArgumentException("Invalid area code: " + areaCode);
+		}
+
+		if (!subscriberNumber.matches(SUBSCRIBER_NUMBER_PATTERN)) {
+			throw new IllegalArgumentException("Invalid subscriber number: " + subscriberNumber);
+		}
+
 		this.countryCode = countryCode;
 		this.areaCode = areaCode;
 		this.subscriberNumber = subscriberNumber;
@@ -69,24 +86,12 @@ public class PhoneNumber {
 		return countryCode;
 	}
 
-	public void setCountryCode(String countryCode) {
-		this.countryCode = countryCode;
-	}
-
 	public String getAreaCode() {
 		return areaCode;
 	}
 
-	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-	}
-
 	public String getSubscriberNumber() {
 		return subscriberNumber;
-	}
-
-	public void setSubscriberNumber(String subscriberNumber) {
-		this.subscriberNumber = subscriberNumber;
 	}
 
 	/* ---- Overridden Methods ---- */
