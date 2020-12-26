@@ -1,22 +1,16 @@
 package com.haw.se1lab.dataaccess.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Represents a course for personal education. Customers can subscribe to
- * courses.
+ * Represents a review for a course made by one of its subscribed customers. A
+ * review contains a rating with an integer value between 1 (lowest) and 5
+ * (highest). Reviews can also include an optional comment.
  * 
  * @author Arne Busch
  */
@@ -24,32 +18,33 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //import lombok.AccessLevel;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
-//import lombok.Setter;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-public class Course {
+public class CourseReview {
 
 	/* ---- Member Fields ---- */
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue
 	private Long id;
 
-	private String name;
+	private String reviewer;
 
-//  @Setter(AccessLevel.NONE)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	private List<CourseReview> reviews = new ArrayList<>();
+	private int rating;
+
+	private String comment;
 
 	/* ---- Constructors ---- */
 
-	public Course() {
+	public CourseReview() {
 	}
 
-	public Course(String name) {
-		this.name = name;
+	public CourseReview(String reviewer, int rating, String comment) {
+		this.reviewer = reviewer;
+		this.rating = rating;
+		this.comment = comment;
 	}
 
 	/* ---- Getters/Setters ---- */
@@ -62,16 +57,28 @@ public class Course {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getReviewer() {
+		return reviewer;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setReviewer(String reviewer) {
+		this.reviewer = reviewer;
 	}
 
-	public List<CourseReview> getReviews() {
-		return reviews;
+	public int getRating() {
+		return rating;
+	}
+
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 	/* ---- Overridden Methods ---- */
@@ -82,9 +89,5 @@ public class Course {
 	}
 
 	/* ---- Custom Methods ---- */
-
-	public void addReview(CourseReview review) {
-		reviews.add(review);
-	}
 
 }

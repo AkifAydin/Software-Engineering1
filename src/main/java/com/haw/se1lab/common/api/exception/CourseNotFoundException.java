@@ -23,19 +23,32 @@ public class CourseNotFoundException extends Exception {
 
 	/* ---- Member Fields ---- */
 
-	private final long courseNumber;
+	private final Long courseNumber;
+
+	private final String courseName;
 
 	/* ---- Constructors ---- */
 
 	public CourseNotFoundException(long courseNumber) {
 		super(String.format("Could not find course with number %d.", courseNumber));
 		this.courseNumber = courseNumber;
+		this.courseName = null;
+	}
+
+	public CourseNotFoundException(String courseName) {
+		super(String.format("Could not find course with name %d.", courseName));
+		this.courseNumber = null;
+		this.courseName = courseName;
 	}
 
 	/* ---- Getters/Setters ---- */
 
 	public long getCourseNumber() {
 		return courseNumber;
+	}
+
+	public String getCourseName() {
+		return courseName;
 	}
 
 	/* ---- Overridden Methods ---- */

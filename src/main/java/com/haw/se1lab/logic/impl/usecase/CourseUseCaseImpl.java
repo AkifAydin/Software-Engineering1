@@ -11,6 +11,7 @@ import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
 import com.haw.se1lab.common.api.exception.MembershipMailNotSentException;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CourseRepository;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 import com.haw.se1lab.logic.api.usecase.CourseUseCase;
 import com.haw.se1lab.logic.api.usecase.MailUseCase;
@@ -27,13 +28,19 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	private CustomerRepository customerRepository;
 
 	@Autowired
+	private CourseRepository courseRepository;
+
+	@Autowired
 	private MailUseCase mailUseCase;
 
 	@Override
 	@Transactional
-	public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
+	public void enrollInCourse(String lastName, String courseName)
+			throws CustomerNotFoundException, CourseNotFoundException {
 		Customer customer = customerRepository.findByLastName(lastName)
 				.orElseThrow(() -> new CustomerNotFoundException(lastName));
+		Course course = courseRepository.findByName(courseName)
+				.orElseThrow(() -> new CourseNotFoundException(courseName));
 		customer.addCourse(course);
 		customerRepository.save(customer);
 	}

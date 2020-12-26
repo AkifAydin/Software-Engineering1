@@ -17,11 +17,12 @@ public interface CourseUseCase {
 	/**
 	 * Enrolls a customer in a course.
 	 * 
-	 * @param lastName the customer's last name
-	 * @param course   the course to enroll the customer in
+	 * @param lastName   the customer's last name
+	 * @param courseName the name of the course to enroll the customer in
 	 * @throws CustomerNotFoundException in case the customer could not be found
+	 * @throws CourseNotFoundException   in case the course could not be found
 	 */
-	void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException;
+	void enrollInCourse(String lastName, String courseName) throws CustomerNotFoundException, CourseNotFoundException;
 
 	/**
 	 * Transfers all courses of a customer to another customer. The source

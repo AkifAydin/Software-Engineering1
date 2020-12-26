@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
 import com.haw.se1lab.dataaccess.api.entity.Course;
+import com.haw.se1lab.dataaccess.api.entity.CourseReview;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.repo.CourseRepository;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
 /**
@@ -34,32 +36,36 @@ public class Application {
 }
 
 /**
- * Inserts some test data into the database at startup.
+ * Inserts some initial data into the database at startup.
  * 
  * @author Arne Busch
  */
 @Component
-class PopulateTestDataRunner implements CommandLineRunner {
-
-	private final CustomerRepository customerRepository;
+class InitialDataInsertionRunner implements CommandLineRunner {
 
 	@Autowired
-	public PopulateTestDataRunner(CustomerRepository customerRepository) {
-		this.customerRepository = customerRepository;
-	}
+	private CustomerRepository customerRepository;
+
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@Override
 	public void run(String... args) {
 		Arrays.asList("Miller,Doe,Smith".split(",")).forEach(
 				name -> customerRepository.save(new Customer("Jane", name, Gender.FEMALE, name + "@dummy.org", null)));
 
-		Course course = new Course("Software Engineering 1");
-
 		Customer customer = new Customer("Arne", "Busch", Gender.MALE, "arne.busch@haw-hamburg.de",
 				new PhoneNumber("+49-40-12345678"));
-		customer.addCourse(course);
-
 		customerRepository.save(customer);
+
+		Course course = new Course("Software Engineering 1");
+		CourseReview review = new CourseReview(customer.getFirstName() + " " + customer.getLastName(), 4,
+				"Good introduction!");
+		course.addReview(review);
+		courseRepository.save(course);
+
+		customer.addCourse(course);
+		// no need to save the customer again, as now it's already managed by Hibernate
 	}
 
 }

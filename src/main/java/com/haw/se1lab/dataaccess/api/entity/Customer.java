@@ -3,14 +3,13 @@ package com.haw.se1lab.dataaccess.api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -53,7 +52,7 @@ public class Customer {
 	private PhoneNumber phoneNumber;
 
 //    @Setter(AccessLevel.NONE)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Course> courses = new ArrayList<>();
 
 	/* ---- Constructors ---- */
@@ -131,10 +130,6 @@ public class Customer {
 		return courses;
 	}
 
-	public void setCourses(List<Course> courses) {
-		this.courses = courses;
-	}
-
 	/* ---- Overridden Methods ---- */
 
 	@Override
@@ -145,7 +140,13 @@ public class Customer {
 	/* ---- Custom Methods ---- */
 
 	public void addCourse(Course course) {
-		courses.add(course);
+		if (!courses.contains(course)) {
+			courses.add(course);
+		}
+	}
+
+	public void removeCourse(Course course) {
+		courses.remove(course);
 	}
 
 }
