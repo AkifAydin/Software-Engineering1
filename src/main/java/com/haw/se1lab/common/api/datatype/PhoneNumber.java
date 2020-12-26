@@ -62,7 +62,7 @@ public class PhoneNumber {
 		subscriberNumber = matcher.group(3);
 	}
 
-	public PhoneNumber(String countryCode, String areaCode, String subscriberNumber) {
+	public PhoneNumber(String countryCode, String areaCode, String subscriberNumber) throws IllegalArgumentException {
 		if (!countryCode.matches(COUNTRY_CODE_PATTERN)) {
 			throw new IllegalArgumentException("Invalid country code: " + countryCode);
 		}

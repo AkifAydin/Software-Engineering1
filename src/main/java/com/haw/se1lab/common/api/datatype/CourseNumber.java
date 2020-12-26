@@ -4,8 +4,9 @@ import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * Represents a course number. A course number consists of digits. The maximum
- * number is 2^63 - 1.
+ * Represents a course number. A course number consists of 2-4 capital letters
+ * and digits. Usually this should be the commonly used acronym for the course
+ * (e.g. "SE1" for "Software Engineering 1").
  * 
  * @author Arne Busch
  */
@@ -19,23 +20,32 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@NoArgsConstructor
 public class CourseNumber {
 
+	/* ---- Class Fields ---- */
+
+	/** The pattern for a valid course number. Example: SE1 */
+	private static final String COURSE_NUMBER_PATTERN = "^[A-Z0-9]{2,4}$";
+
 	/* ---- Member Fields ---- */
 
-	private Long number;
+	private String code;
 
 	/* ---- Constructors ---- */
 
 	public CourseNumber() {
 	}
 
-	public CourseNumber(Long number) {
-		this.number = number;
+	public CourseNumber(String code) throws IllegalArgumentException {
+		if (!isValid(code)) {
+			throw new IllegalArgumentException("Invalid course number: " + code);
+		}
+
+		this.code = code;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public Long getNumber() {
-		return number;
+	public String getCode() {
+		return code;
 	}
 
 	/* ---- Overridden Methods ---- */
@@ -47,4 +57,11 @@ public class CourseNumber {
 
 	/* ---- Custom Methods ---- */
 
+	public static boolean isValid(String courseNumber) {
+		if (courseNumber == null) {
+			return false;
+		} else {
+			return courseNumber.matches(COURSE_NUMBER_PATTERN);
+		}
+	}
 }
