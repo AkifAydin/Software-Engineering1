@@ -3,6 +3,7 @@ package com.haw.se1lab.dataaccess.api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -63,6 +65,9 @@ public class Customer {
 
 	@ManyToOne
 	private Course lastFinishedCourse;
+
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "owner")
+	private PremiumAccount premiumAccount;
 
 	/* ---- Constructors ---- */
 
@@ -158,6 +163,14 @@ public class Customer {
 		this.lastFinishedCourse = lastFinishedCourse;
 	}
 
+	public PremiumAccount getPremiumAccount() {
+		return premiumAccount;
+	}
+
+	public void setPremiumAccount(PremiumAccount premiumAccount) {
+		this.premiumAccount = premiumAccount;
+	}
+
 	/* ---- Overridden Methods ---- */
 
 	// overridden to improve object representation in logging and debugging
@@ -177,5 +190,4 @@ public class Customer {
 	public void removeCourse(Course course) {
 		courses.remove(course);
 	}
-
 }

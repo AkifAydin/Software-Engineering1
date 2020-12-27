@@ -1,5 +1,7 @@
 package com.haw.se1lab;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,6 +15,7 @@ import com.haw.se1lab.common.api.datatype.PhoneNumber;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.CourseReview;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
+import com.haw.se1lab.dataaccess.api.entity.PremiumAccount;
 import com.haw.se1lab.dataaccess.api.repo.CourseRepository;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
@@ -61,8 +64,11 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 		course.addReview(review);
 		courseRepository.save(course);
 
+		PremiumAccount premiumAccount = new PremiumAccount(customer, new Date(1893456000000L));
+
 		customer.addCourse(course);
 		customer.setLastFinishedCourse(course);
+		customer.setPremiumAccount(premiumAccount);
 		// no need to save the customer again, as now it's already managed by Hibernate
 	}
 

@@ -1,24 +1,19 @@
 package com.haw.se1lab.dataaccess.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.haw.se1lab.common.api.datatype.CourseNumber;
-
 /**
- * Represents a course for personal education. Customers can subscribe to
- * courses.
+ * Represents a premium account of a customer. A premium account is a payed
+ * subscription which grants exclusive offers and other benefits.
  * 
  * @author Arne Busch
  */
@@ -26,12 +21,11 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 //import lombok.AccessLevel;
 //import lombok.Data;
 //import lombok.NoArgsConstructor;
-//import lombok.Setter;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-public class Course {
+public class PremiumAccount {
 
 	/* ---- Member Fields ---- */
 
@@ -39,23 +33,20 @@ public class Course {
 	@GeneratedValue
 	private Long id;
 
-	@Embedded
-	private CourseNumber courseNumber;
+	// lazy fetching required here, as the association bidirectional
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	private Customer owner;
 
-	private String name;
-
-//  @Setter(AccessLevel.NONE)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-	private List<CourseReview> reviews = new ArrayList<>();
+	private Date validTo;
 
 	/* ---- Constructors ---- */
 
-	public Course() {
+	public PremiumAccount() {
 	}
 
-	public Course(CourseNumber courseNumber, String name) {
-		this.courseNumber = courseNumber;
-		this.name = name;
+	public PremiumAccount(Customer owner, Date validTo) {
+		this.owner = owner;
+		this.validTo = validTo;
 	}
 
 	/* ---- Getters/Setters ---- */
@@ -68,24 +59,20 @@ public class Course {
 		this.id = id;
 	}
 
-	public CourseNumber getCourseNumber() {
-		return courseNumber;
+	public Customer getOwner() {
+		return owner;
 	}
 
-	public void setCourseNumber(CourseNumber courseNumber) {
-		this.courseNumber = courseNumber;
+	public void setOwner(Customer owner) {
+		this.owner = owner;
 	}
 
-	public String getName() {
-		return name;
+	public Date getValidTo() {
+		return validTo;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public List<CourseReview> getReviews() {
-		return reviews;
+	public void setValidTo(Date validTo) {
+		this.validTo = validTo;
 	}
 
 	/* ---- Overridden Methods ---- */
@@ -97,9 +84,5 @@ public class Course {
 	}
 
 	/* ---- Custom Methods ---- */
-
-	public void addReview(CourseReview review) {
-		reviews.add(review);
-	}
 
 }
