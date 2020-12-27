@@ -60,6 +60,7 @@ public class CourseNumber {
 		return EqualsBuilder.reflectionEquals(this, obj);
 	}
 
+	// overridden to improve object representation in logging and debugging
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);

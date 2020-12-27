@@ -43,6 +43,7 @@ public class CustomerAlreadyExistingException extends Exception {
 
 	/* ---- Overridden Methods ---- */
 
+	// overridden to improve object representation in logging and debugging
 	@Override
 	public String toString() {
 		return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
