@@ -62,6 +62,7 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 		courseRepository.save(course);
 
 		customer.addCourse(course);
+		customer.setLastFinishedCourse(course);
 		// no need to save the customer again, as now it's already managed by Hibernate
 	}
 

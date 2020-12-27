@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -59,6 +60,9 @@ public class Customer {
 //    @Setter(AccessLevel.NONE)
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Course> courses = new ArrayList<>();
+
+	@ManyToOne
+	private Course lastFinishedCourse;
 
 	/* ---- Constructors ---- */
 
@@ -144,6 +148,14 @@ public class Customer {
 
 	public List<Course> getCourses() {
 		return courses;
+	}
+
+	public Course getLastFinishedCourse() {
+		return lastFinishedCourse;
+	}
+
+	public void setLastFinishedCourse(Course lastFinishedCourse) {
+		this.lastFinishedCourse = lastFinishedCourse;
 	}
 
 	/* ---- Overridden Methods ---- */
