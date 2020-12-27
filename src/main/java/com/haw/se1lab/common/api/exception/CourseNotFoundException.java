@@ -3,6 +3,8 @@ package com.haw.se1lab.common.api.exception;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.haw.se1lab.common.api.datatype.CourseNumber;
+
 /**
  * Represents the exception when a course could not be found by the given search
  * criteria.
@@ -23,27 +25,27 @@ public class CourseNotFoundException extends Exception {
 
 	/* ---- Member Fields ---- */
 
-	private final Long courseNumber;
+	private final CourseNumber courseNumber;
 
 	private final String courseName;
 
 	/* ---- Constructors ---- */
 
-	public CourseNotFoundException(long courseNumber) {
-		super(String.format("Could not find course with number %d.", courseNumber));
+	public CourseNotFoundException(CourseNumber courseNumber) {
+		super(String.format("Could not find course with course number %s.", courseNumber.getCode()));
 		this.courseNumber = courseNumber;
 		this.courseName = null;
 	}
 
 	public CourseNotFoundException(String courseName) {
-		super(String.format("Could not find course with name %d.", courseName));
+		super(String.format("Could not find course with name %s.", courseName));
 		this.courseNumber = null;
 		this.courseName = courseName;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public long getCourseNumber() {
+	public CourseNumber getCourseNumber() {
 		return courseNumber;
 	}
 

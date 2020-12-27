@@ -44,6 +44,7 @@ public class CustomerNumber {
 
 	/* ---- Overridden Methods ---- */
 
+	// overridden, so objects having the same values are considered as equal
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
