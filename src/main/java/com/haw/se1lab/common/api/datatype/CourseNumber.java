@@ -1,5 +1,8 @@
 package com.haw.se1lab.common.api.datatype;
 
+import javax.persistence.Embeddable;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -18,6 +21,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@Getter
 //@AllArgsConstructor
 //@NoArgsConstructor
+@Embeddable
 public class CourseNumber {
 
 	/* ---- Class Fields ---- */
@@ -49,6 +53,11 @@ public class CourseNumber {
 	}
 
 	/* ---- Overridden Methods ---- */
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
 
 	@Override
 	public String toString() {

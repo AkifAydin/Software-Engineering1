@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 
 import javax.persistence.Embeddable;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -95,6 +96,12 @@ public class PhoneNumber {
 	}
 
 	/* ---- Overridden Methods ---- */
+
+	// overridden, so objects having the same values are considered as equal
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
 
 	@Override
 	public String toString() {

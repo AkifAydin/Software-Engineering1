@@ -3,6 +3,7 @@ package com.haw.se1lab.dataaccess.api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToMany;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
@@ -40,6 +42,9 @@ public class Customer {
 	@GeneratedValue
 	private Long id;
 
+	@Embedded
+	private CustomerNumber customerNumber;
+
 	private String firstName;
 
 	private String lastName;
@@ -60,7 +65,8 @@ public class Customer {
 	public Customer() {
 	}
 
-	public Customer(String firstName, String lastName, Gender gender) {
+	public Customer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender) {
+		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -68,7 +74,9 @@ public class Customer {
 		this.phoneNumber = null;
 	}
 
-	public Customer(String firstName, String lastName, Gender gender, String email, PhoneNumber phoneNumber) {
+	public Customer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender, String email,
+			PhoneNumber phoneNumber) {
+		this.customerNumber = customerNumber;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -84,6 +92,14 @@ public class Customer {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public CustomerNumber getCustomerNumber() {
+		return customerNumber;
+	}
+
+	public void setCustomerNumber(CustomerNumber customerNumber) {
+		this.customerNumber = customerNumber;
 	}
 
 	public String getFirstName() {

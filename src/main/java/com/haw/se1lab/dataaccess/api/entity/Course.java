@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,8 @@ import javax.persistence.OneToMany;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+
+import com.haw.se1lab.common.api.datatype.CourseNumber;
 
 /**
  * Represents a course for personal education. Customers can subscribe to
@@ -36,6 +39,9 @@ public class Course {
 	@GeneratedValue
 	private Long id;
 
+	@Embedded
+	private CourseNumber courseNumber;
+
 	private String name;
 
 //  @Setter(AccessLevel.NONE)
@@ -47,7 +53,8 @@ public class Course {
 	public Course() {
 	}
 
-	public Course(String name) {
+	public Course(CourseNumber courseNumber, String name) {
+		this.courseNumber = courseNumber;
 		this.name = name;
 	}
 
@@ -59,6 +66,14 @@ public class Course {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public CourseNumber getCourseNumber() {
+		return courseNumber;
+	}
+
+	public void setCourseNumber(CourseNumber courseNumber) {
+		this.courseNumber = courseNumber;
 	}
 
 	public String getName() {

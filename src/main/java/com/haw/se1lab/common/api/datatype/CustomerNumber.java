@@ -1,11 +1,14 @@
 package com.haw.se1lab.common.api.datatype;
 
+import javax.persistence.Embeddable;
+
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Represents a customer number. A customer number consists of digits. The
- * maximum number is 2^63 - 1.
+ * maximum number is 2^31 - 1.
  * 
  * @author Arne Busch
  */
@@ -17,28 +20,34 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@Getter
 //@AllArgsConstructor
 //@NoArgsConstructor
+@Embeddable
 public class CustomerNumber {
 
 	/* ---- Member Fields ---- */
 
-	private Long number;
+	private Integer number;
 
 	/* ---- Constructors ---- */
 
 	public CustomerNumber() {
 	}
 
-	public CustomerNumber(Long number) {
+	public CustomerNumber(Integer number) {
 		this.number = number;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public Long getNumber() {
+	public Integer getNumber() {
 		return number;
 	}
 
 	/* ---- Overridden Methods ---- */
+
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
 
 	@Override
 	public String toString() {
