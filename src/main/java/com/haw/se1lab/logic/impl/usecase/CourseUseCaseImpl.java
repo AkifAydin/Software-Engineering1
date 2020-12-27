@@ -65,9 +65,15 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	@Transactional
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
-		// some implementation goes here
-		// find customer, find course, look for membership, remove membership, etc.
-		// ...
+		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
+				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
+		Course course = courseRepository.findByCourseNumber(courseNumber)
+				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
+
+		if (customer.getCourses().contains(course)) {
+			customer.removeCourse(course);
+			customerRepository.save(customer);
+		}
 
 		String customerMail = "customer@domain.com";
 

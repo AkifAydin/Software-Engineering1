@@ -49,7 +49,8 @@ public class CustomerFacadeImpl implements CustomerFacade {
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Customer createCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistingException {
-		return customerUseCase.createCustomer(customer.getFirstName(), customer.getLastName(), customer.getGender());
+		return customerUseCase.createCustomer(customer.getCustomerNumber(), customer.getFirstName(),
+				customer.getLastName(), customer.getGender());
 	}
 
 	@Override

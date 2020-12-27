@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.exception.CustomerAlreadyExistingException;
 import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
@@ -39,13 +40,13 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 	}
 
 	@Override
-	public Customer createCustomer(String firstName, String lastName, Gender gender)
+	public Customer createCustomer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender)
 			throws CustomerAlreadyExistingException {
 		if (customerRepository.findByLastName(lastName).isPresent()) {
 			throw new CustomerAlreadyExistingException(lastName);
 		}
 
-		Customer customer = new Customer(firstName, lastName, gender);
+		Customer customer = new Customer(customerNumber, firstName, lastName, gender);
 		return customerRepository.save(customer);
 	}
 

@@ -2,6 +2,7 @@ package com.haw.se1lab.logic.api.usecase;
 
 import java.util.List;
 
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.exception.CustomerAlreadyExistingException;
 import com.haw.se1lab.common.api.exception.CustomerNotFoundException;
@@ -42,14 +43,16 @@ public interface CustomerUseCase {
 	/**
 	 * Creates a customer with the given data.
 	 * 
-	 * @param firstName the customer's first name
-	 * @param lastName  the customer's last name
-	 * @param gender    the customer's gender
+	 * @param customerNumber the customer number
+	 * @param firstName      the customer's first name
+	 * @param lastName       the customer's last name
+	 * @param gender         the customer's gender
 	 * @return the created customer
 	 * @throws CustomerAlreadyExistingException in case a customer with the given
 	 *                                          data already exists
 	 */
-	Customer createCustomer(String firstName, String lastName, Gender gender) throws CustomerAlreadyExistingException;
+	Customer createCustomer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender)
+			throws CustomerAlreadyExistingException;
 
 	/**
 	 * Updates a customer with the given data.
