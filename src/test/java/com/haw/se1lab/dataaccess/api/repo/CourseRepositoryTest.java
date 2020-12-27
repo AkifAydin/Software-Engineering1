@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
+import com.haw.se1lab.common.api.datatype.CourseNumber;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 
 /**
@@ -29,7 +30,29 @@ public class CourseRepositoryTest {
 	@BeforeEach
 	public void setUp() {
 		courseRepository.deleteAll();
-		courseRepository.save(new Course("Software Engineering 2"));
+		courseRepository.save(new Course(new CourseNumber("SE2"), "Software Engineering 2"));
+	}
+
+	@Test
+	public void findByCourseNumber_Success() {
+		// [GIVEN]
+
+		// [WHEN]
+
+		// [THEN]
+		Optional<Course> course = courseRepository.findByCourseNumber(new CourseNumber("SE2"));
+		assertThat(course.isPresent()).isTrue();
+	}
+
+	@Test
+	public void findByCourseNumber_SuccessWithEmptyResult() {
+		// [GIVEN]
+
+		// [WHEN]
+
+		// [THEN]
+		Optional<Course> course = courseRepository.findByCourseNumber(new CourseNumber("A123"));
+		assertThat(course.isPresent()).isFalse();
 	}
 
 	@Test
@@ -44,7 +67,7 @@ public class CourseRepositoryTest {
 	}
 
 	@Test
-	public void findByLastName_SuccessWithEmptyResult() {
+	public void findByName_SuccessWithEmptyResult() {
 		// [GIVEN]
 
 		// [WHEN]

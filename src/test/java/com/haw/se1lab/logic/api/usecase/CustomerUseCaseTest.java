@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
@@ -39,7 +40,8 @@ public class CustomerUseCaseTest {
 	@Test
 	public void findAllCustomers_Success() {
 		// [GIVEN]
-		Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
+		Customer customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com",
+				null);
 		customerRepository.save(customer);
 
 		// [WHEN]
@@ -47,7 +49,7 @@ public class CustomerUseCaseTest {
 
 		// [THEN]
 		assertThat(customers).size().isEqualTo(1);
-		assertThat(customers.get(0).getFirstName()).isEqualTo("Jane");
+		assertThat(customers.get(0).getCustomerNumber()).isEqualTo(customer.getCustomerNumber());
 	}
 
 	// TODO Add test methods for yet untested methods

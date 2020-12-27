@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
@@ -45,7 +46,7 @@ public class CustomerFacadeTest {
 	@BeforeEach
 	public void setUp() {
 		customerRepository.deleteAll();
-		customer = customerRepository.save(new Customer("Arne", "Busch", Gender.MALE));
+		customer = customerRepository.save(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE));
 
 		RestAssured.port = port;
 		RestAssured.basePath = "";
@@ -99,7 +100,7 @@ public class CustomerFacadeTest {
 	public void createCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		given().contentType(ContentType.JSON).body(new Customer("Jane", "Doe", Gender.FEMALE))
+		given().contentType(ContentType.JSON).body(new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE))
 
 				// [WHEN]
 				.when().post("/customers")
@@ -113,7 +114,7 @@ public class CustomerFacadeTest {
 	public void createCustomer_FailBecauseAlreadyExisting() {
 		// @formatter:off
 		// [GIVEN]
-		given().contentType(ContentType.JSON).body(new Customer("Arne", "Busch", Gender.MALE))
+		given().contentType(ContentType.JSON).body(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE))
 
 				// [WHEN]
 				.when().post("/customers")

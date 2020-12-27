@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
@@ -31,8 +32,30 @@ public class CustomerRepositoryTest {
 	@BeforeEach
 	public void setUp() {
 		customerRepository.deleteAll();
-		customerRepository.save(new Customer("Arne", "Busch", Gender.MALE, "arne.busch@haw-hamburg.de",
-				new PhoneNumber("+49", "040", "12345678")));
+		customerRepository.save(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE,
+				"arne.busch@haw-hamburg.de", new PhoneNumber("+49", "040", "12345678")));
+	}
+
+	@Test
+	public void findByCustomerNumber_Success() {
+		// [GIVEN]
+
+		// [WHEN]
+
+		// [THEN]
+		Optional<Customer> customer = customerRepository.findByCustomerNumber(new CustomerNumber(1));
+		assertThat(customer.isPresent()).isTrue();
+	}
+
+	@Test
+	public void findByCustomerNumber_SuccessWithEmptyResult() {
+		// [GIVEN]
+
+		// [WHEN]
+
+		// [THEN]
+		Optional<Customer> customer = customerRepository.findByCustomerNumber(new CustomerNumber(9999));
+		assertThat(customer.isPresent()).isFalse();
 	}
 
 	@Test
