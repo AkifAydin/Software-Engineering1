@@ -11,6 +11,9 @@ import javax.persistence.OneToOne;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * Represents a premium account of a customer. A premium account is a payed
  * subscription which grants exclusive offers and other benefits.
@@ -25,6 +28,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class PremiumAccount {
 
 	/* ---- Member Fields ---- */

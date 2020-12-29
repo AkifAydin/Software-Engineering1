@@ -18,6 +18,8 @@ import javax.persistence.OneToOne;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
@@ -37,6 +39,7 @@ import com.haw.se1lab.common.api.datatype.PhoneNumber;
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Customer {
 
 	/* ---- Member Fields ---- */

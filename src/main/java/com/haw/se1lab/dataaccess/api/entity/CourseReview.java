@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 /**
  * Represents a review for a course made by one of its subscribed customers. A
  * review contains a rating with an integer value between 1 (lowest) and 5
@@ -22,6 +25,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class CourseReview {
 
 	/* ---- Member Fields ---- */

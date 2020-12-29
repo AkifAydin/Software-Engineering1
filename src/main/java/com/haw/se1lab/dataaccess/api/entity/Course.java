@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.haw.se1lab.common.api.datatype.CourseNumber;
 
 /**
@@ -31,6 +33,7 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Course {
 
 	/* ---- Member Fields ---- */
