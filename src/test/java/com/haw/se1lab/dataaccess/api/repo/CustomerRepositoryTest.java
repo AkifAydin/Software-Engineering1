@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,55 +30,74 @@ public class CustomerRepositoryTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	private Customer customer;
+
 	@BeforeEach
 	public void setUp() {
-		customerRepository.deleteAll();
-		customerRepository.save(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE,
-				"arne.busch@haw-hamburg.de", new PhoneNumber("+49", "040", "12345678")));
+		// set up fresh test data
+
+		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+				new PhoneNumber("+49", "040", "88888888"));
+		customerRepository.save(customer);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		// clean up test data
+
+		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
+			customerRepository.deleteById(customer.getId());
+		}
 	}
 
 	@Test
 	public void findByCustomerNumber_Success() {
 		// [GIVEN]
+		CustomerNumber customerNumber = customer.getCustomerNumber();
 
 		// [WHEN]
+		Optional<Customer> loadedCustomer = customerRepository.findByCustomerNumber(customerNumber);
 
 		// [THEN]
-		Optional<Customer> customer = customerRepository.findByCustomerNumber(new CustomerNumber(1));
-		assertThat(customer.isPresent()).isTrue();
+		assertThat(loadedCustomer.isPresent()).isTrue();
+		assertThat(loadedCustomer.get().getCustomerNumber()).isEqualTo(customerNumber);
 	}
 
 	@Test
 	public void findByCustomerNumber_SuccessWithEmptyResult() {
 		// [GIVEN]
+		CustomerNumber customerNumber = new CustomerNumber(9999);
 
 		// [WHEN]
+		Optional<Customer> loadedCustomer = customerRepository.findByCustomerNumber(customerNumber);
 
 		// [THEN]
-		Optional<Customer> customer = customerRepository.findByCustomerNumber(new CustomerNumber(9999));
-		assertThat(customer.isPresent()).isFalse();
+		assertThat(loadedCustomer.isPresent()).isFalse();
 	}
 
 	@Test
 	public void findByLastName_Success() {
 		// [GIVEN]
+		String lastName = customer.getLastName();
 
 		// [WHEN]
+		Optional<Customer> loadedCustomer = customerRepository.findByLastName(lastName);
 
 		// [THEN]
-		Optional<Customer> customer = customerRepository.findByLastName("Busch");
-		assertThat(customer.isPresent()).isTrue();
+		assertThat(loadedCustomer.isPresent()).isTrue();
+		assertThat(loadedCustomer.get().getLastName()).isEqualTo(lastName);
 	}
 
 	@Test
 	public void findByLastName_SuccessWithEmptyResult() {
 		// [GIVEN]
+		String lastName = "Not-Existing";
 
 		// [WHEN]
+		Optional<Customer> loadedCustomer = customerRepository.findByLastName(lastName);
 
 		// [THEN]
-		Optional<Customer> customer = customerRepository.findByLastName("Not-Existing");
-		assertThat(customer.isPresent()).isFalse();
+		assertThat(loadedCustomer.isPresent()).isFalse();
 	}
 
 }

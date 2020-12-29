@@ -6,6 +6,7 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.haw.se1lab.Application;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.common.api.datatype.PhoneNumber;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
@@ -33,6 +35,13 @@ import io.restassured.http.ContentType;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CustomerFacadeTest {
 
+	/*
+	 * Logging of REST requests/responses for debugging can be enabled like this:
+	 * Add this before .when() to log a request or before .then() to log a response:
+	 * log().all().
+	 * 
+	 * Also uncomment the logger in the next line.
+	 */
 //	private final Log log = LogFactory.getLog(getClass());
 
 	@LocalServerPort
@@ -45,11 +54,23 @@ public class CustomerFacadeTest {
 
 	@BeforeEach
 	public void setUp() {
-		customerRepository.deleteAll();
-		customer = customerRepository.save(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE));
+		// set up fresh test data
+
+		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+				new PhoneNumber("+49", "040", "88888888"));
+		customerRepository.save(customer);
 
 		RestAssured.port = port;
 		RestAssured.basePath = "";
+	}
+
+	@AfterEach
+	public void tearDown() {
+		// clean up test data
+
+		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
+			customerRepository.deleteById(customer.getId());
+		}
 	}
 
 	@Test
@@ -57,14 +78,15 @@ public class CustomerFacadeTest {
 		// @formatter:off
 		// [GIVEN]
 		given()
-				// add this here to log request --> log().all().
 
-				// [WHEN]
-				.when().get("/customers")
+		// [WHEN]
+		.when()
+		.get("/customers")
 
-				// [THEN]
-				// add this here to log response --> log().all().
-				.then().statusCode(HttpStatus.OK.value()).body("lastName", hasItems("Busch"));
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.OK.value())
+		.body("lastName", hasItems(customer.getLastName()));
 		// @formatter:on
 	}
 
@@ -74,11 +96,14 @@ public class CustomerFacadeTest {
 		// [GIVEN]
 		given()
 
-				// [WHEN]
-				.when().get("/customers/{id}", customer.getId())
+		// [WHEN]
+		.when()
+		.get("/customers/{id}", customer.getId())
 
-				// [THEN]
-				.then().statusCode(HttpStatus.OK.value()).body("lastName", equalTo("Busch"));
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.OK.value())
+		.body("lastName", equalTo(customer.getLastName()));
 		// @formatter:on
 	}
 
@@ -88,11 +113,13 @@ public class CustomerFacadeTest {
 		// [GIVEN]
 		given()
 
-				// [WHEN]
-				.when().get("/customers/{id}", Integer.MAX_VALUE)
+		// [WHEN]
+		.when()
+		.get("/customers/{id}", Integer.MAX_VALUE)
 
-				// [THEN]
-				.then().statusCode(HttpStatus.NOT_FOUND.value());
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.NOT_FOUND.value());
 		// @formatter:on
 	}
 
@@ -100,13 +127,20 @@ public class CustomerFacadeTest {
 	public void createCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		given().contentType(ContentType.JSON).body(new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE))
+		Customer newCustomer = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE);
+		
+		given()
+		.contentType(ContentType.JSON)
+		.body(newCustomer)
 
-				// [WHEN]
-				.when().post("/customers")
+		// [WHEN]
+		.when()
+		.post("/customers")
 
-				// [THEN]
-				.then().statusCode(HttpStatus.CREATED.value()).body("id", is(greaterThan(0)));
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.CREATED.value())
+		.body("id", is(greaterThan(0)));
 		// @formatter:on
 	}
 
@@ -114,13 +148,19 @@ public class CustomerFacadeTest {
 	public void createCustomer_FailBecauseAlreadyExisting() {
 		// @formatter:off
 		// [GIVEN]
-		given().contentType(ContentType.JSON).body(new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE))
+		Customer newCustomer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE);
+		
+		given()
+		.contentType(ContentType.JSON)
+		.body(newCustomer)
 
-				// [WHEN]
-				.when().post("/customers")
+		// [WHEN]
+		.when()
+		.post("/customers")
 
-				// [THEN]
-				.then().statusCode(HttpStatus.BAD_REQUEST.value());
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.BAD_REQUEST.value());
 		// @formatter:on
 	}
 
@@ -128,23 +168,32 @@ public class CustomerFacadeTest {
 	public void updateCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		customer.setFirstName("Anne");
-		given().contentType(ContentType.JSON).body(customer)
+		String newFirstName = "Jennifer";
+		customer.setFirstName(newFirstName);
+		
+		given()
+		.contentType(ContentType.JSON)
+		.body(customer)
 
-				// [WHEN]
-				.when().put("/customers")
+		// [WHEN]
+		.when()
+		.put("/customers")
 
-				// [THEN]
-				.then().statusCode(HttpStatus.OK.value());
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.OK.value());
 
 		// [GIVEN]
 		given()
 
-				// [WHEN]
-				.when().get("/customers/{id}", customer.getId())
+		// [WHEN]
+		.when()
+		.get("/customers/{id}", customer.getId())
 
-				// [THEN]
-				.then().statusCode(HttpStatus.OK.value()).body("firstName", is(equalTo("Anne")));
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.OK.value())
+		.body("firstName", is(equalTo(newFirstName)));
 		// @formatter:on
 	}
 
@@ -154,20 +203,23 @@ public class CustomerFacadeTest {
 		// [GIVEN]
 		given()
 
-				// [WHEN]
-				.delete("/customers/{id}", customer.getId())
+		// [WHEN]
+		.delete("/customers/{id}", customer.getId())
 
-				// [THEN]
-				.then().statusCode(HttpStatus.OK.value());
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.OK.value());
 
 		// [GIVEN]
 		given()
 
-				// [WHEN]
-				.when().get("/customers/{id}", customer.getId())
+		// [WHEN]
+		.when()
+		.get("/customers/{id}", customer.getId())
 
-				// [THEN]
-				.then().statusCode(HttpStatus.NOT_FOUND.value());
+		// [THEN]
+		.then()
+		.statusCode(HttpStatus.NOT_FOUND.value());
 		// @formatter:on
 	}
 

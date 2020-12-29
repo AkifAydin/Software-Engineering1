@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import com.haw.se1lab.Application;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
+import com.haw.se1lab.common.api.datatype.PhoneNumber;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 
@@ -32,24 +34,37 @@ public class CustomerUseCaseTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	private Customer customer;
+
 	@BeforeEach
 	public void setUp() {
-		customerRepository.deleteAll();
+		// set up fresh test data
+
+		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+				new PhoneNumber("+49", "040", "88888888"));
+		customerRepository.save(customer);
+	}
+
+	@AfterEach
+	public void tearDown() {
+		// clean up test data
+
+		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
+			customerRepository.deleteById(customer.getId());
+		}
 	}
 
 	@Test
 	public void findAllCustomers_Success() {
 		// [GIVEN]
-		Customer customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com",
-				null);
-		customerRepository.save(customer);
+		CustomerNumber customerNumber = customer.getCustomerNumber();
 
 		// [WHEN]
-		List<Customer> customers = customerUseCase.findAllCustomers();
+		List<Customer> loadedCustomers = customerUseCase.findAllCustomers();
 
 		// [THEN]
-		assertThat(customers).size().isEqualTo(1);
-		assertThat(customers.get(0).getCustomerNumber()).isEqualTo(customer.getCustomerNumber());
+		assertThat(loadedCustomers).hasSize(2); // take initial data into account
+		assertThat(loadedCustomers).extracting(Customer::getCustomerNumber).containsOnlyOnce(customerNumber);
 	}
 
 	// TODO Add test methods for yet untested methods
