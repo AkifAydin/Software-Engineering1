@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
+import java.util.Optional;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,15 +52,17 @@ public class CustomerFacadeTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	private Customer customer;
+	private Customer customer1;
+
+	private Customer customer2;
 
 	@BeforeEach
 	public void setUp() {
 		// set up fresh test data
 
-		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
-		customerRepository.save(customer);
+		customerRepository.save(customer1);
 
 		RestAssured.port = port;
 		RestAssured.basePath = "";
@@ -68,8 +72,18 @@ public class CustomerFacadeTest {
 	public void tearDown() {
 		// clean up test data
 
-		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
-			customerRepository.deleteById(customer.getId());
+		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
+			customerRepository.deleteById(customer1.getId());
+		}
+
+		if (customer2 != null) {
+			// get full object from DB
+			Optional<Customer> customer2Optional = customerRepository
+					.findByCustomerNumber(customer2.getCustomerNumber());
+
+			if (customer2Optional.isPresent()) {
+				customerRepository.deleteById(customer2Optional.get().getId());
+			}
 		}
 	}
 
@@ -86,7 +100,7 @@ public class CustomerFacadeTest {
 		// [THEN]
 		.then()
 		.statusCode(HttpStatus.OK.value())
-		.body("lastName", hasItems(customer.getLastName()));
+		.body("lastName", hasItems(customer1.getLastName()));
 		// @formatter:on
 	}
 
@@ -98,12 +112,12 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer.getId())
+		.get("/customers/{id}", customer1.getId())
 
 		// [THEN]
 		.then()
 		.statusCode(HttpStatus.OK.value())
-		.body("lastName", equalTo(customer.getLastName()));
+		.body("lastName", equalTo(customer1.getLastName()));
 		// @formatter:on
 	}
 
@@ -127,11 +141,11 @@ public class CustomerFacadeTest {
 	public void createCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		Customer newCustomer = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE);
+		customer2 = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE);
 		
 		given()
 		.contentType(ContentType.JSON)
-		.body(newCustomer)
+		.body(customer2)
 
 		// [WHEN]
 		.when()
@@ -148,11 +162,11 @@ public class CustomerFacadeTest {
 	public void createCustomer_FailBecauseAlreadyExisting() {
 		// @formatter:off
 		// [GIVEN]
-		Customer newCustomer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE);
+		Customer customer1Duplicate = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE);
 		
 		given()
 		.contentType(ContentType.JSON)
-		.body(newCustomer)
+		.body(customer1Duplicate)
 
 		// [WHEN]
 		.when()
@@ -169,11 +183,11 @@ public class CustomerFacadeTest {
 		// @formatter:off
 		// [GIVEN]
 		String newFirstName = "Jennifer";
-		customer.setFirstName(newFirstName);
+		customer1.setFirstName(newFirstName);
 		
 		given()
 		.contentType(ContentType.JSON)
-		.body(customer)
+		.body(customer1)
 
 		// [WHEN]
 		.when()
@@ -188,7 +202,7 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer.getId())
+		.get("/customers/{id}", customer1.getId())
 
 		// [THEN]
 		.then()
@@ -204,7 +218,7 @@ public class CustomerFacadeTest {
 		given()
 
 		// [WHEN]
-		.delete("/customers/{id}", customer.getId())
+		.delete("/customers/{id}", customer1.getId())
 
 		// [THEN]
 		.then()
@@ -215,7 +229,7 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer.getId())
+		.get("/customers/{id}", customer1.getId())
 
 		// [THEN]
 		.then()
