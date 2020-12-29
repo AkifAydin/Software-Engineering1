@@ -2,7 +2,6 @@ package com.haw.se1lab.logic.impl.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.haw.se1lab.common.api.datatype.CourseNumber;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
@@ -34,7 +33,6 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	private MailUseCase mailUseCase;
 
 	@Override
-	@Transactional
 	public void enrollInCourse(String lastName, String courseName)
 			throws CustomerNotFoundException, CourseNotFoundException {
 		Customer customer = customerRepository.findByLastName(lastName)
@@ -46,7 +44,6 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	}
 
 	@Override
-	@Transactional
 	public void transferCourses(String fromCustomerLastName, String toCustomerLastName)
 			throws CustomerNotFoundException {
 		Customer fromCustomer = customerRepository.findByLastName(fromCustomerLastName)
@@ -62,7 +59,6 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	}
 
 	@Override
-	@Transactional
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)

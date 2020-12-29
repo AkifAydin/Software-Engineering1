@@ -2,6 +2,8 @@ package com.haw.se1lab;
 
 import java.util.Date;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -53,6 +55,7 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 	private CourseRepository courseRepository;
 
 	@Override
+	@Transactional
 	public void run(String... args) {
 		Customer customer = new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE,
 				"arne.busch@haw-hamburg.de", new PhoneNumber("+49-40-12345678"));
@@ -69,7 +72,8 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 		customer.addCourse(course);
 		customer.setLastFinishedCourse(course);
 		customer.setPremiumAccount(premiumAccount);
-		// no need to save the customer again, as now it's already managed by Hibernate
+		// no need to manually save the customer again here
+		// -> after the initial save the customer is in Hibernate's transaction context
 	}
 
 }
