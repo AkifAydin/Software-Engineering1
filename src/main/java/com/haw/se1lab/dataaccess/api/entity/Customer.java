@@ -2,6 +2,7 @@ package com.haw.se1lab.dataaccess.api.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
@@ -184,13 +185,43 @@ public class Customer {
 
 	/* ---- Custom Methods ---- */
 
-	public void addCourse(Course course) {
-		if (!courses.contains(course)) {
+	/**
+	 * Adds the given course to the customer's booked courses. If the customer has
+	 * already booked the course, nothing happens.
+	 * 
+	 * @param course the course to add
+	 * @return <code>true</code> in case the course was added, <code>false</code>
+	 *         otherwise
+	 */
+	public boolean addCourse(Course course) {
+		boolean courseAlreadyBooked = courses.stream()
+				.anyMatch(c -> c.getCourseNumber().equals(course.getCourseNumber()));
+
+		if (!courseAlreadyBooked) {
 			courses.add(course);
+			return true;
 		}
+
+		return false;
 	}
 
-	public void removeCourse(Course course) {
-		courses.remove(course);
+	/**
+	 * Removes the given course from the customer's booked courses. If the customer
+	 * has not booked the course, nothing happens.
+	 * 
+	 * @param course the course to remove
+	 * @return <code>true</code> in case the course was removed, <code>false</code>
+	 *         otherwise
+	 */
+	public boolean removeCourse(Course course) {
+		Optional<Course> bookedCourse = courses.stream()
+				.filter(c -> c.getCourseNumber().equals(course.getCourseNumber())).findFirst();
+
+		if (bookedCourse.isPresent()) {
+			courses.remove(bookedCourse.get());
+			return true;
+		}
+
+		return false;
 	}
 }

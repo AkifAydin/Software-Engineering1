@@ -1,7 +1,5 @@
 package com.haw.se1lab.logic.impl.usecase;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -68,11 +66,9 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		Course course = courseRepository.findByCourseNumber(courseNumber)
 				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
 
-		Optional<Course> bookedCourse = customer.getCourses().stream()
-				.filter(c -> c.getCourseNumber().equals(course.getCourseNumber())).findFirst();
+		boolean courseRemoved = customer.removeCourse(course);
 
-		if (bookedCourse.isPresent()) {
-			customer.removeCourse(bookedCourse.get());
+		if (courseRemoved) {
 			customerRepository.save(customer);
 		}
 
