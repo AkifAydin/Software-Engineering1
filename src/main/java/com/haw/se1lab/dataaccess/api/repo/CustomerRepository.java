@@ -2,6 +2,8 @@ package com.haw.se1lab.dataaccess.api.repo;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
@@ -30,5 +32,13 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	 * @return an {@link Optional} containing the found customer
 	 */
 	Optional<Customer> findByLastName(String lastName);
+
+	/**
+	 * Deletes the {@link Customer} entity with the given customer number.
+	 * 
+	 * @param customerNumber the customer number
+	 */
+	@Transactional
+	void deleteByCustomerNumber(CustomerNumber customerNumber);
 
 }

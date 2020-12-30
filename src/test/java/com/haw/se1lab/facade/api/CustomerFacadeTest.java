@@ -6,8 +6,6 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
-import java.util.Optional;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -76,14 +74,8 @@ public class CustomerFacadeTest {
 			customerRepository.deleteById(customer1.getId());
 		}
 
-		if (customer2 != null) {
-			// get full object from DB
-			Optional<Customer> customer2Optional = customerRepository
-					.findByCustomerNumber(customer2.getCustomerNumber());
-
-			if (customer2Optional.isPresent()) {
-				customerRepository.deleteById(customer2Optional.get().getId());
-			}
+		if (customer2 != null && customerRepository.findByCustomerNumber(customer2.getCustomerNumber()).isPresent()) {
+			customerRepository.deleteByCustomerNumber(customer2.getCustomerNumber());
 		}
 	}
 
