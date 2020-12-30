@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.haw.se1lab.common.api.datatype.CustomerNumber;
+
 /**
  * Represents the exception when a customer could not be created because he
  * already exists.
@@ -26,19 +28,19 @@ public class CustomerAlreadyExistingException extends Exception {
 
 	/* ---- Member Fields ---- */
 
-	private final String lastName;
+	private final CustomerNumber customerNumber;
 
 	/* ---- Constructors ---- */
 
-	public CustomerAlreadyExistingException(String lastName) {
-		super(String.format("Customer with name %s does already exist.", lastName));
-		this.lastName = lastName;
+	public CustomerAlreadyExistingException(CustomerNumber customerNumber) {
+		super(String.format("Customer with customer number %s already exists.", customerNumber.getNumber()));
+		this.customerNumber = customerNumber;
 	}
 
 	/* ---- Getters/Setters ---- */
 
-	public String getLastName() {
-		return lastName;
+	public CustomerNumber getCustomerNumber() {
+		return customerNumber;
 	}
 
 	/* ---- Overridden Methods ---- */

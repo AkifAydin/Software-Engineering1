@@ -17,26 +17,28 @@ public interface CourseUseCase {
 	/**
 	 * Enrolls a customer in a course.
 	 * 
-	 * @param lastName   the customer's last name
-	 * @param courseName the name of the course to enroll the customer in
+	 * @param customerNumber the customer's customer number
+	 * @param courseName     the name of the course to enroll the customer in
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 * @throws CourseNotFoundException   in case the course could not be found
 	 */
-	void enrollInCourse(String lastName, String courseName) throws CustomerNotFoundException, CourseNotFoundException;
+	void enrollInCourse(CustomerNumber customerNumber, String courseName)
+			throws CustomerNotFoundException, CourseNotFoundException;
 
 	/**
 	 * Transfers all courses of a customer to another customer. The source
 	 * customer's membership to all of his courses is canceled and the target
 	 * customer is enrolled in the respective courses.
 	 * 
-	 * @param fromCustomerLastName the source customer to be removed from his
-	 *                             courses
-	 * @param toCustomerLastName   the target customer to get the courses of the
-	 *                             source customer
+	 * @param fromCustomerNumber the customer number of the source customer to be
+	 *                           removed from his courses
+	 * @param toCustomerNumber   the customer number of the target customer to get
+	 *                           the courses of the source customer
 	 * @throws CustomerNotFoundException in case one of the customers could not be
 	 *                                   found
 	 */
-	void transferCourses(String fromCustomerLastName, String toCustomerLastName) throws CustomerNotFoundException;
+	void transferCourses(CustomerNumber fromCustomerNumber, CustomerNumber toCustomerNumber)
+			throws CustomerNotFoundException;
 
 	/**
 	 * Cancels a course membership. An e-mail is sent to all possible participants

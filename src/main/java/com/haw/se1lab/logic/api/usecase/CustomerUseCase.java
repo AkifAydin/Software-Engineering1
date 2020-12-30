@@ -32,13 +32,13 @@ public interface CustomerUseCase {
 	Customer findCustomerById(Long id) throws CustomerNotFoundException;
 
 	/**
-	 * Returns the customer with the given last name.
+	 * Returns the customer with the given customer number.
 	 * 
-	 * @param lastName the customer's last name
+	 * @param customerNumber the customer's customer number
 	 * @return the found customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
-	Customer findCustomerByLastName(String lastName) throws CustomerNotFoundException;
+	Customer findCustomerByCustomerNumber(CustomerNumber customerNumber) throws CustomerNotFoundException;
 
 	/**
 	 * Creates a customer with the given data.

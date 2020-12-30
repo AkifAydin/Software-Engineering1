@@ -33,10 +33,10 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	private MailUseCase mailUseCase;
 
 	@Override
-	public void enrollInCourse(String lastName, String courseName)
+	public void enrollInCourse(CustomerNumber customerNumber, String courseName)
 			throws CustomerNotFoundException, CourseNotFoundException {
-		Customer customer = customerRepository.findByLastName(lastName)
-				.orElseThrow(() -> new CustomerNotFoundException(lastName));
+		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
+				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 		Course course = courseRepository.findByName(courseName)
 				.orElseThrow(() -> new CourseNotFoundException(courseName));
 		customer.addCourse(course);
@@ -44,12 +44,12 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	}
 
 	@Override
-	public void transferCourses(String fromCustomerLastName, String toCustomerLastName)
+	public void transferCourses(CustomerNumber fromCustomerNumber, CustomerNumber toCustomerNumber)
 			throws CustomerNotFoundException {
-		Customer fromCustomer = customerRepository.findByLastName(fromCustomerLastName)
-				.orElseThrow(() -> new CustomerNotFoundException(fromCustomerLastName));
-		Customer toCustomer = customerRepository.findByLastName(toCustomerLastName)
-				.orElseThrow(() -> new CustomerNotFoundException(toCustomerLastName));
+		Customer fromCustomer = customerRepository.findByCustomerNumber(fromCustomerNumber)
+				.orElseThrow(() -> new CustomerNotFoundException(fromCustomerNumber));
+		Customer toCustomer = customerRepository.findByCustomerNumber(toCustomerNumber)
+				.orElseThrow(() -> new CustomerNotFoundException(toCustomerNumber));
 
 		toCustomer.getCourses().addAll(fromCustomer.getCourses());
 		fromCustomer.getCourses().clear();

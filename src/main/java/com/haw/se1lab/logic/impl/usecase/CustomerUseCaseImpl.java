@@ -35,15 +35,16 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 	}
 
 	@Override
-	public Customer findCustomerByLastName(String lastName) throws CustomerNotFoundException {
-		return customerRepository.findByLastName(lastName).orElseThrow(() -> new CustomerNotFoundException(lastName));
+	public Customer findCustomerByCustomerNumber(CustomerNumber customerNumber) throws CustomerNotFoundException {
+		return customerRepository.findByCustomerNumber(customerNumber)
+				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 	}
 
 	@Override
 	public Customer createCustomer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender)
 			throws CustomerAlreadyExistingException {
-		if (customerRepository.findByLastName(lastName).isPresent()) {
-			throw new CustomerAlreadyExistingException(lastName);
+		if (customerRepository.findByCustomerNumber(customerNumber).isPresent()) {
+			throw new CustomerAlreadyExistingException(customerNumber);
 		}
 
 		Customer customer = new Customer(customerNumber, firstName, lastName, gender);

@@ -26,14 +26,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	Optional<Customer> findByCustomerNumber(CustomerNumber customerNumber);
 
 	/**
-	 * Returns the {@link Customer} entity with the given last name.
-	 * 
-	 * @param lastName the customer's last name
-	 * @return an {@link Optional} containing the found customer
-	 */
-	Optional<Customer> findByLastName(String lastName);
-
-	/**
 	 * Deletes the {@link Customer} entity with the given customer number.
 	 * 
 	 * @param customerNumber the customer number
