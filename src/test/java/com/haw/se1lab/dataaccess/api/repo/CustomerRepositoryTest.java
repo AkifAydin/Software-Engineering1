@@ -2,6 +2,7 @@ package com.haw.se1lab.dataaccess.api.repo;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
@@ -73,6 +74,32 @@ public class CustomerRepositoryTest {
 
 		// [THEN]
 		assertThat(loadedCustomer.isPresent()).isFalse();
+	}
+
+	@Test
+	public void deleteByCustomerNumber_Success() {
+		// [GIVEN]
+		CustomerNumber customerNumber = customer.getCustomerNumber();
+
+		// [WHEN]
+		customerRepository.deleteByCustomerNumber(customerNumber);
+
+		// [THEN]
+		Optional<Customer> loadedCustomer = customerRepository.findByCustomerNumber(customerNumber);
+		assertThat(loadedCustomer.isPresent()).isFalse();
+	}
+
+	@Test
+	public void deleteByCustomerNumber_SuccessWithNoActualDeletion() {
+		// [GIVEN]
+		CustomerNumber customerNumber = new CustomerNumber(9999);
+
+		// [WHEN]
+		customerRepository.deleteByCustomerNumber(customerNumber);
+
+		// [THEN]
+		List<Customer> loadedCustomers = customerRepository.findAll();
+		assertThat(loadedCustomers).hasSize(2); // take initial data into account
 	}
 
 }
