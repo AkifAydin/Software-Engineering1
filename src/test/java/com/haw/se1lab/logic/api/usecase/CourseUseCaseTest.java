@@ -92,14 +92,14 @@ public class CourseUseCaseTest {
 	@Test
 	public void enrollInCourse_Success() throws CustomerNotFoundException, CourseNotFoundException {
 		// [GIVEN]
-		String customerLastName = customer1.getLastName();
+		CustomerNumber customerNumber = customer1.getCustomerNumber();
 		String courseName = course.getName();
 
 		// [WHEN]
-		courseUseCase.enrollInCourse(customerLastName, courseName);
+		courseUseCase.enrollInCourse(customerNumber, courseName);
 
 		// [THEN]
-		Customer loadedCustomer = customerUseCase.findCustomerByLastName(customerLastName);
+		Customer loadedCustomer = customerUseCase.findCustomerByCustomerNumber(customerNumber);
 		assertThat(loadedCustomer.getCourses()).hasSize(1);
 		assertThat(loadedCustomer.getCourses()).extracting(Course::getName).containsOnlyOnce(courseName);
 	}
@@ -107,15 +107,15 @@ public class CourseUseCaseTest {
 	@Test
 	public void enrollInCourse_FailBecauseCustomerNotFound() {
 		// [GIVEN]
-		String customerLastName = "Not-Existing";
+		CustomerNumber customerNumber = new CustomerNumber(9999);
 		String courseName = course.getName();
 
 		// [WHEN]
 		// [THEN]
 		assertThatExceptionOfType(CustomerNotFoundException.class)
-				.isThrownBy(() -> courseUseCase.enrollInCourse(customerLastName, courseName))
-				.withMessageContaining(String
-						.format(CustomerNotFoundException.CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, customerLastName));
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseName)).withMessageContaining(
+						String.format(CustomerNotFoundException.CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE,
+								customerNumber.getNumber()));
 	}
 
 	@Test
@@ -123,16 +123,16 @@ public class CourseUseCaseTest {
 		// [GIVEN]
 		customer1.addCourse(course);
 		customerRepository.save(customer1);
-		String fromCustomerLastName = customer1.getLastName();
-		String toCustomerLastName = customer2.getLastName();
+		CustomerNumber fromCustomerNumber = customer1.getCustomerNumber();
+		CustomerNumber toCustomerNumber = customer2.getCustomerNumber();
 		String courseName = course.getName();
 
 		// [WHEN]
-		courseUseCase.transferCourses(fromCustomerLastName, toCustomerLastName);
+		courseUseCase.transferCourses(fromCustomerNumber, toCustomerNumber);
 
 		// [THEN]
-		Customer loadedFromCustomer = customerUseCase.findCustomerByLastName(fromCustomerLastName);
-		Customer loadedToCustomer = customerUseCase.findCustomerByLastName(toCustomerLastName);
+		Customer loadedFromCustomer = customerUseCase.findCustomerByCustomerNumber(fromCustomerNumber);
+		Customer loadedToCustomer = customerUseCase.findCustomerByCustomerNumber(toCustomerNumber);
 		assertThat(loadedFromCustomer.getCourses()).hasSize(0);
 		assertThat(loadedToCustomer.getCourses()).hasSize(1);
 		assertThat(loadedToCustomer.getCourses()).extracting(Course::getName).containsOnlyOnce(courseName);

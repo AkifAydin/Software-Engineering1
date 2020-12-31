@@ -75,29 +75,4 @@ public class CustomerRepositoryTest {
 		assertThat(loadedCustomer.isPresent()).isFalse();
 	}
 
-	@Test
-	public void findByLastName_Success() {
-		// [GIVEN]
-		String lastName = customer.getLastName();
-
-		// [WHEN]
-		Optional<Customer> loadedCustomer = customerRepository.findByLastName(lastName);
-
-		// [THEN]
-		assertThat(loadedCustomer.isPresent()).isTrue();
-		assertThat(loadedCustomer.get().getLastName()).isEqualTo(lastName);
-	}
-
-	@Test
-	public void findByLastName_SuccessWithEmptyResult() {
-		// [GIVEN]
-		String lastName = "Not-Existing";
-
-		// [WHEN]
-		Optional<Customer> loadedCustomer = customerRepository.findByLastName(lastName);
-
-		// [THEN]
-		assertThat(loadedCustomer.isPresent()).isFalse();
-	}
-
 }
