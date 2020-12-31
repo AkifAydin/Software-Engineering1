@@ -73,16 +73,16 @@ public class CourseUseCaseImpl implements CourseUseCase {
 			customerRepository.save(customer);
 		}
 
-		String customerMail = "customer@domain.com";
+		String customerEmail = customer.getEmail();
 
-		boolean mailWasSent = mailUseCase.sendMail(customerMail, "Oh, we're sorry that you canceled your membership!",
+		boolean mailWasSent = mailUseCase.sendMail(customerEmail, "Oh, we're sorry that you canceled your membership!",
 				"Some text to make her/him come back again...");
 
 		if (!mailWasSent) {
 			// do some error handling here (including e.g. transaction rollback, etc.)
 			// ...
 
-			throw new MembershipMailNotSentException(customerMail);
+			throw new MembershipMailNotSentException(customerEmail);
 		}
 	}
 

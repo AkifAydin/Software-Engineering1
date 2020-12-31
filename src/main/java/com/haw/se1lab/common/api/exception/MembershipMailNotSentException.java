@@ -21,10 +21,12 @@ public class MembershipMailNotSentException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String COULD_NOT_SEND_MEMBERSHIP_MAIL = "Could not send membership mail to %s.";
+
 	/* ---- Constructors ---- */
 
 	public MembershipMailNotSentException(String recipient) {
-		super(String.format("Could not send membership mail to %s.", recipient));
+		super(String.format(COULD_NOT_SEND_MEMBERSHIP_MAIL, recipient));
 	}
 
 	/* ---- Overridden Methods ---- */

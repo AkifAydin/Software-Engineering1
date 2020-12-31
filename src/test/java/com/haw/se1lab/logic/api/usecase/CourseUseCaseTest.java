@@ -213,7 +213,8 @@ public class CourseUseCaseTest {
 		// [THEN]
 		assertThatExceptionOfType(MembershipMailNotSentException.class)
 				.isThrownBy(() -> courseUseCase.cancelMembership(customerNumber, courseNumber))
-				.withMessageContaining("Could not send membership mail to");
+				.withMessageContaining(String.format(MembershipMailNotSentException.COULD_NOT_SEND_MEMBERSHIP_MAIL,
+						customer1.getEmail()));
 	}
 
 }
