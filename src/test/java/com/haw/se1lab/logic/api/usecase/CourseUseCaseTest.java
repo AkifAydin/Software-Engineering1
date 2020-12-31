@@ -93,29 +93,43 @@ public class CourseUseCaseTest {
 	public void enrollInCourse_Success() throws CustomerNotFoundException, CourseNotFoundException {
 		// [GIVEN]
 		CustomerNumber customerNumber = customer1.getCustomerNumber();
-		String courseName = course.getName();
+		CourseNumber courseNumber = course.getCourseNumber();
 
 		// [WHEN]
-		courseUseCase.enrollInCourse(customerNumber, courseName);
+		courseUseCase.enrollInCourse(customerNumber, courseNumber);
 
 		// [THEN]
 		Customer loadedCustomer = customerUseCase.findCustomerByCustomerNumber(customerNumber);
 		assertThat(loadedCustomer.getCourses()).hasSize(1);
-		assertThat(loadedCustomer.getCourses()).extracting(Course::getName).containsOnlyOnce(courseName);
+		assertThat(loadedCustomer.getCourses()).extracting(Course::getCourseNumber).containsOnlyOnce(courseNumber);
 	}
 
 	@Test
 	public void enrollInCourse_FailBecauseCustomerNotFound() {
 		// [GIVEN]
 		CustomerNumber customerNumber = new CustomerNumber(9999);
-		String courseName = course.getName();
+		CourseNumber courseNumber = course.getCourseNumber();
 
 		// [WHEN]
 		// [THEN]
 		assertThatExceptionOfType(CustomerNotFoundException.class)
-				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseName)).withMessageContaining(
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseNumber)).withMessageContaining(
 						String.format(CustomerNotFoundException.CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE,
 								customerNumber.getNumber()));
+	}
+
+	@Test
+	public void enrollInCourse_FailBecauseCourseNotFound() {
+		// [GIVEN]
+		CustomerNumber customerNumber = customer1.getCustomerNumber();
+		CourseNumber courseNumber = new CourseNumber("0000");
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(CourseNotFoundException.class)
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseNumber)).withMessageContaining(
+						String.format(CourseNotFoundException.COURSE_WITH_COURSE_NUMBER_NOT_FOUND_MESSAGE,
+								courseNumber.getCode()));
 	}
 
 	@Test

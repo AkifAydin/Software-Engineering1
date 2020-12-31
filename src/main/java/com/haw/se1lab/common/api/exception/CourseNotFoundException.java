@@ -23,6 +23,8 @@ public class CourseNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String COURSE_WITH_COURSE_NUMBER_NOT_FOUND_MESSAGE = "Could not find course with course number %s.";
+
 	/* ---- Member Fields ---- */
 
 	private final CourseNumber courseNumber;
@@ -30,7 +32,7 @@ public class CourseNotFoundException extends Exception {
 	/* ---- Constructors ---- */
 
 	public CourseNotFoundException(CourseNumber courseNumber) {
-		super(String.format("Could not find course with course number %s.", courseNumber.getCode()));
+		super(String.format(COURSE_WITH_COURSE_NUMBER_NOT_FOUND_MESSAGE, courseNumber.getCode()));
 		this.courseNumber = courseNumber;
 	}
 
