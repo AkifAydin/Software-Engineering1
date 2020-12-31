@@ -33,12 +33,13 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	private MailUseCase mailUseCase;
 
 	@Override
-	public void enrollInCourse(CustomerNumber customerNumber, String courseName)
+	public void enrollInCourse(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException {
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
-		Course course = courseRepository.findByName(courseName)
-				.orElseThrow(() -> new CourseNotFoundException(courseName));
+		Course course = courseRepository.findByCourseNumber(courseNumber)
+				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
+
 		customer.addCourse(course);
 		customerRepository.save(customer);
 	}

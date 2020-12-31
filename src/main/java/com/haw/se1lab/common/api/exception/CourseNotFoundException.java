@@ -27,30 +27,17 @@ public class CourseNotFoundException extends Exception {
 
 	private final CourseNumber courseNumber;
 
-	private final String courseName;
-
 	/* ---- Constructors ---- */
 
 	public CourseNotFoundException(CourseNumber courseNumber) {
 		super(String.format("Could not find course with course number %s.", courseNumber.getCode()));
 		this.courseNumber = courseNumber;
-		this.courseName = null;
-	}
-
-	public CourseNotFoundException(String courseName) {
-		super(String.format("Could not find course with name %s.", courseName));
-		this.courseNumber = null;
-		this.courseName = courseName;
 	}
 
 	/* ---- Getters/Setters ---- */
 
 	public CourseNumber getCourseNumber() {
 		return courseNumber;
-	}
-
-	public String getCourseName() {
-		return courseName;
 	}
 
 	/* ---- Overridden Methods ---- */
