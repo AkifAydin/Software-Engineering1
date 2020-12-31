@@ -26,6 +26,8 @@ public class CustomerAlreadyExistingException extends Exception {
 
 	private static final long serialVersionUID = 1L;
 
+	public static final String CUSTOMER_WITH_CUSTOMER_NUMBER_ALREADY_EXISTS = "Customer with customer number %d already exists.";
+
 	/* ---- Member Fields ---- */
 
 	private final CustomerNumber customerNumber;
@@ -33,7 +35,7 @@ public class CustomerAlreadyExistingException extends Exception {
 	/* ---- Constructors ---- */
 
 	public CustomerAlreadyExistingException(CustomerNumber customerNumber) {
-		super(String.format("Customer with customer number %s already exists.", customerNumber.getNumber()));
+		super(String.format(CUSTOMER_WITH_CUSTOMER_NUMBER_ALREADY_EXISTS, customerNumber.getNumber()));
 		this.customerNumber = customerNumber;
 	}
 
