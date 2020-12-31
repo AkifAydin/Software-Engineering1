@@ -30,15 +30,11 @@ public class CustomerNotFoundException extends Exception {
 
 	public static final String CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE = "Could not find customer with customer number %d.";
 
-	public static final String CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE = "Could not find customer with last name %s.";
-
 	/* ---- Member Fields ---- */
 
 	private final Long id;
 
 	private final CustomerNumber customerNumber;
-
-	private final String lastName;
 
 	/* ---- Constructors ---- */
 
@@ -46,21 +42,12 @@ public class CustomerNotFoundException extends Exception {
 		super(String.format(CUSTOMER_WITH_ID_NOT_FOUND_MESSAGE, id));
 		this.id = id;
 		this.customerNumber = null;
-		this.lastName = null;
 	}
 
 	public CustomerNotFoundException(CustomerNumber customerNumber) {
 		super(String.format(CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE, customerNumber.getNumber()));
 		this.id = null;
 		this.customerNumber = customerNumber;
-		this.lastName = null;
-	}
-
-	public CustomerNotFoundException(String lastName) {
-		super(String.format(CUSTOMER_WITH_LAST_NAME_NOT_FOUND_MESSAGE, lastName));
-		this.id = 0L;
-		this.customerNumber = null;
-		this.lastName = lastName;
 	}
 
 	/* ---- Getters/Setters ---- */
@@ -71,10 +58,6 @@ public class CustomerNotFoundException extends Exception {
 
 	public CustomerNumber getCustomerNumber() {
 		return customerNumber;
-	}
-
-	public String getLastName() {
-		return lastName;
 	}
 
 	/* ---- Overridden Methods ---- */
