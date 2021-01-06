@@ -105,6 +105,30 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
+	public void enrollInCourse_FailBecauseCustomerNumberNull() {
+		// [GIVEN]
+		CustomerNumber customerNumber = null;
+		CourseNumber courseNumber = course.getCourseNumber();
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseNumber));
+	}
+
+	@Test
+	public void enrollInCourse_FailBecauseCourseNumberNull() {
+		// [GIVEN]
+		CustomerNumber customerNumber = customer1.getCustomerNumber();
+		CourseNumber courseNumber = null;
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.enrollInCourse(customerNumber, courseNumber));
+	}
+
+	@Test
 	public void enrollInCourse_FailBecauseCustomerNotFound() {
 		// [GIVEN]
 		CustomerNumber customerNumber = new CustomerNumber(9999);
@@ -153,6 +177,60 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
+	public void transferCourses_FailBecauseFromCustomerNumberNull() {
+		// [GIVEN]
+		CustomerNumber fromCustomerNumber = null;
+		CustomerNumber toCustomerNumber = customer2.getCustomerNumber();
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.transferCourses(fromCustomerNumber, toCustomerNumber));
+	}
+
+	@Test
+	public void transferCourses_FailBecauseToCustomerNumberNull() {
+		// [GIVEN]
+		CustomerNumber fromCustomerNumber = customer1.getCustomerNumber();
+		CustomerNumber toCustomerNumber = null;
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.transferCourses(fromCustomerNumber, toCustomerNumber));
+	}
+
+	@Test
+	public void transferCourses_FailBecauseFromCustomerNotFound() {
+		// [GIVEN]
+		CustomerNumber fromCustomerNumber = new CustomerNumber(9999);
+		CustomerNumber toCustomerNumber = customer2.getCustomerNumber();
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(CustomerNotFoundException.class)
+				.isThrownBy(() -> courseUseCase.transferCourses(fromCustomerNumber, toCustomerNumber))
+				.withMessageContaining(
+						String.format(CustomerNotFoundException.CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE,
+								fromCustomerNumber.getNumber()));
+	}
+
+	@Test
+	public void transferCourses_FailBecauseToCustomerNotFound() {
+		// [GIVEN]
+		CustomerNumber fromCustomerNumber = customer1.getCustomerNumber();
+		CustomerNumber toCustomerNumber = new CustomerNumber(9999);
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(CustomerNotFoundException.class)
+				.isThrownBy(() -> courseUseCase.transferCourses(fromCustomerNumber, toCustomerNumber))
+				.withMessageContaining(
+						String.format(CustomerNotFoundException.CUSTOMER_WITH_CUSTOMER_NUMBER_NOT_FOUND_MESSAGE,
+								toCustomerNumber.getNumber()));
+	}
+
+	@Test
 	public void cancelMembership_Success()
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// [GIVEN]
@@ -196,6 +274,30 @@ public class CourseUseCaseTest {
 
 		// check that MailGateway was called
 		// ...
+	}
+
+	@Test
+	public void cancelMembership_FailBecauseCustomerNumberNull() {
+		// [GIVEN]
+		CustomerNumber customerNumber = null;
+		CourseNumber courseNumber = course.getCourseNumber();
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.cancelMembership(customerNumber, courseNumber));
+	}
+
+	@Test
+	public void cancelMembership_FailBecauseCourseNumberNull() {
+		// [GIVEN]
+		CustomerNumber customerNumber = customer1.getCustomerNumber();
+		CourseNumber courseNumber = null;
+
+		// [WHEN]
+		// [THEN]
+		assertThatExceptionOfType(IllegalArgumentException.class)
+				.isThrownBy(() -> courseUseCase.cancelMembership(customerNumber, courseNumber));
 	}
 
 	@Test
