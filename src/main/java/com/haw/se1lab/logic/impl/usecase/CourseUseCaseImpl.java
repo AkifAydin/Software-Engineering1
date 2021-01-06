@@ -2,6 +2,7 @@ package com.haw.se1lab.logic.impl.usecase;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.haw.se1lab.common.api.datatype.CourseNumber;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
@@ -35,6 +36,10 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	@Override
 	public void enrollInCourse(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException {
+		// check preconditions
+		Assert.notNull(customerNumber, "Parameter 'customerNumber' must not be null!");
+		Assert.notNull(courseNumber, "Parameter 'courseNumber' must not be null!");
+
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 		Course course = courseRepository.findByCourseNumber(courseNumber)
@@ -47,6 +52,10 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	@Override
 	public void transferCourses(CustomerNumber fromCustomerNumber, CustomerNumber toCustomerNumber)
 			throws CustomerNotFoundException {
+		// check preconditions
+		Assert.notNull(fromCustomerNumber, "Parameter 'fromCustomerNumber' must not be null!");
+		Assert.notNull(toCustomerNumber, "Parameter 'toCustomerNumber' must not be null!");
+
 		Customer fromCustomer = customerRepository.findByCustomerNumber(fromCustomerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(fromCustomerNumber));
 		Customer toCustomer = customerRepository.findByCustomerNumber(toCustomerNumber)
@@ -62,6 +71,10 @@ public class CourseUseCaseImpl implements CourseUseCase {
 	@Override
 	public void cancelMembership(CustomerNumber customerNumber, CourseNumber courseNumber)
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
+		// check preconditions
+		Assert.notNull(customerNumber, "Parameter 'customerNumber' must not be null!");
+		Assert.notNull(courseNumber, "Parameter 'courseNumber' must not be null!");
+
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 		Course course = courseRepository.findByCourseNumber(courseNumber)

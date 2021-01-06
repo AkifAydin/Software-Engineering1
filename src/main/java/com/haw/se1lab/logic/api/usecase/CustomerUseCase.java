@@ -18,7 +18,7 @@ public interface CustomerUseCase {
 	/**
 	 * Returns all available customers.
 	 * 
-	 * @return the found customers
+	 * @return the found customers or an empty list if none were found
 	 */
 	List<Customer> findAllCustomers();
 
@@ -29,12 +29,13 @@ public interface CustomerUseCase {
 	 * @return the found customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
-	Customer findCustomerById(Long id) throws CustomerNotFoundException;
+	Customer findCustomerById(long id) throws CustomerNotFoundException;
 
 	/**
 	 * Returns the customer with the given customer number.
 	 * 
-	 * @param customerNumber the customer's customer number
+	 * @param customerNumber the customer's customer number; must not be
+	 *                       <code>null</code>
 	 * @return the found customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
@@ -43,13 +44,14 @@ public interface CustomerUseCase {
 	/**
 	 * Creates a customer with the given data.
 	 * 
-	 * @param customerNumber the customer number
-	 * @param firstName      the customer's first name
-	 * @param lastName       the customer's last name
-	 * @param gender         the customer's gender
+	 * @param customerNumber the customer's customer number; must not be
+	 *                       <code>null</code>
+	 * @param firstName      the customer's first name; must contain text
+	 * @param lastName       the customer's last name; must contain text
+	 * @param gender         the customer's gender; must not be <code>null</code>
 	 * @return the created customer
 	 * @throws CustomerAlreadyExistingException in case a customer with the given
-	 *                                          data already exists
+	 *                                          customer number already exists
 	 */
 	Customer createCustomer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender)
 			throws CustomerAlreadyExistingException;
@@ -57,7 +59,8 @@ public interface CustomerUseCase {
 	/**
 	 * Updates a customer with the given data.
 	 * 
-	 * @param customer the customer to be updated
+	 * @param customer the customer data to be updated; must not be
+	 *                 <code>null</code>
 	 * @return the updated customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
@@ -69,6 +72,6 @@ public interface CustomerUseCase {
 	 * @param id the customer's technical ID
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
-	void deleteCustomer(Long id) throws CustomerNotFoundException;
+	void deleteCustomer(long id) throws CustomerNotFoundException;
 
 }

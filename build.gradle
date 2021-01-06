@@ -32,6 +32,7 @@ repositories {
 }
 
 dependencies {
+    implementation 'commons-validator:commons-validator:1.7'
     implementation 'javax.xml.bind:jaxb-api'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.json:json:20200518'

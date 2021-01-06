@@ -17,7 +17,7 @@ public interface CustomerFacade {
 	/**
 	 * Returns all available customers.
 	 * 
-	 * @return the found customers
+	 * @return the found customers or an empty list if none were found
 	 */
 	List<Customer> getCustomers();
 
@@ -28,12 +28,12 @@ public interface CustomerFacade {
 	 * @return the found customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
-	Customer getCustomer(Long id) throws CustomerNotFoundException;
+	Customer getCustomer(long id) throws CustomerNotFoundException;
 
 	/**
 	 * Creates a customer with the given data.
 	 * 
-	 * @param customer the customer to be created
+	 * @param customer the customer to be created; must not be <code>null</code>
 	 * @return the created customer
 	 * @throws CustomerAlreadyExistingException in case a customer with the given
 	 *                                          data already exists
@@ -43,7 +43,7 @@ public interface CustomerFacade {
 	/**
 	 * Updates a customer with the given data.
 	 * 
-	 * @param customer the customer to be updated
+	 * @param customer the customer to be updated; must not be <code>null</code>
 	 * @return the updated customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
@@ -55,6 +55,6 @@ public interface CustomerFacade {
 	 * @param id the customer's technical ID
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
-	void deleteCustomer(Long id) throws CustomerNotFoundException;
+	void deleteCustomer(long id) throws CustomerNotFoundException;
 
 }

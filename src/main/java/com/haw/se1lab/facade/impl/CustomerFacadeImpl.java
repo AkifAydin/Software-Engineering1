@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,7 +43,7 @@ public class CustomerFacadeImpl implements CustomerFacade {
 
 	@GetMapping(value = "/{id:[\\d]+}")
 	@Override
-	public Customer getCustomer(@PathVariable("id") Long id) throws CustomerNotFoundException {
+	public Customer getCustomer(@PathVariable("id") long id) throws CustomerNotFoundException {
 		return customerUseCase.findCustomerById(id);
 	}
 
@@ -51,6 +52,9 @@ public class CustomerFacadeImpl implements CustomerFacade {
 	@Transactional
 	@Override
 	public Customer createCustomer(@RequestBody Customer customer) throws CustomerAlreadyExistingException {
+		// check preconditions
+		Assert.notNull(customer, "Parameter 'customer' must not be null!");
+
 		return customerUseCase.createCustomer(customer.getCustomerNumber(), customer.getFirstName(),
 				customer.getLastName(), customer.getGender());
 	}
@@ -66,7 +70,7 @@ public class CustomerFacadeImpl implements CustomerFacade {
 	@ResponseStatus(HttpStatus.OK)
 	@Transactional
 	@Override
-	public void deleteCustomer(@PathVariable("id") Long id) throws CustomerNotFoundException {
+	public void deleteCustomer(@PathVariable("id") long id) throws CustomerNotFoundException {
 		customerUseCase.deleteCustomer(id);
 	}
 

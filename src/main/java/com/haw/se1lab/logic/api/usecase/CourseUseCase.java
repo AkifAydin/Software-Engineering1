@@ -17,9 +17,10 @@ public interface CourseUseCase {
 	/**
 	 * Enrolls a customer in a course.
 	 * 
-	 * @param customerNumber the customer's customer number
+	 * @param customerNumber the customer's customer number; must not be
+	 *                       <code>null</code>
 	 * @param courseNumber   the course number of the course to enroll the customer
-	 *                       in
+	 *                       in; must not be <code>null</code>
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 * @throws CourseNotFoundException   in case the course could not be found
 	 */
@@ -32,9 +33,11 @@ public interface CourseUseCase {
 	 * customer is enrolled in the respective courses.
 	 * 
 	 * @param fromCustomerNumber the customer number of the source customer to be
-	 *                           removed from his courses
+	 *                           removed from his courses; must not be
+	 *                           <code>null</code>
 	 * @param toCustomerNumber   the customer number of the target customer to get
-	 *                           the courses of the source customer
+	 *                           the courses of the source customer; must not be
+	 *                           <code>null</code>
 	 * @throws CustomerNotFoundException in case one of the customers could not be
 	 *                                   found
 	 */
@@ -46,9 +49,10 @@ public interface CourseUseCase {
 	 * on the waiting list for this course. If the given customer is not member of
 	 * the provided course, nothing changes.
 	 * 
-	 * @param customerNumber the number of the customer whose membership shall be
-	 *                       canceled
-	 * @param courseNumber   the number of the course to cancel the membership from
+	 * @param customerNumber the customer number of the customer whose membership
+	 *                       shall be canceled; must not be <code>null</code>
+	 * @param courseNumber   the course number of the course to cancel the
+	 *                       membership from; must not be <code>null</code>
 	 * @throws CustomerNotFoundException      in case the customer could not be
 	 *                                        found
 	 * @throws CourseNotFoundException        in case the course could not be found
