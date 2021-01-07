@@ -28,7 +28,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     jcenter()
-    maven { url "http://repo.spring.io/release" }
+    maven { url "https://repo.spring.io/release" }
 }
 
 dependencies {
