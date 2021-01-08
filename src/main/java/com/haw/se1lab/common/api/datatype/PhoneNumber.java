@@ -8,11 +8,11 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.Assert;
 
 /**
- * Represents a phone number in the international phone number format ("+"
- * followed by 2 digits, "-", 2-3 digits, "-" and finally a minimum of 4 digits.
- * Example: +49-170-1234567
+ * Represents a phone number in the international phone number format ("+" followed by 2 digits, "-", 2-3 digits, "-"
+ * and finally a minimum of 4 digits. Example: +49-170-1234567
  * 
  * @author Arne Busch
  */
@@ -49,7 +49,10 @@ public class PhoneNumber {
 	public PhoneNumber() {
 	}
 
-	public PhoneNumber(String phoneNumber) throws IllegalArgumentException {
+	public PhoneNumber(String phoneNumber) {
+		// check preconditions
+		Assert.notNull(phoneNumber, "Parameter 'phoneNumber' must not be null!");
+
 		if (!isValid(phoneNumber)) {
 			throw new IllegalArgumentException("Invalid phone number: " + phoneNumber);
 		}
@@ -63,7 +66,12 @@ public class PhoneNumber {
 		subscriberNumber = matcher.group(3);
 	}
 
-	public PhoneNumber(String countryCode, String areaCode, String subscriberNumber) throws IllegalArgumentException {
+	public PhoneNumber(String countryCode, String areaCode, String subscriberNumber) {
+		// check preconditions
+		Assert.notNull(countryCode, "Parameter 'countryCode' must not be null!");
+		Assert.notNull(areaCode, "Parameter 'areaCode' must not be null!");
+		Assert.notNull(subscriberNumber, "Parameter 'subscriberNumber' must not be null!");
+
 		if (!countryCode.matches(COUNTRY_CODE_PATTERN)) {
 			throw new IllegalArgumentException("Invalid country code: " + countryCode);
 		}

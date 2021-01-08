@@ -5,11 +5,11 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.Assert;
 
 /**
- * Represents a course number. A course number consists of 2-4 capital letters
- * and digits. Usually this should be the commonly used acronym for the course
- * (e.g. "SE1" for "Software Engineering 1").
+ * Represents a course number. A course number consists of 2-4 capital letters and digits. Usually this should be the
+ * commonly used acronym for the course (e.g. "SE1" for "Software Engineering 1").
  * 
  * @author Arne Busch
  */
@@ -38,7 +38,10 @@ public class CourseNumber {
 	public CourseNumber() {
 	}
 
-	public CourseNumber(String code) throws IllegalArgumentException {
+	public CourseNumber(String code) {
+		// check preconditions
+		Assert.notNull(code, "Parameter 'code' must not be null!");
+
 		if (!isValid(code)) {
 			throw new IllegalArgumentException("Invalid course number: " + code);
 		}

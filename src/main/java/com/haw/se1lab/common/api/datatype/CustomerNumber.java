@@ -5,10 +5,10 @@ import javax.persistence.Embeddable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.Assert;
 
 /**
- * Represents a customer number. A customer number consists of digits. The
- * maximum number is 2^31 - 1.
+ * Represents a customer number. A customer number consists of digits. The maximum number is 2^31 - 1.
  * 
  * @author Arne Busch
  */
@@ -33,6 +33,9 @@ public class CustomerNumber {
 	}
 
 	public CustomerNumber(Integer number) {
+		// check preconditions
+		Assert.notNull(number, "Parameter 'number' must not be null!");
+
 		this.number = number;
 	}
 
