@@ -8,7 +8,17 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 /**
+ * <p>
  * Represents a customer number. A customer number consists of digits. The maximum number is 2^31 - 1.
+ * </p>
+ * <p>
+ * This is a value type (like e.g. <code>String</code>), i.e. two instances of this class are considered to be equal if
+ * their values are equal (although each instance in fact has its own object identity).
+ * </p>
+ * <p>
+ * Instances of this class are immutable, i.e. their values are assigned during construction and may never be changed
+ * from there on.
+ * </p>
  * 
  * @author Arne Busch
  */
@@ -20,16 +30,18 @@ import org.springframework.util.Assert;
 //@Getter
 //@AllArgsConstructor
 //@NoArgsConstructor
-@Embeddable
+@Embeddable // indicates that the type's attributes can be stored in columns of the owning entity's table
 public class CustomerNumber {
 
 	/* ---- Member Fields ---- */
 
+	// default column name: NUMBER
 	private Integer number;
 
 	/* ---- Constructors ---- */
 
-	public CustomerNumber() {
+	// default constructor (required by Hibernate)
+	CustomerNumber() {
 	}
 
 	public CustomerNumber(Integer number) {
@@ -47,7 +59,7 @@ public class CustomerNumber {
 
 	/* ---- Overridden Methods ---- */
 
-	// overridden, so objects having the same values are considered as equal
+	// overridden, so two instances having the same values are considered as equal
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);

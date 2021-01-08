@@ -8,8 +8,18 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 /**
+ * <p>
  * Represents a course number. A course number consists of 2-4 capital letters and digits. Usually this should be the
  * commonly used acronym for the course (e.g. "SE1" for "Software Engineering 1").
+ * </p>
+ * <p>
+ * This is a value type (like e.g. <code>String</code>), i.e. two instances of this class are considered to be equal if
+ * their values are equal (although each instance in fact has its own object identity).
+ * </p>
+ * <p>
+ * Instances of this class are immutable, i.e. their values are assigned during construction and may never be changed
+ * from there on.
+ * </p>
  * 
  * @author Arne Busch
  */
@@ -21,7 +31,7 @@ import org.springframework.util.Assert;
 //@Getter
 //@AllArgsConstructor
 //@NoArgsConstructor
-@Embeddable
+@Embeddable // indicates that the type's attributes can be stored in columns of the owning entity's table
 public class CourseNumber {
 
 	/* ---- Class Fields ---- */
@@ -31,11 +41,13 @@ public class CourseNumber {
 
 	/* ---- Member Fields ---- */
 
+	// default column name: CODE
 	private String code;
 
 	/* ---- Constructors ---- */
 
-	public CourseNumber() {
+	// default constructor (required by Hibernate)
+	CourseNumber() {
 	}
 
 	public CourseNumber(String code) {
@@ -57,7 +69,7 @@ public class CourseNumber {
 
 	/* ---- Overridden Methods ---- */
 
-	// overridden, so objects having the same values are considered as equal
+	// overridden, so two instances having the same values are considered as equal
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);

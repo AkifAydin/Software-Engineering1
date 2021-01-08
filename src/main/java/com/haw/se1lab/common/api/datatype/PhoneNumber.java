@@ -11,8 +11,18 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.springframework.util.Assert;
 
 /**
+ * <p>
  * Represents a phone number in the international phone number format ("+" followed by 2 digits, "-", 2-3 digits, "-"
  * and finally a minimum of 4 digits. Example: +49-170-1234567
+ * </p>
+ * <p>
+ * This is a value type (like e.g. <code>String</code>), i.e. two instances of this class are considered to be equal if
+ * their values are equal (although each instance in fact has its own object identity).
+ * </p>
+ * <p>
+ * Instances of this class are immutable, i.e. their values are assigned during construction and may never be changed
+ * from there on.
+ * </p>
  * 
  * @author Arne Busch
  */
@@ -24,29 +34,39 @@ import org.springframework.util.Assert;
 //@Getter
 //@AllArgsConstructor
 //@NoArgsConstructor
-@Embeddable
+@Embeddable // indicates that the type's attributes can be stored in columns of the owning entity's table
 public class PhoneNumber {
 
 	/* ---- Class Fields ---- */
 
-	/** The pattern for a valid phone number. Example: +49-170-1234567 */
+	/** The pattern for a valid country code. Example: +49 */
 	private static final String COUNTRY_CODE_PATTERN = "\\+\\d{2}";
-	private static final String AREA_CODE_PATTERN = "\\d{2,3}";
+
+	/** The pattern for a valid area code. Examples: 40, 170, 1805 */
+	private static final String AREA_CODE_PATTERN = "\\d{2,4}";
+
+	/** The pattern for a valid subscriber number. Example: 1234567 */
 	private static final String SUBSCRIBER_NUMBER_PATTERN = "\\d{4,}";
+
+	/** The pattern for a valid phone number. Example: +49-170-1234567 */
 	private static final String PHONE_NUMBER_PATTERN = "^(" + COUNTRY_CODE_PATTERN + ")-(" + AREA_CODE_PATTERN + ")-("
 			+ SUBSCRIBER_NUMBER_PATTERN + ")$";
 
 	/* ---- Member Fields ---- */
 
+	// default column name: COUNTRY_CODE
 	private String countryCode;
 
+	// default column name: AREA_CODE
 	private String areaCode;
 
+	// default column name: SUBSCRIBER_NUMBER
 	private String subscriberNumber;
 
 	/* ---- Constructors ---- */
 
-	public PhoneNumber() {
+	// default constructor (required by Hibernate)
+	PhoneNumber() {
 	}
 
 	public PhoneNumber(String phoneNumber) {
@@ -105,7 +125,7 @@ public class PhoneNumber {
 
 	/* ---- Overridden Methods ---- */
 
-	// overridden, so objects having the same values are considered as equal
+	// overridden, so two instances having the same values are considered as equal
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
