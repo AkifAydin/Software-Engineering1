@@ -31,6 +31,11 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class PremiumAccount {
 
+	/*
+	 * The tables for this class (automatically created from the code by the H2 database embedded in this project) can
+	 * be seen in the H2 Console when the application is running: http://localhost:8080/h2-console
+	 */
+
 	/* ---- Member Fields ---- */
 
 	@Id // marks this field as the entity's technical ID (primary key) in the database

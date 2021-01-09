@@ -3,7 +3,9 @@ package com.haw.se1lab.dataaccess.api.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -35,6 +37,11 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class Course {
 
+	/*
+	 * The tables for this class (automatically created from the code by the H2 database embedded in this project) can
+	 * be seen in the H2 Console when the application is running: http://localhost:8080/h2-console
+	 */
+
 	/* ---- Member Fields ---- */
 
 	@Id // marks this field as the entity's technical ID (primary key) in the database
@@ -43,6 +50,10 @@ public class Course {
 	private Long id;
 
 	@Embedded // causes this field's attributes to be embedded (i.e. stored in columns within this entity's table)
+	@AttributeOverride( // replaces the default column names for the embedded attributes by more meaningful ones
+			name = "code", // the name of the embedded attribute
+			column = @Column(name = "COURSE_NUMBER") // the column name in this entity's table
+	)
 	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CourseNumber courseNumber;
 
