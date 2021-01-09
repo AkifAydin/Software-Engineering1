@@ -19,8 +19,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.haw.se1lab.common.api.datatype.CourseNumber;
 
 /**
- * Represents a course for personal education. Customers can subscribe to
- * courses.
+ * Represents a course for personal education. Customers can subscribe to courses.
  * 
  * @author Arne Busch
  */
@@ -32,28 +31,37 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Entity // marks this class as an entity; default table name: COURSE
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class Course {
 
 	/* ---- Member Fields ---- */
 
-	@Id
-	@GeneratedValue
+	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+	// default column name: ID
 	private Long id;
 
-	@Embedded
+	@Embedded // causes this field's attributes to be embedded (i.e. stored in columns within this entity's table)
+	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CourseNumber courseNumber;
 
+	// default column name: NAME
 	private String name;
 
 //  @Setter(AccessLevel.NONE)
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+	@OneToMany( // this entity can have multiple children, but every child can have only one parent
+			cascade = CascadeType.ALL, // also removes children when this entity is removed
+			orphanRemoval = true, // removes children after being detached from this entity without being re-attached
+			fetch = FetchType.EAGER // loads all children when this entity is loaded (not only when accessing them)
+	)
+	// association realized by junction table; default table name: COURSE_REVIEWS
 	private List<CourseReview> reviews = new ArrayList<>();
 
 	/* ---- Constructors ---- */
 
-	public Course() {
+	// default constructor (required by Hibernate)
+	Course() {
 	}
 
 	public Course(CourseNumber courseNumber, String name) {

@@ -26,8 +26,7 @@ import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
 
 /**
- * Represents a customer of the application. Customers can e.g. subscribe to
- * courses.
+ * Represents a customer of the application. Customers can e.g. subscribe to courses.
  * 
  * @author Arne Busch
  */
@@ -39,43 +38,61 @@ import com.haw.se1lab.common.api.datatype.PhoneNumber;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Entity // marks this class as an entity; default table name: CUSTOMER
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class Customer {
 
 	/* ---- Member Fields ---- */
 
-	@Id
-	@GeneratedValue
+	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+	// default column name: ID
 	private Long id;
 
-	@Embedded
+	@Embedded // causes this field's attributes to be stored in columns within this entity's table
+	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CustomerNumber customerNumber;
 
+	// default column name: FIRST_NAME
 	private String firstName;
 
+	// default column name: LAST_NAME
 	private String lastName;
 
 	@Enumerated(EnumType.STRING)
+	// default column name: GENDER
 	private Gender gender;
 
+	// default column name: EMAIL
 	private String email;
 
+	@Embedded // causes this field's attributes to be stored in columns within this entity's table
+	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private PhoneNumber phoneNumber;
 
 //    @Setter(AccessLevel.NONE)
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany( // this entity can have multiple children and every child can have multiple parents
+			fetch = FetchType.EAGER // loads all children when this entity is loaded (not only when accessing them)
+	)
+	// association realized by junction table; default table name: CUSTOMER_COURSES
 	private List<Course> courses = new ArrayList<>();
 
-	@ManyToOne
+	@ManyToOne // this entity has one child, but the child can have multiple parents
+	// default column name: LAST_FINISHED_COURSE_ID
 	private Course lastFinishedCourse;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "owner")
+	@OneToOne( // this entity has one child and the child has only one parent
+			cascade = CascadeType.ALL, // also removes the child when this entity is removed
+			orphanRemoval = true, // removes the child after being detached from this entity without being re-attached
+			mappedBy = "owner" // the field name in the child's type which holds the reference to this entity
+	)
+	// no column for this field (association mapped by child entity)
 	private PremiumAccount premiumAccount;
 
 	/* ---- Constructors ---- */
 
-	public Customer() {
+	// default constructor (required by Hibernate)
+	Customer() {
 	}
 
 	public Customer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender) {
@@ -83,8 +100,6 @@ public class Customer {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
-		this.email = null;
-		this.phoneNumber = null;
 	}
 
 	public Customer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender, String email,
@@ -186,14 +201,18 @@ public class Customer {
 	/* ---- Custom Methods ---- */
 
 	/**
-	 * Adds the given course to the customer's booked courses. If the customer has
-	 * already booked the course, nothing happens.
+	 * Adds the given course to the customer's booked courses. If the customer has already booked the course, nothing
+	 * happens.
 	 * 
-	 * @param course the course to add
-	 * @return <code>true</code> in case the course was added, <code>false</code>
-	 *         otherwise
+	 * @param course the course to add; must not be <code>null</code> and have a non-null course number
+	 * @return <code>true</code> in case the course was added, <code>false</code> otherwise
 	 */
 	public boolean addCourse(Course course) {
+//		// check preconditions
+//		Assert.notNull(course, "Parameter 'course' must not be null!");
+//		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
+
+		// check if course already in list (identified by unique course number)
 		boolean courseAlreadyBooked = courses.stream()
 				.anyMatch(c -> c.getCourseNumber().equals(course.getCourseNumber()));
 
@@ -206,14 +225,18 @@ public class Customer {
 	}
 
 	/**
-	 * Removes the given course from the customer's booked courses. If the customer
-	 * has not booked the course, nothing happens.
+	 * Removes the given course from the customer's booked courses. If the customer has not booked the course, nothing
+	 * happens.
 	 * 
-	 * @param course the course to remove
-	 * @return <code>true</code> in case the course was removed, <code>false</code>
-	 *         otherwise
+	 * @param course the course to remove; must not be <code>null</code> and have a non-null course number
+	 * @return <code>true</code> in case the course was removed, <code>false</code> otherwise
 	 */
 	public boolean removeCourse(Course course) {
+//		// check preconditions
+//		Assert.notNull(course, "Parameter 'course' must not be null!");
+//		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
+
+		// find course in list (identified by unique course number)
 		Optional<Course> bookedCourse = courses.stream()
 				.filter(c -> c.getCourseNumber().equals(course.getCourseNumber())).findFirst();
 

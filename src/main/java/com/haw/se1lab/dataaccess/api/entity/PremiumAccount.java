@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * Represents a premium account of a customer. A premium account is a payed
- * subscription which grants exclusive offers and other benefits.
+ * Represents a premium account of a customer. A premium account is a payed subscription which grants exclusive offers
+ * and other benefits.
  * 
  * @author Arne Busch
  */
@@ -27,25 +27,31 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Entity // marks this class as an entity; default table name: PREMIUM_ACCOUNT
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class PremiumAccount {
 
 	/* ---- Member Fields ---- */
 
-	@Id
-	@GeneratedValue
+	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+	// default column name: ID
 	private Long id;
 
-	// lazy fetching required here, as the association bidirectional
-	@OneToOne(fetch = FetchType.LAZY, optional = false)
+	@OneToOne( // this entity has one parent and the parent has only one child
+			optional = false, // indicates that the field must be non-null when this entity is saved
+			fetch = FetchType.LAZY // only loads parent on access (prevent fetch error -> association is bidirectional)
+	)
+	// default column name: OWNER_ID
 	private Customer owner;
 
+	// default column name: VALID_TO
 	private Date validTo;
 
 	/* ---- Constructors ---- */
 
-	public PremiumAccount() {
+	// default constructor (required by Hibernate)
+	PremiumAccount() {
 	}
 
 	public PremiumAccount(Customer owner, Date validTo) {

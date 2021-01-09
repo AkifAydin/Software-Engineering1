@@ -11,9 +11,8 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 /**
- * Represents a review for a course made by one of its subscribed customers. A
- * review contains a rating with an integer value between 1 (lowest) and 5
- * (highest). Reviews can also include an optional comment.
+ * Represents a review for a course made by one of its subscribed customers. A review contains a rating with an integer
+ * value between 1 (lowest) and 5 (highest). Reviews can also include an optional comment.
  * 
  * @author Arne Busch
  */
@@ -24,25 +23,30 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Entity // marks this class as an entity; default table name: COURSE_REVIEW
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class CourseReview {
 
 	/* ---- Member Fields ---- */
 
-	@Id
-	@GeneratedValue
+	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+	// default column name: ID
 	private Long id;
 
+	// default column name: REVIEWER
 	private String reviewer;
 
+	// default column name: RATING
 	private int rating;
 
+	// default column name: COMMENT
 	private String comment;
 
 	/* ---- Constructors ---- */
 
-	public CourseReview() {
+	// default constructor (required by Hibernate)
+	CourseReview() {
 	}
 
 	public CourseReview(String reviewer, int rating, String comment) {
