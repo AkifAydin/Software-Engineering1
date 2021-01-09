@@ -19,7 +19,8 @@ import com.haw.se1lab.dataaccess.api.entity.Course;
 public interface CourseRepository extends JpaRepository<Course, Long> {
 
 	/* ---- Custom Query Methods ---- */
-	// See also "Spring Data - Query Methods":
+
+	// For documentation about how query methods work and how to declare them see "Spring Data - Query Methods":
 	// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 
 	/**
