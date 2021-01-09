@@ -1,5 +1,6 @@
 package com.haw.se1lab.dataaccess.api.repo;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -7,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
+import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
 
 /**
@@ -32,6 +34,23 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 	// custom query method with query automatically derived from method name (e.g. "<action>By<attribute name>")
 	// equivalent SQL query: select * from CUSTOMER where NUMBER = [customerNumber.number]
 	Optional<Customer> findByCustomerNumber(CustomerNumber customerNumber);
+
+	/**
+	 * Returns the {@link Customer} entity with the given customer number.
+	 * 
+	 * @param customerNumber the customer number
+	 * @return an {@link Optional} containing the found customer
+	 */
+	// custom query method with query automatically derived from method name (e.g. "<action>By<attribute name>")
+	// equivalent SQL query:
+	// select * from CUSTOMER c
+	// where FIRST_NAME = [firstName]
+	// and LAST_NAME = [lastName]
+	// and [course.id] in (select COURSES_ID from CUSTOMER_COURSES where CUSTOMER_ID = c.ID)
+	// and EMAIL is not null
+	// order by GENDER desc
+	List<Customer> findByFirstNameAndLastNameAndCoursesContainingAndEmailNotNullOrderByGenderDesc(String firstName,
+			String lastName, Course course);
 
 	/**
 	 * Deletes the {@link Customer} entity with the given customer number.
