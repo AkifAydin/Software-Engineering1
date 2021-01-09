@@ -27,11 +27,13 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 
 	@Override
 	public List<Customer> findAllCustomers() {
+		// load entities from DB
 		return customerRepository.findAll();
 	}
 
 	@Override
 	public Customer findCustomerById(long id) throws CustomerNotFoundException {
+		// load entity from DB
 		return customerRepository.findById(id).orElseThrow(() -> new CustomerNotFoundException(id));
 	}
 
@@ -40,6 +42,7 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 		// check preconditions
 		Assert.notNull(customerNumber, "Parameter 'customerNumber' must not be null!");
 
+		// load entity from DB
 		return customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 	}
@@ -59,7 +62,8 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 
 		// create a new customer as plain old Java object
 		Customer customer = new Customer(customerNumber, firstName, lastName, gender);
-		// store the customer in the database (the object is managed/observed by Hibernate from then on)
+
+		// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 		return customerRepository.save(customer);
 	}
 
@@ -70,14 +74,18 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 
 		// make sure the customer to be updated exists (throw exception if not)
 		findCustomerById(customer.getId());
-		// store the customer in the database (the object is managed/observed by Hibernate from then on)
+
+		// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 		return customerRepository.save(customer);
 	}
 
 	@Override
 	public void deleteCustomer(long id) throws CustomerNotFoundException {
+		// check preconditions
 		// make sure the customer to be deleted exists (throw exception if not) and also load the customer
 		Customer customer = findCustomerById(id);
+
+		// delete entity in DB
 		customerRepository.delete(customer);
 	}
 

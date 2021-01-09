@@ -40,13 +40,16 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		Assert.notNull(customerNumber, "Parameter 'customerNumber' must not be null!");
 		Assert.notNull(courseNumber, "Parameter 'courseNumber' must not be null!");
 
+		// load entities from DB
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 		Course course = courseRepository.findByCourseNumber(courseNumber)
 				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
 
+		// perform business logic
 		customer.addCourse(course);
-		// store the customer in the database (the object is managed/observed by Hibernate from then on)
+
+		// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 		customerRepository.save(customer);
 	}
 
@@ -57,15 +60,17 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		Assert.notNull(fromCustomerNumber, "Parameter 'fromCustomerNumber' must not be null!");
 		Assert.notNull(toCustomerNumber, "Parameter 'toCustomerNumber' must not be null!");
 
+		// load entities from DB
 		Customer fromCustomer = customerRepository.findByCustomerNumber(fromCustomerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(fromCustomerNumber));
 		Customer toCustomer = customerRepository.findByCustomerNumber(toCustomerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(toCustomerNumber));
 
+		// perform business logic
 		toCustomer.getCourses().addAll(fromCustomer.getCourses());
 		fromCustomer.getCourses().clear();
 
-		// store the customers in the database (the objects are managed/observed by Hibernate from then on)
+		// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 		customerRepository.save(fromCustomer);
 		customerRepository.save(toCustomer);
 	}
@@ -77,20 +82,23 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		Assert.notNull(customerNumber, "Parameter 'customerNumber' must not be null!");
 		Assert.notNull(courseNumber, "Parameter 'courseNumber' must not be null!");
 
+		// load entities from DB
 		Customer customer = customerRepository.findByCustomerNumber(customerNumber)
 				.orElseThrow(() -> new CustomerNotFoundException(customerNumber));
 		Course course = courseRepository.findByCourseNumber(courseNumber)
 				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
 
+		// perform business logic
 		boolean courseRemoved = customer.removeCourse(course);
 
 		if (courseRemoved) {
-			// store the customer in the database (the object is managed/observed by Hibernate from then on)
+			// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 			customerRepository.save(customer);
 		}
 
 		String customerEmail = customer.getEmail();
 
+		// execute other use case
 		boolean mailWasSent = mailUseCase.sendMail(customerEmail, "Oh, we're sorry that you canceled your membership!",
 				"Some text to make her/him come back again...");
 

@@ -28,6 +28,7 @@ public class MailUseCaseImpl implements MailUseCase {
 		Assert.notNull(subject, "Parameter 'subject' must not be null!");
 		Assert.notNull(text, "Parameter 'text' must not be null!");
 
+		// perform business logic
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
 			message.setTo(to);
