@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,14 +29,24 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerRepositoryTest {
 
+	private static int numberOfInitiallyAvailableCustomers;
+
 	@Autowired
 	private CustomerRepository customerRepository;
 
 	private Customer customer;
 
+	@BeforeAll
+	public static void setUpAll() {
+		// actions to be performed once before execution of first test method
+
+		// consider initial data created by Application.InitialDataInsertionRunner
+		numberOfInitiallyAvailableCustomers = 1;
+	}
+
 	@BeforeEach
 	public void setUp() {
-		// set up fresh test data
+		// set up fresh test data before each test method execution
 
 		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
@@ -44,7 +55,7 @@ public class CustomerRepositoryTest {
 
 	@AfterEach
 	public void tearDown() {
-		// clean up test data
+		// clean up test data after each test method execution
 
 		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
 			customerRepository.deleteById(customer.getId());
@@ -99,7 +110,7 @@ public class CustomerRepositoryTest {
 
 		// [THEN]
 		List<Customer> loadedCustomers = customerRepository.findAll();
-		assertThat(loadedCustomers).hasSize(2); // take initial data into account
+		assertThat(loadedCustomers).hasSize(numberOfInitiallyAvailableCustomers + 1); // take initial data into account
 	}
 
 }

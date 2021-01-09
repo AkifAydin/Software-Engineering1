@@ -36,9 +36,8 @@ import io.restassured.http.ContentType;
 public class CustomerFacadeTest {
 
 	/*
-	 * Logging of REST requests/responses for debugging can be enabled like this:
-	 * Add this before .when() to log a request or before .then() to log a response:
-	 * log().all().
+	 * Logging of REST requests/responses for debugging can be enabled like this: Add this before .when() to log a
+	 * request or before .then() to log a response: log().all().
 	 * 
 	 * Also uncomment the logger in the next line.
 	 */
@@ -56,7 +55,7 @@ public class CustomerFacadeTest {
 
 	@BeforeEach
 	public void setUp() {
-		// set up fresh test data
+		// set up fresh test data before each test method execution
 
 		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
@@ -68,7 +67,7 @@ public class CustomerFacadeTest {
 
 	@AfterEach
 	public void tearDown() {
-		// clean up test data
+		// clean up test data after each test method execution
 
 		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
 			customerRepository.deleteById(customer1.getId());

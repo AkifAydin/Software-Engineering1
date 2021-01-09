@@ -58,7 +58,7 @@ public class CourseUseCaseTest {
 
 	@BeforeEach
 	public void setUp() {
-		// set up fresh test data
+		// set up fresh test data before each test method execution
 
 		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
@@ -74,7 +74,7 @@ public class CourseUseCaseTest {
 
 	@AfterEach
 	public void tearDown() {
-		// clean up test data
+		// clean up test data after each test method execution
 
 		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
 			customerRepository.deleteById(customer1.getId());

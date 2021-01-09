@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,8 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerUseCaseTest {
 
+	private static int numberOfInitiallyAvailableCustomers;
+
 	@Autowired
 	private CustomerUseCase customerUseCase;
 
@@ -36,9 +39,17 @@ public class CustomerUseCaseTest {
 
 	private Customer customer;
 
+	@BeforeAll
+	public static void setUpAll() {
+		// actions to be performed once before execution of first test method
+
+		// consider initial data created by Application.InitialDataInsertionRunner
+		numberOfInitiallyAvailableCustomers = 1;
+	}
+
 	@BeforeEach
 	public void setUp() {
-		// set up fresh test data
+		// set up fresh test data before each test method execution
 
 		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
@@ -47,7 +58,7 @@ public class CustomerUseCaseTest {
 
 	@AfterEach
 	public void tearDown() {
-		// clean up test data
+		// clean up test data after each test method execution
 
 		if (customer != null && customerRepository.findById(customer.getId()).isPresent()) {
 			customerRepository.deleteById(customer.getId());
@@ -63,7 +74,7 @@ public class CustomerUseCaseTest {
 		List<Customer> loadedCustomers = customerUseCase.findAllCustomers();
 
 		// [THEN]
-		assertThat(loadedCustomers).hasSize(2); // take initial data into account
+		assertThat(loadedCustomers).hasSize(numberOfInitiallyAvailableCustomers + 1); // take initial data into account
 		assertThat(loadedCustomers).extracting(Customer::getCustomerNumber).containsOnlyOnce(customerNumber);
 	}
 

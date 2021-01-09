@@ -1,6 +1,9 @@
 package com.haw.se1lab.dataaccess.api.repo;
 
+import java.util.List;
 import java.util.Optional;
+
+import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,18 +32,28 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 	 * @param name the course number
 	 * @return an {@link Optional} containing the found course
 	 */
-	// custom query method using JQL query string
+	// custom query method using JPQL query string
 	@Query("select c from Course c where c.courseNumber = :courseNumber")
 	Optional<Course> findByCourseNumber(@Param("courseNumber") CourseNumber courseNumber);
 
 	/**
-	 * Returns the {@link Course} entity with the given name.
+	 * Returns the {@link Course} entities with the given name.
 	 * 
-	 * @param name the course's name
-	 * @return an {@link Optional} containing the found course
+	 * @param name the name to search for
+	 * @return the found courses
 	 */
-	// custom query method using JQL query string
+	// custom query method using JPQL query string
 	@Query("select c from Course c where c.name = :name")
-	Optional<Course> findByName(@Param("name") String name);
+	List<Course> findByName(@Param("name") String name);
+
+	/**
+	 * Deletes the {@link Course} entity with the given course number.
+	 * 
+	 * @param courseNumber the course number
+	 */
+	// custom query method with query automatically derived from method name (e.g. "<action>By<attribute name>")
+	// equivalent SQL query: delete from COURSE where COURSE_NUMBER = [courseNumber.code]
+	@Transactional // causes the method to be executed in a database transaction (required for write operations)
+	void deleteByCourseNumber(CourseNumber courseNumber);
 
 }
