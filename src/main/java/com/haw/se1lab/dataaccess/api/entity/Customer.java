@@ -67,7 +67,7 @@ public class Customer {
 	// default column name: LAST_NAME
 	private String lastName;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
 	// default column name: GENDER
 	private Gender gender;
 
