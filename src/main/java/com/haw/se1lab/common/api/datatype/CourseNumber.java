@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 /**
  * <p>
- * Represents a course number. A course number consists of 2-4 capital letters and digits. Usually this should be the
+ * Represents a course number. A course number consists of 2-8 capital letters and digits. Usually this should be the
  * commonly used acronym for the course (e.g. "SE1" for "Software Engineering 1").
  * </p>
  * <p>
@@ -37,7 +37,7 @@ public class CourseNumber {
 	/* ---- Class Fields ---- */
 
 	/** The pattern for a valid course number. Example: SE1 */
-	private static final String COURSE_NUMBER_PATTERN = "^[A-Z0-9]{2,4}$";
+	private static final String COURSE_NUMBER_PATTERN = "^[A-Z0-9]{2,8}$";
 
 	/* ---- Member Fields ---- */
 
