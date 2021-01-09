@@ -41,7 +41,8 @@ import com.haw.se1lab.common.api.datatype.PhoneNumber;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity // marks this class as an entity; default table name: CUSTOMER
+@Entity // marks this class as an entity
+// default table name: CUSTOMER
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class Customer {
 

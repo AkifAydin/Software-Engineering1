@@ -33,7 +33,8 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity // marks this class as an entity; default table name: COURSE
+@Entity // marks this class as an entity
+// default table name: COURSE
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class Course {
 

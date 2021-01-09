@@ -23,7 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity // marks this class as an entity; default table name: COURSE_REVIEW
+@Entity // marks this class as an entity
+// default table name: COURSE_REVIEW
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class CourseReview {
 

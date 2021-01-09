@@ -27,7 +27,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 //
 //@Data
 //@NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity // marks this class as an entity; default table name: PREMIUM_ACCOUNT
+@Entity // marks this class as an entity
+// default table name: PREMIUM_ACCOUNT
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id") // avoids redundancy in JSON
 public class PremiumAccount {
 
