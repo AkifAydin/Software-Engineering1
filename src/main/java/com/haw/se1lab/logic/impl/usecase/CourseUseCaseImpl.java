@@ -21,16 +21,16 @@ import com.haw.se1lab.logic.api.usecase.MailUseCase;
  * 
  * @author Arne Busch
  */
-@Service
+@Service // causes Spring to automatically create a Spring bean for this class which can then be used using @Autowired
 public class CourseUseCaseImpl implements CourseUseCase {
 
-	@Autowired
+	@Autowired // automatically initializes the field with a Spring bean of a matching type
 	private CustomerRepository customerRepository;
 
-	@Autowired
+	@Autowired // automatically initializes the field with a Spring bean of a matching type
 	private CourseRepository courseRepository;
 
-	@Autowired
+	@Autowired // automatically initializes the field with a Spring bean of a matching type
 	private MailUseCase mailUseCase;
 
 	@Override
@@ -46,6 +46,7 @@ public class CourseUseCaseImpl implements CourseUseCase {
 				.orElseThrow(() -> new CourseNotFoundException(courseNumber));
 
 		customer.addCourse(course);
+		// store the customer in the database (the object is managed/observed by Hibernate from then on)
 		customerRepository.save(customer);
 	}
 
@@ -64,6 +65,7 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		toCustomer.getCourses().addAll(fromCustomer.getCourses());
 		fromCustomer.getCourses().clear();
 
+		// store the customers in the database (the objects are managed/observed by Hibernate from then on)
 		customerRepository.save(fromCustomer);
 		customerRepository.save(toCustomer);
 	}
@@ -83,6 +85,7 @@ public class CourseUseCaseImpl implements CourseUseCase {
 		boolean courseRemoved = customer.removeCourse(course);
 
 		if (courseRemoved) {
+			// store the customer in the database (the object is managed/observed by Hibernate from then on)
 			customerRepository.save(customer);
 		}
 

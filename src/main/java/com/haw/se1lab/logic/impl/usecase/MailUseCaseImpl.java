@@ -15,10 +15,10 @@ import com.haw.se1lab.logic.api.usecase.MailUseCase;
  * 
  * @author Arne Busch
  */
-@Service
+@Service // causes Spring to automatically create a Spring bean for this class which can then be used using @Autowired
 public class MailUseCaseImpl implements MailUseCase {
 
-	@Autowired
+	@Autowired // automatically initializes the field with a Spring bean of a matching type
 	public JavaMailSender mailSender;
 
 	@Override

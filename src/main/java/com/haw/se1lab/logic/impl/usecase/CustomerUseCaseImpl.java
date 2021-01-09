@@ -19,10 +19,10 @@ import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
  * 
  * @author Arne Busch
  */
-@Service
+@Service // causes Spring to automatically create a Spring bean for this class which can then be used using @Autowired
 public class CustomerUseCaseImpl implements CustomerUseCase {
 
-	@Autowired
+	@Autowired // automatically initializes the field with a Spring bean of a matching type
 	private CustomerRepository customerRepository;
 
 	@Override
@@ -57,7 +57,9 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 			throw new CustomerAlreadyExistingException(customerNumber);
 		}
 
+		// create a new customer as plain old Java object
 		Customer customer = new Customer(customerNumber, firstName, lastName, gender);
+		// store the customer in the database (the object is managed/observed by Hibernate from then on)
 		return customerRepository.save(customer);
 	}
 
@@ -68,11 +70,13 @@ public class CustomerUseCaseImpl implements CustomerUseCase {
 
 		// make sure the customer to be updated exists (throw exception if not)
 		findCustomerById(customer.getId());
+		// store the customer in the database (the object is managed/observed by Hibernate from then on)
 		return customerRepository.save(customer);
 	}
 
 	@Override
 	public void deleteCustomer(long id) throws CustomerNotFoundException {
+		// make sure the customer to be deleted exists (throw exception if not) and also load the customer
 		Customer customer = findCustomerById(id);
 		customerRepository.delete(customer);
 	}
