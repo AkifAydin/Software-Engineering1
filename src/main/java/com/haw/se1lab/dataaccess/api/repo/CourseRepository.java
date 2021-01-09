@@ -10,12 +10,17 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 
 /**
- * Represents a repository for the management of {@link Course} entities in a
- * database.
+ * Represents a repository for the management of {@link Course} entities in a database.
  * 
  * @author Arne Busch
  */
+// important: no class "<repository name>Impl" implementing this interface and being annotated with @Component required
+// -> Spring Data automatically creates a Spring bean for this repository which can then be used using @Autowired
 public interface CourseRepository extends JpaRepository<Course, Long> {
+
+	/* ---- Custom Query Methods ---- */
+	// See also "Spring Data - Query Methods":
+	// https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods
 
 	/**
 	 * Returns the {@link Course} entity with the given course number.
@@ -23,6 +28,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 	 * @param name the course number
 	 * @return an {@link Optional} containing the found course
 	 */
+	// custom query method using JQL query string
 	@Query("select c from Course c where c.courseNumber = :courseNumber")
 	Optional<Course> findByCourseNumber(@Param("courseNumber") CourseNumber courseNumber);
 
@@ -32,6 +38,7 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 	 * @param name the course's name
 	 * @return an {@link Optional} containing the found course
 	 */
+	// custom query method using JQL query string
 	@Query("select c from Course c where c.name = :name")
 	Optional<Course> findByName(@Param("name") String name);
 
