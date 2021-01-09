@@ -34,8 +34,7 @@ public interface CustomerUseCase {
 	/**
 	 * Returns the customer with the given customer number.
 	 * 
-	 * @param customerNumber the customer's customer number; must not be
-	 *                       <code>null</code>
+	 * @param customerNumber the customer's customer number; must not be <code>null</code>
 	 * @return the found customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
@@ -44,14 +43,12 @@ public interface CustomerUseCase {
 	/**
 	 * Creates a customer with the given data.
 	 * 
-	 * @param customerNumber the customer's customer number; must not be
-	 *                       <code>null</code>
+	 * @param customerNumber the customer's customer number; must not be <code>null</code>
 	 * @param firstName      the customer's first name; must contain text
 	 * @param lastName       the customer's last name; must contain text
 	 * @param gender         the customer's gender; must not be <code>null</code>
 	 * @return the created customer
-	 * @throws CustomerAlreadyExistingException in case a customer with the given
-	 *                                          customer number already exists
+	 * @throws CustomerAlreadyExistingException in case a customer with the given customer number already exists
 	 */
 	Customer createCustomer(CustomerNumber customerNumber, String firstName, String lastName, Gender gender)
 			throws CustomerAlreadyExistingException;
@@ -59,8 +56,7 @@ public interface CustomerUseCase {
 	/**
 	 * Updates a customer with the given data.
 	 * 
-	 * @param customer the customer data to be updated; must not be
-	 *                 <code>null</code>
+	 * @param customer the customer data to be updated; must not be <code>null</code>
 	 * @return the updated customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
@@ -69,7 +65,7 @@ public interface CustomerUseCase {
 	/**
 	 * Deletes the customer with the given ID.
 	 * 
-	 * @param id the customer's technical ID
+	 * @param id the customer's technical ID; must be the ID of an existing customer
 	 * @throws CustomerNotFoundException in case the customer could not be found
 	 */
 	void deleteCustomer(long id) throws CustomerNotFoundException;
