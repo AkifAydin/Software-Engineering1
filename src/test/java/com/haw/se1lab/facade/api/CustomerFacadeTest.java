@@ -6,6 +6,8 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,10 +38,9 @@ import io.restassured.http.ContentType;
 public class CustomerFacadeTest {
 
 	/*
-	 * Logging of REST requests/responses for debugging can be enabled like this: Add this before .when() to log a
-	 * request or before .then() to log a response: log().all().
-	 * 
-	 * Also uncomment the logger in the next line.
+	 * The logging of REST requests/responses for debugging or further usage in REST clients can be enabled like this:
+	 * Uncomment the logger in the next line and the respective imports above. The add the following code after .given()
+	 * to log a request or after .then() to log a response: .log().all()
 	 */
 //	private final Log log = LogFactory.getLog(getClass());
 
