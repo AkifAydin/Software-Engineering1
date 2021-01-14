@@ -9,9 +9,12 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
 import com.haw.se1lab.common.api.datatype.CourseNumber;
@@ -31,7 +34,8 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
  * 
  * @author Arne Busch
  */
-//@ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CourseUseCaseTest {
 

@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
@@ -25,11 +26,10 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
  * 
  * @author Arne Busch
  */
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerUseCaseTest {
-
-	private static int numberOfInitiallyAvailableCustomers;
 
 	@Autowired
 	private CustomerUseCase customerUseCase;
@@ -43,8 +43,6 @@ public class CustomerUseCaseTest {
 	public static void setUpAll() {
 		// actions to be performed once before execution of first test method
 
-		// consider initial data created by Application.InitialDataInsertionRunner
-		numberOfInitiallyAvailableCustomers = 1;
 	}
 
 	@BeforeEach
@@ -74,7 +72,7 @@ public class CustomerUseCaseTest {
 		List<Customer> loadedCustomers = customerUseCase.findAllCustomers();
 
 		// [THEN]
-		assertThat(loadedCustomers).hasSize(numberOfInitiallyAvailableCustomers + 1); // take initial data into account
+		assertThat(loadedCustomers).hasSize(1);
 		assertThat(loadedCustomers).extracting(Customer::getCustomerNumber).containsOnlyOnce(customerNumber);
 	}
 

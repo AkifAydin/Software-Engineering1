@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.haw.se1lab.common.api.datatype.CourseNumber;
@@ -45,6 +46,7 @@ public class Application {
  * 
  * @author Arne Busch
  */
+@Profile("!test") // execute the method "run" only in mode "production" (i.e. when @ActiveProfiles != "test")
 @Component
 class InitialDataInsertionRunner implements CommandLineRunner {
 

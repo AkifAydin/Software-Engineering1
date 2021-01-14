@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.haw.se1lab.Application;
@@ -27,11 +28,10 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
  * 
  * @author Arne Busch
  */
+@ActiveProfiles("test")
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 public class CustomerRepositoryTest {
-
-	private static int numberOfInitiallyAvailableCustomers;
 
 	@Autowired
 	private CustomerRepository customerRepository;
@@ -51,8 +51,6 @@ public class CustomerRepositoryTest {
 	public static void setUpAll() {
 		// actions to be performed once before execution of first test method
 
-		// consider initial data created by Application.InitialDataInsertionRunner
-		numberOfInitiallyAvailableCustomers = 1;
 	}
 
 	@BeforeEach
@@ -167,7 +165,7 @@ public class CustomerRepositoryTest {
 
 		// [THEN]
 		List<Customer> loadedCustomers = customerRepository.findAll();
-		assertThat(loadedCustomers).hasSize(numberOfInitiallyAvailableCustomers + 3); // take initial data into account
+		assertThat(loadedCustomers).hasSize(3);
 	}
 
 }
