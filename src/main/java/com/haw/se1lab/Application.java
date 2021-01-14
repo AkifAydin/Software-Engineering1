@@ -2,8 +2,6 @@ package com.haw.se1lab;
 
 import java.util.Date;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -57,25 +55,26 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 	private CourseRepository courseRepository;
 
 	@Override
-	@Transactional
 	public void run(String... args) {
+		// create courses
+		Course course = new Course(new CourseNumber("SE1"), "Software Engineering 1");
+
+		CourseReview review = new CourseReview("Anonymous User", 4, "Good introduction!");
+		course.addReview(review);
+
+		courseRepository.save(course); // also saves review
+
+		// create customers
 		Customer customer = new Customer(new CustomerNumber(1), "Arne", "Busch", Gender.MALE,
 				"arne.busch@haw-hamburg.de", new PhoneNumber("+49-40-12345678"));
-		customerRepository.save(customer);
-
-		Course course = new Course(new CourseNumber("SE1"), "Software Engineering 1");
-		CourseReview review = new CourseReview(customer.getFirstName() + " " + customer.getLastName(), 4,
-				"Good introduction!");
-		course.addReview(review);
-		courseRepository.save(course);
-
-		PremiumAccount premiumAccount = new PremiumAccount(customer, new Date(1893456000000L));
 
 		customer.addCourse(course);
 		customer.setLastFinishedCourse(course);
+
+		PremiumAccount premiumAccount = new PremiumAccount(customer, new Date(1893456000000L));
 		customer.setPremiumAccount(premiumAccount);
-		// no need to manually save the customer again here
-		// -> after the initial save the customer is in Hibernate's transaction context
+
+		customerRepository.save(customer); // also saves premiumAccount
 	}
 
 }
