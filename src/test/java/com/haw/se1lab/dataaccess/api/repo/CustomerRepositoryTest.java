@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,6 +54,12 @@ public class CustomerRepositoryTest {
 
 	}
 
+	@AfterAll
+	public static void tearDownAll() {
+		// actions to be performed once after execution of last test method
+
+	}
+
 	@BeforeEach
 	public void setUp() {
 		// set up fresh test data before each test method execution
@@ -80,21 +87,8 @@ public class CustomerRepositoryTest {
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
-			customerRepository.deleteById(customer1.getId());
-		}
-
-		if (customer2 != null && customerRepository.findById(customer2.getId()).isPresent()) {
-			customerRepository.deleteById(customer2.getId());
-		}
-
-		if (customer3 != null && customerRepository.findById(customer3.getId()).isPresent()) {
-			customerRepository.deleteById(customer3.getId());
-		}
-
-		if (course != null && courseRepository.findById(course.getId()).isPresent()) {
-			courseRepository.deleteById(course.getId());
-		}
+		customerRepository.deleteAll();
+		courseRepository.deleteAll();
 	}
 
 	@Test

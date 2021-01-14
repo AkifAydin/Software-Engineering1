@@ -6,7 +6,9 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.when;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -60,9 +62,24 @@ public class CourseUseCaseTest {
 
 	private Customer customer2;
 
+	@BeforeAll
+	public static void setUpAll() {
+		// actions to be performed once before execution of first test method
+
+	}
+
+	@AfterAll
+	public static void tearDownAll() {
+		// actions to be performed once after execution of last test method
+
+	}
+
 	@BeforeEach
 	public void setUp() {
 		// set up fresh test data before each test method execution
+
+		course = new Course(new CourseNumber("SE2"), "Software Engineering 2");
+		courseRepository.save(course);
 
 		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
@@ -71,26 +88,14 @@ public class CourseUseCaseTest {
 		customer2 = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE, "john.smith@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "99999999"));
 		customerRepository.save(customer2);
-
-		course = new Course(new CourseNumber("SE2"), "Software Engineering 2");
-		courseRepository.save(course);
 	}
 
 	@AfterEach
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
-			customerRepository.deleteById(customer1.getId());
-		}
-
-		if (customer2 != null && customerRepository.findById(customer2.getId()).isPresent()) {
-			customerRepository.deleteById(customer2.getId());
-		}
-
-		if (course != null && courseRepository.findById(course.getId()).isPresent()) {
-			courseRepository.deleteById(course.getId());
-		}
+		customerRepository.deleteAll();
+		courseRepository.deleteAll();
 	}
 
 	@Test

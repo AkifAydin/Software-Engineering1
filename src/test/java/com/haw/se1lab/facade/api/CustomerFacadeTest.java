@@ -6,9 +6,11 @@ import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.AfterAll;
 //import org.apache.commons.logging.Log;
 //import org.apache.commons.logging.LogFactory;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -56,6 +58,18 @@ public class CustomerFacadeTest {
 
 	private Customer customer2;
 
+	@BeforeAll
+	public static void setUpAll() {
+		// actions to be performed once before execution of first test method
+
+	}
+
+	@AfterAll
+	public static void tearDownAll() {
+		// actions to be performed once after execution of last test method
+
+	}
+
 	@BeforeEach
 	public void setUp() {
 		// set up fresh test data before each test method execution
@@ -72,13 +86,7 @@ public class CustomerFacadeTest {
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		if (customer1 != null && customerRepository.findById(customer1.getId()).isPresent()) {
-			customerRepository.deleteById(customer1.getId());
-		}
-
-		if (customer2 != null && customerRepository.findByCustomerNumber(customer2.getCustomerNumber()).isPresent()) {
-			customerRepository.deleteByCustomerNumber(customer2.getCustomerNumber());
-		}
+		customerRepository.deleteAll();
 	}
 
 	@Test
