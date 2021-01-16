@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -60,23 +61,26 @@ public class Customer {
 	private Long id;
 
 	@Embedded // causes this field's attributes to be stored in columns within this entity's table
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CustomerNumber customerNumber;
 
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+	@Size(min = 1, max = 50) // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: FIRST_NAME
 	private String firstName;
 
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+	@Size(min = 1, max = 50) // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: LAST_NAME
 	private String lastName;
 
 	@Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: GENDER
 	private Gender gender;
 
+	@Size(max = 100) // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: EMAIL
 	private String email;
 
@@ -99,6 +103,7 @@ public class Customer {
 	@ManyToMany( // this entity can have multiple children and every child can have multiple parents
 			fetch = FetchType.EAGER // loads all children when this entity is loaded (not only when accessing them)
 	)
+	@Size(max = 100) // adds a constraint for this field (checked by Hibernate during saving)
 	// association realized by junction table; default table name: CUSTOMER_COURSES
 	private List<Course> courses = new ArrayList<>();
 

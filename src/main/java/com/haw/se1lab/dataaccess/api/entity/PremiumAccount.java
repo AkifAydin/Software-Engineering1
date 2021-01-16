@@ -48,11 +48,11 @@ public class PremiumAccount {
 	@OneToOne( // this entity has one parent and the parent has only one child
 			fetch = FetchType.LAZY // only loads parent on access (prevent fetch error -> association is bidirectional)
 	)
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: OWNER_ID
 	private Customer owner;
 
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: VALID_TO
 	private Date validTo;
 

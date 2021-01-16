@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -56,11 +57,12 @@ public class Course {
 			name = "code", // the name of the embedded attribute
 			column = @Column(name = "COURSE_NUMBER") // the column name in this entity's table
 	)
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CourseNumber courseNumber;
 
-	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
+	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+	@Size(min = 1, max = 150) // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: NAME
 	private String name;
 
