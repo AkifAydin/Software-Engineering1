@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -81,6 +82,7 @@ public class Customer {
 	private Gender gender;
 
 	@Size(max = 100) // adds a constraint for this field (checked by Hibernate during saving)
+	@Email // adds a constraint for this field (checked by Hibernate during saving)
 	// default column name: EMAIL
 	private String email;
 
