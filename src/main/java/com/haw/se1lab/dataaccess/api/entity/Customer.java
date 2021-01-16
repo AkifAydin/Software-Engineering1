@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -59,16 +60,20 @@ public class Customer {
 	private Long id;
 
 	@Embedded // causes this field's attributes to be stored in columns within this entity's table
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CustomerNumber customerNumber;
 
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: FIRST_NAME
 	private String firstName;
 
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: LAST_NAME
 	private String lastName;
 
 	@Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: GENDER
 	private Gender gender;
 

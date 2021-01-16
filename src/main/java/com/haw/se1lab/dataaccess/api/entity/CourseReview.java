@@ -3,6 +3,7 @@ package com.haw.se1lab.dataaccess.api.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -40,9 +41,11 @@ public class CourseReview {
 	// default column name: ID
 	private Long id;
 
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: REVIEWER
 	private String reviewer;
 
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: RATING
 	private int rating;
 

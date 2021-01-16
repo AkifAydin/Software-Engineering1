@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -45,12 +46,13 @@ public class PremiumAccount {
 	private Long id;
 
 	@OneToOne( // this entity has one parent and the parent has only one child
-			optional = false, // indicates that the field must be non-null when this entity is saved
 			fetch = FetchType.LAZY // only loads parent on access (prevent fetch error -> association is bidirectional)
 	)
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: OWNER_ID
 	private Customer owner;
 
+	@NotNull // adds a constraint for this field (checked by Hibernate validation during saving in the database)
 	// default column name: VALID_TO
 	private Date validTo;
 
