@@ -33,6 +33,7 @@ repositories {
 
 dependencies {
     implementation 'commons-validator:commons-validator:1.7'
+    implementation 'javax.validation:validation-api'
     implementation 'javax.xml.bind:jaxb-api'
     implementation 'org.apache.commons:commons-lang3'
     implementation 'org.json:json:20200518'
@@ -46,6 +47,7 @@ dependencies {
 
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'mysql:mysql-connector-java'
+    runtimeOnly 'org.hibernate:hibernate-validator:7.0.0.Final'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 
     testImplementation 'io.rest-assured:json-path:4.3.1'
