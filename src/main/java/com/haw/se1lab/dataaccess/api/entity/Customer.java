@@ -20,6 +20,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -68,11 +69,15 @@ public class Customer {
 
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	@Size(min = 1, max = 50) // adds a constraint for this field (checked by Hibernate during saving)
+	@Pattern(regexp = "^[a-zA-ZäöüßÄÖÜ ,.'-]*$") // adds a constraint for this field (checked by Hibernate during
+													// saving)
 	// default column name: FIRST_NAME
 	private String firstName;
 
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	@Size(min = 1, max = 50) // adds a constraint for this field (checked by Hibernate during saving)
+	@Pattern(regexp = "^[a-zA-ZäöüßÄÖÜ ,.'-]*$") // adds a constraint for this field (checked by Hibernate during
+													// saving)
 	// default column name: LAST_NAME
 	private String lastName;
 
