@@ -13,6 +13,7 @@ import com.haw.se1lab.common.api.datatype.CourseNumber;
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
 import com.haw.se1lab.common.api.datatype.Gender;
 import com.haw.se1lab.common.api.datatype.PhoneNumber;
+import com.haw.se1lab.common.api.datatype.PremiumOption;
 import com.haw.se1lab.dataaccess.api.entity.Course;
 import com.haw.se1lab.dataaccess.api.entity.CourseReview;
 import com.haw.se1lab.dataaccess.api.entity.Customer;
@@ -72,6 +73,8 @@ class InitialDataInsertionRunner implements CommandLineRunner {
 		customer.setLastFinishedCourse(course);
 
 		PremiumAccount premiumAccount = new PremiumAccount(customer, new Date(1893456000000L));
+		premiumAccount.addBookedOption(PremiumOption.EXTENDED_SUPPORT);
+		premiumAccount.addBookedOption(PremiumOption.VIP_AREA);
 		customer.setPremiumAccount(premiumAccount);
 
 		customerRepository.save(customer); // also saves premiumAccount
