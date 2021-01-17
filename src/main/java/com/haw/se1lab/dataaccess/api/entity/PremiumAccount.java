@@ -5,7 +5,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -58,7 +57,6 @@ public class PremiumAccount {
 			fetch = FetchType.LAZY // only loads parent on access (prevent fetch error -> association is bidirectional)
 	)
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
-	@Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
 	// default column name: OWNER_ID
 	private Customer owner;
 
