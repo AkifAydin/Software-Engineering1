@@ -1,6 +1,7 @@
 package com.haw.se1lab.dataaccess.api.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -208,7 +210,7 @@ public class Customer {
 	}
 
 	public List<Course> getCourses() {
-		return courses;
+		return Collections.unmodifiableList(courses);
 	}
 
 	public Course getLastFinishedCourse() {
@@ -245,9 +247,9 @@ public class Customer {
 	 * @return <code>true</code> in case the course was added, <code>false</code> otherwise
 	 */
 	public boolean addCourse(Course course) {
-//		// check preconditions
-//		Assert.notNull(course, "Parameter 'course' must not be null!");
-//		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
+		// check preconditions
+		Assert.notNull(course, "Parameter 'course' must not be null!");
+		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
 
 		// check if course already in list (identified by unique course number)
 		boolean courseAlreadyBooked = courses.stream()
@@ -269,9 +271,9 @@ public class Customer {
 	 * @return <code>true</code> in case the course was removed, <code>false</code> otherwise
 	 */
 	public boolean removeCourse(Course course) {
-//		// check preconditions
-//		Assert.notNull(course, "Parameter 'course' must not be null!");
-//		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
+		// check preconditions
+		Assert.notNull(course, "Parameter 'course' must not be null!");
+		Assert.notNull(course.getCourseNumber(), "Parameter 'course' must have a non-null course number!");
 
 		// find course in list (identified by unique course number)
 		Optional<Course> bookedCourse = courses.stream()
@@ -284,4 +286,12 @@ public class Customer {
 
 		return false;
 	}
+
+	/**
+	 * Removes all of the customer's booked courses.
+	 */
+	public void clearCourses() {
+		courses.clear();
+	}
+
 }

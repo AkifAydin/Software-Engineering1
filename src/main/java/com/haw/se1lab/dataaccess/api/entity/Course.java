@@ -1,7 +1,9 @@
 package com.haw.se1lab.dataaccess.api.entity;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.AttributeOverride;
 import javax.persistence.CascadeType;
@@ -17,6 +19,7 @@ import javax.validation.constraints.Size;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -113,7 +116,7 @@ public class Course {
 	}
 
 	public List<CourseReview> getReviews() {
-		return reviews;
+		return Collections.unmodifiableList(reviews);
 	}
 
 	/* ---- Overridden Methods ---- */
@@ -126,8 +129,52 @@ public class Course {
 
 	/* ---- Custom Methods ---- */
 
-	public void addReview(CourseReview review) {
-		reviews.add(review);
+	/**
+	 * Adds the given review to the review list. If the review is already in the list, nothing happens.
+	 * 
+	 * @param review the review to add; must not be <code>null</code>
+	 * @return <code>true</code> in case the review was added, <code>false</code> otherwise
+	 */
+	public boolean addReview(CourseReview review) {
+		// check preconditions
+		Assert.notNull(review, "Parameter 'review' must not be null!");
+
+		// check if review already in list (identified by unique ID)
+		boolean reviewAlreadyAdded = false;
+
+		if (review.getId() != null) {
+			reviewAlreadyAdded = reviews.stream().anyMatch(r -> review.getId().equals(r.getId()));
+		}
+
+		if (!reviewAlreadyAdded) {
+			reviews.add(review);
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Removes the given review from the review list. If the review is not in the list, nothing happens.
+	 * 
+	 * @param review the review to remove; must not be <code>null</code> and have a non-null ID
+	 * @return <code>true</code> in case the review was removed, <code>false</code> otherwise
+	 */
+	public boolean removeReview(CourseReview review) {
+		// check preconditions
+		Assert.notNull(review, "Parameter 'review' must not be null!");
+		Assert.notNull(review.getId(), "Parameter 'review' must have a non-null ID!");
+
+		// find review in list (identified by unique ID)
+		Optional<CourseReview> reviewToRemove = reviews.stream().filter(r -> review.getId().equals(r.getId()))
+				.findFirst();
+
+		if (reviewToRemove.isPresent()) {
+			reviews.remove(reviewToRemove.get());
+			return true;
+		}
+
+		return false;
 	}
 
 }

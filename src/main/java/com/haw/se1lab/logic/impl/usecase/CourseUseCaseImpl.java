@@ -67,8 +67,8 @@ public class CourseUseCaseImpl implements CourseUseCase {
 				.orElseThrow(() -> new CustomerNotFoundException(toCustomerNumber));
 
 		// perform business logic
-		toCustomer.getCourses().addAll(fromCustomer.getCourses());
-		fromCustomer.getCourses().clear();
+		fromCustomer.getCourses().forEach(c -> toCustomer.addCourse(c));
+		fromCustomer.clearCourses();
 
 		// store entity in DB (from then on: entity object is observed by Hibernate within current transaction)
 		customerRepository.save(fromCustomer);
