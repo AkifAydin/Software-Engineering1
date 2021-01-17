@@ -81,11 +81,11 @@ public class CourseUseCaseTest {
 		course = new Course(new CourseNumber("SE2"), "Software Engineering 2");
 		courseRepository.save(course);
 
-		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+		customer1 = new Customer(new CustomerNumber(1), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
 		customerRepository.save(customer1);
 
-		customer2 = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE, "john.smith@haw-hamburg.de",
+		customer2 = new Customer(new CustomerNumber(2), "John", "Smith", Gender.MALE, "john.smith@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "99999999"));
 		customerRepository.save(customer2);
 	}

@@ -55,9 +55,7 @@ public class CustomerFacadeTest {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	private Customer customer1;
-
-	private Customer customer2;
+	private Customer customer;
 
 	@BeforeAll
 	public static void setUpAll() {
@@ -75,9 +73,9 @@ public class CustomerFacadeTest {
 	public void setUp() {
 		// set up fresh test data before each test method execution
 
-		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+		customer = new Customer(new CustomerNumber(1), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
-		customerRepository.save(customer1);
+		customerRepository.save(customer);
 
 		RestAssured.port = port;
 		RestAssured.basePath = "";
@@ -103,7 +101,7 @@ public class CustomerFacadeTest {
 		// [THEN]
 		.then()
 		.statusCode(HttpStatus.OK.value())
-		.body("lastName", hasItems(customer1.getLastName()));
+		.body("lastName", hasItems(customer.getLastName()));
 		// @formatter:on
 	}
 
@@ -115,12 +113,12 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer1.getId())
+		.get("/customers/{id}", customer.getId())
 
 		// [THEN]
 		.then()
 		.statusCode(HttpStatus.OK.value())
-		.body("lastName", equalTo(customer1.getLastName()));
+		.body("lastName", equalTo(customer.getLastName()));
 		// @formatter:on
 	}
 
@@ -144,7 +142,7 @@ public class CustomerFacadeTest {
 	public void createCustomer_Success() {
 		// @formatter:off
 		// [GIVEN]
-		customer2 = new Customer(new CustomerNumber(3), "John", "Smith", Gender.MALE);
+		Customer customer2 = new Customer(new CustomerNumber(2), "John", "Smith", Gender.MALE);
 		
 		given()
 		.contentType(ContentType.JSON)
@@ -165,11 +163,11 @@ public class CustomerFacadeTest {
 	public void createCustomer_Fail_CustomerAlreadyExisting() {
 		// @formatter:off
 		// [GIVEN]
-		Customer customer1Duplicate = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE);
+		Customer customerDuplicate = new Customer(customer.getCustomerNumber(), customer.getFirstName(), customer.getLastName(),customer.getGender());
 		
 		given()
 		.contentType(ContentType.JSON)
-		.body(customer1Duplicate)
+		.body(customerDuplicate)
 
 		// [WHEN]
 		.when()
@@ -186,11 +184,11 @@ public class CustomerFacadeTest {
 		// @formatter:off
 		// [GIVEN]
 		String newFirstName = "Jennifer";
-		customer1.setFirstName(newFirstName);
+		customer.setFirstName(newFirstName);
 		
 		given()
 		.contentType(ContentType.JSON)
-		.body(customer1)
+		.body(customer)
 
 		// [WHEN]
 		.when()
@@ -205,7 +203,7 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer1.getId())
+		.get("/customers/{id}", customer.getId())
 
 		// [THEN]
 		.then()
@@ -221,7 +219,7 @@ public class CustomerFacadeTest {
 		given()
 
 		// [WHEN]
-		.delete("/customers/{id}", customer1.getId())
+		.delete("/customers/{id}", customer.getId())
 
 		// [THEN]
 		.then()
@@ -232,7 +230,7 @@ public class CustomerFacadeTest {
 
 		// [WHEN]
 		.when()
-		.get("/customers/{id}", customer1.getId())
+		.get("/customers/{id}", customer.getId())
 
 		// [THEN]
 		.then()

@@ -67,17 +67,17 @@ public class CustomerRepositoryTest {
 		course = new Course(new CourseNumber("SE2"), "Software Engineering 2");
 		courseRepository.save(course); // important: save entity before using it in other entities
 
-		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+		customer1 = new Customer(new CustomerNumber(1), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "11111111"));
 		customer1.addCourse(course);
 		customerRepository.save(customer1);
 
-		customer2 = new Customer(new CustomerNumber(3), "Jane", "Doe", Gender.OTHER, "jane.doe@uni-hamburg.de",
+		customer2 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.OTHER, "jane.doe@uni-hamburg.de",
 				new PhoneNumber("+49", "040", "22222222"));
 		customer2.addCourse(course);
 		customerRepository.save(customer2);
 
-		customer3 = new Customer(new CustomerNumber(4), "Jane", "Doe", Gender.UNKNOWN, null,
+		customer3 = new Customer(new CustomerNumber(3), "Jane", "Doe", Gender.UNKNOWN, null,
 				new PhoneNumber("+49", "040", "33333333"));
 		customer3.addCourse(course);
 		customerRepository.save(customer3);

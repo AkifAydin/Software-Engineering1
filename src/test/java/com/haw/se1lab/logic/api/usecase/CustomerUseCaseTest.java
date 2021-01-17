@@ -56,7 +56,7 @@ public class CustomerUseCaseTest {
 	public void setUp() {
 		// set up fresh test data before each test method execution
 
-		customer = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
+		customer = new Customer(new CustomerNumber(1), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "88888888"));
 		customerRepository.save(customer);
 	}
