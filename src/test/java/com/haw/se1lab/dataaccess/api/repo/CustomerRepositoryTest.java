@@ -29,9 +29,9 @@ import com.haw.se1lab.dataaccess.api.entity.Customer;
  * 
  * @author Arne Busch
  */
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
+@ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) // test environment
 public class CustomerRepositoryTest {
 
 	@Autowired
@@ -65,7 +65,7 @@ public class CustomerRepositoryTest {
 		// set up fresh test data before each test method execution
 
 		course = new Course(new CourseNumber("SE2"), "Software Engineering 2");
-		courseRepository.save(course);
+		courseRepository.save(course); // important: save entity before using it in other entities
 
 		customer1 = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE, "jane.doe@haw-hamburg.de",
 				new PhoneNumber("+49", "040", "11111111"));
@@ -87,7 +87,7 @@ public class CustomerRepositoryTest {
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		customerRepository.deleteAll();
+		customerRepository.deleteAll(); // must be done before deleting courses -> Customer references Course
 		courseRepository.deleteAll();
 	}
 
@@ -105,7 +105,7 @@ public class CustomerRepositoryTest {
 	}
 
 	@Test
-	public void findByCustomerNumber_SuccessWithEmptyResult() {
+	public void findByCustomerNumber_Success_EmptyResult() {
 		// [GIVEN]
 		CustomerNumber customerNumber = new CustomerNumber(9999);
 
@@ -150,7 +150,7 @@ public class CustomerRepositoryTest {
 	}
 
 	@Test
-	public void deleteByCustomerNumber_SuccessWithNoActualDeletion() {
+	public void deleteByCustomerNumber_Success_NoActualDeletion() {
 		// [GIVEN]
 		CustomerNumber customerNumber = new CustomerNumber(9999);
 

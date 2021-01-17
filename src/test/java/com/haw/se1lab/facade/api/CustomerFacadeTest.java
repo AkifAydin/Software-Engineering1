@@ -36,9 +36,10 @@ import io.restassured.http.ContentType;
  * 
  * @author Arne Busch
  */
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
+@ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // test
+																											// environment
 public class CustomerFacadeTest {
 
 	/*
@@ -124,7 +125,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void getCustomer_FailBecauseNotFound() {
+	public void getCustomer_Fail_CustomerNotFound() {
 		// @formatter:off
 		// [GIVEN]
 		given()
@@ -161,7 +162,7 @@ public class CustomerFacadeTest {
 	}
 
 	@Test
-	public void createCustomer_FailBecauseAlreadyExisting() {
+	public void createCustomer_Fail_CustomerAlreadyExisting() {
 		// @formatter:off
 		// [GIVEN]
 		Customer customer1Duplicate = new Customer(new CustomerNumber(2), "Jane", "Doe", Gender.FEMALE);

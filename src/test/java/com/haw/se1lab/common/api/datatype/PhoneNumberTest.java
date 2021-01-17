@@ -16,20 +16,22 @@ import com.haw.se1lab.Application;
  * 
  * @author Arne Busch
  */
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
+@ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) // test environment
 public class PhoneNumberTest {
 
-	@ParameterizedTest
-	@ValueSource(strings = { "+49-40-58967572", "+49-040-58967572", "+49-040-5896" })
+	@ParameterizedTest // executes this test method for each value defined in @ValueSource
+	@ValueSource( // test values for this method
+			strings = { "+49-40-58967572", "+49-040-58967572", "+49-040-5896" })
 	public void constructPhoneNumber_Success(String phoneNumber) {
 		new PhoneNumber(phoneNumber);
 	}
 
-	@ParameterizedTest
-	@ValueSource(strings = { "+4-040-5896", "49-040-5896", "+49-0-5896", "+49-040-896" })
-	public void constructPhoneNumber_FailBecausePhoneNumberInvalid(String phoneNumber) {
+	@ParameterizedTest // executes this test method for each value defined in @ValueSource
+	@ValueSource( // test values for this method
+			strings = { "+4-040-5896", "49-040-5896", "+49-0-5896", "+49-040-896" })
+	public void constructPhoneNumber_Fail_PhoneNumberInvalid(String phoneNumber) {
 		assertThatExceptionOfType(IllegalArgumentException.class).isThrownBy(() -> new PhoneNumber(phoneNumber))
 				.withMessageContaining("Invalid phone number");
 	}

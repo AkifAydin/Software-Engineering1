@@ -25,9 +25,9 @@ import com.haw.se1lab.dataaccess.api.entity.Course;
  * 
  * @author Arne Busch
  */
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
+@ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) // test environment
 public class CourseRepositoryTest {
 
 	@Autowired
@@ -83,7 +83,7 @@ public class CourseRepositoryTest {
 	}
 
 	@Test
-	public void findByCourseNumber_SuccessWithEmptyResult() {
+	public void findByCourseNumber_Success_EmptyResult() {
 		// [GIVEN]
 		CourseNumber courseNumber = new CourseNumber("0000");
 
@@ -111,7 +111,7 @@ public class CourseRepositoryTest {
 	}
 
 	@Test
-	public void findByName_SuccessWithEmptyResult() {
+	public void findByName_Success_EmptyResult() {
 		// [GIVEN]
 		String courseName = "Not-Existing";
 
@@ -136,7 +136,7 @@ public class CourseRepositoryTest {
 	}
 
 	@Test
-	public void deleteByCourseNumber_SuccessWithNoActualDeletion() {
+	public void deleteByCourseNumber_Success_NoActualDeletion() {
 		// [GIVEN]
 		CourseNumber courseNumber = new CourseNumber("0000");
 

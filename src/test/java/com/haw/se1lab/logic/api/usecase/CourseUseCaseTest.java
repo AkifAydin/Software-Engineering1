@@ -36,9 +36,9 @@ import com.haw.se1lab.dataaccess.api.repo.CustomerRepository;
  * 
  * @author Arne Busch
  */
-@ActiveProfiles("test")
-@ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
+@ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) // test environment
 public class CourseUseCaseTest {
 
 	@Autowired
@@ -94,7 +94,7 @@ public class CourseUseCaseTest {
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		customerRepository.deleteAll();
+		customerRepository.deleteAll(); // must be done before deleting courses -> Customer references Course
 		courseRepository.deleteAll();
 	}
 
@@ -114,7 +114,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void enrollInCourse_FailBecauseCustomerNumberNull() {
+	public void enrollInCourse_Fail_CustomerNumberNull() {
 		// [GIVEN]
 		CustomerNumber customerNumber = null;
 		CourseNumber courseNumber = course.getCourseNumber();
@@ -126,7 +126,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void enrollInCourse_FailBecauseCourseNumberNull() {
+	public void enrollInCourse_Fail_CourseNumberNull() {
 		// [GIVEN]
 		CustomerNumber customerNumber = customer1.getCustomerNumber();
 		CourseNumber courseNumber = null;
@@ -138,7 +138,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void enrollInCourse_FailBecauseCustomerNotFound() {
+	public void enrollInCourse_Fail_CustomerNotFound() {
 		// [GIVEN]
 		CustomerNumber customerNumber = new CustomerNumber(9999);
 		CourseNumber courseNumber = course.getCourseNumber();
@@ -152,7 +152,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void enrollInCourse_FailBecauseCourseNotFound() {
+	public void enrollInCourse_Fail_CourseNotFound() {
 		// [GIVEN]
 		CustomerNumber customerNumber = customer1.getCustomerNumber();
 		CourseNumber courseNumber = new CourseNumber("0000");
@@ -186,7 +186,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void transferCourses_FailBecauseFromCustomerNumberNull() {
+	public void transferCourses_Fail_FromCustomerNumberNull() {
 		// [GIVEN]
 		CustomerNumber fromCustomerNumber = null;
 		CustomerNumber toCustomerNumber = customer2.getCustomerNumber();
@@ -198,7 +198,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void transferCourses_FailBecauseToCustomerNumberNull() {
+	public void transferCourses_Fail_ToCustomerNumberNull() {
 		// [GIVEN]
 		CustomerNumber fromCustomerNumber = customer1.getCustomerNumber();
 		CustomerNumber toCustomerNumber = null;
@@ -210,7 +210,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void transferCourses_FailBecauseFromCustomerNotFound() {
+	public void transferCourses_Fail_FromCustomerNotFound() {
 		// [GIVEN]
 		CustomerNumber fromCustomerNumber = new CustomerNumber(9999);
 		CustomerNumber toCustomerNumber = customer2.getCustomerNumber();
@@ -225,7 +225,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void transferCourses_FailBecauseToCustomerNotFound() {
+	public void transferCourses_Fail_ToCustomerNotFound() {
 		// [GIVEN]
 		CustomerNumber fromCustomerNumber = customer1.getCustomerNumber();
 		CustomerNumber toCustomerNumber = new CustomerNumber(9999);
@@ -263,7 +263,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void cancelMembership_SuccessBDDStyle()
+	public void cancelMembership_Success_BDDStyle()
 			throws CustomerNotFoundException, CourseNotFoundException, MembershipMailNotSentException {
 		// [GIVEN]
 		customer1.addCourse(course);
@@ -271,7 +271,7 @@ public class CourseUseCaseTest {
 		CustomerNumber customerNumber = customer1.getCustomerNumber();
 		CourseNumber courseNumber = course.getCourseNumber();
 
-		// configure mock for MailGateway in BDD style
+		// configure mock for MailGateway in Behavior Driven Development (BDD) style
 		given(mailUseCase.sendMail(anyString(), anyString(), anyString())).willReturn(true);
 
 		// [WHEN]
@@ -286,7 +286,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void cancelMembership_FailBecauseCustomerNumberNull() {
+	public void cancelMembership_Fail_CustomerNumberNull() {
 		// [GIVEN]
 		CustomerNumber customerNumber = null;
 		CourseNumber courseNumber = course.getCourseNumber();
@@ -298,7 +298,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void cancelMembership_FailBecauseCourseNumberNull() {
+	public void cancelMembership_Fail_CourseNumberNull() {
 		// [GIVEN]
 		CustomerNumber customerNumber = customer1.getCustomerNumber();
 		CourseNumber courseNumber = null;
@@ -310,7 +310,7 @@ public class CourseUseCaseTest {
 	}
 
 	@Test
-	public void cancelMembership_FailBecauseUnableToSendMail() {
+	public void cancelMembership_Fail_MailNotSent() {
 		// [GIVEN]
 		customer1.addCourse(course);
 		customerRepository.save(customer1);
