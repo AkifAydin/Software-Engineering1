@@ -7,12 +7,16 @@ package com.haw.se1lab.common.api.datatype;
  */
 public enum Gender {
 
+	/** Male */
 	MALE,
 
+	/** Female */
 	FEMALE,
 
+	/** Other than male/female (diverse) */
 	OTHER,
 
+	/** Gender not known */
 	UNKNOWN
 
 }
