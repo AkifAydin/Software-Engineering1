@@ -87,7 +87,7 @@ public class CustomerRepositoryTest {
 	public void tearDown() {
 		// clean up test data after each test method execution
 
-		customerRepository.deleteAll(); // must be done before deleting courses -> Customer references Course
+		customerRepository.deleteAll(); // must be done first -> integrity constraints (Customer references Course)
 		courseRepository.deleteAll();
 	}
 
