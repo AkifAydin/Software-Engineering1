@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -48,7 +49,7 @@ public class PremiumAccount {
 
 	/* ---- Member Fields ---- */
 
-	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@Id // marks this field as the entity's unique technical ID (primary key) in the database
 	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
 	// default column name: ID
 	private Long id;
@@ -57,6 +58,7 @@ public class PremiumAccount {
 			fetch = FetchType.LAZY // only loads parent on access (prevent fetch error -> association is bidirectional)
 	)
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+	@Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
 	// default column name: OWNER_ID
 	private Customer owner;
 
@@ -65,9 +67,10 @@ public class PremiumAccount {
 	private Date validTo;
 
 	@Enumerated(EnumType.STRING) // causes the values of this enum-type field to be stored under the enum values' names
-	@ElementCollection( // marks this field as collection of non-entity values (stored in join table)
+	@ElementCollection( // marks this field as collection of non-entity values (stored in junction table)
 			fetch = FetchType.EAGER // loads all elements when this entity is loaded (not only when accessing them)
 	)
+	// simple value collection realized by junction table; default table name: PREMIUM_ACCOUNT_BOOKED_OPTIONS
 	private Set<PremiumOption> bookedOptions = new HashSet<>();
 
 	/* ---- Constructors ---- */

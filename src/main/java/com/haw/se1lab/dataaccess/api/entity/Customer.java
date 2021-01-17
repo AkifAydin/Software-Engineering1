@@ -59,20 +59,20 @@ public class Customer {
 
 	/* ---- Member Fields ---- */
 
-	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@Id // marks this field as the entity's unique technical ID (primary key) in the database
 	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
 	// default column name: ID
 	private Long id;
 
 	@Embedded // causes this field's attributes to be stored in columns within this entity's table
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+	@Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
 	// default column names for inner attributes (without attribute overrides): see comments inside of this field's type
 	private CustomerNumber customerNumber;
 
 	@NotNull // adds a constraint for this field (checked by Hibernate during saving)
 	@Size(min = 1, max = 50) // adds a constraint for this field (checked by Hibernate during saving)
-	@Pattern(regexp = "^[a-zA-ZäöüßÄÖÜ ,.'-]*$") // adds a constraint for this field (checked by Hibernate during
-													// saving)
+	@Pattern(regexp = "^[a-zA-ZäöüßÄÖÜ ,.'-]*$") // adds a constraint for this field (checked by Hibernate when saving)
 	// default column name: FIRST_NAME
 	private String firstName;
 

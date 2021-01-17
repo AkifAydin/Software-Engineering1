@@ -39,7 +39,7 @@ public class CourseReview {
 
 	/* ---- Member Fields ---- */
 
-	@Id // marks this field as the entity's technical ID (primary key) in the database
+	@Id // marks this field as the entity's unique technical ID (primary key) in the database
 	@GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
 	// default column name: ID
 	private Long id;
