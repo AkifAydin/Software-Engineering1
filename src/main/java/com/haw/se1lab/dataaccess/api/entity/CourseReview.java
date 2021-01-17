@@ -33,6 +33,14 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 public class CourseReview {
 
 	/*
+	 * Details about JPA annotations can be found here: http://www.java2s.com/Tutorials/Java/JPA/index.htm
+	 */
+
+	/*
+	 * Details about Lombok annotations can be found here: https://projectlombok.org
+	 */
+
+	/*
 	 * The tables for this class (automatically created from the code by the H2 database embedded in this project) can
 	 * be seen in the H2 Console when the application is running: http://localhost:8080/h2-console
 	 */

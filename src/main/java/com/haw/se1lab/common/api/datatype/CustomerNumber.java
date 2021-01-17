@@ -33,6 +33,14 @@ import org.springframework.util.Assert;
 @Embeddable // indicates that the type's attributes can be stored in columns of the owning entity's table
 public class CustomerNumber {
 
+	/*
+	 * Details about JPA annotations can be found here: http://www.java2s.com/Tutorials/Java/JPA/index.htm
+	 */
+
+	/*
+	 * Details about Lombok annotations can be found here: https://projectlombok.org
+	 */
+
 	/* ---- Member Fields ---- */
 
 	// default column name: NUMBER
