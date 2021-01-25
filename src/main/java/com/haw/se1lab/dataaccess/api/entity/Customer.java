@@ -19,6 +19,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.OrderBy;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -120,6 +121,7 @@ public class Customer {
 	@ManyToMany( // this entity can have multiple children and every child can have multiple parents
 			fetch = FetchType.EAGER // loads all children when this entity is loaded (not only when accessing them)
 	)
+	@OrderBy("name ASC")
 	@Size(max = 100) // adds a constraint for this field (checked by Hibernate during saving)
 	// association realized by junction table; default table name: CUSTOMER_COURSES
 	private List<Course> courses = new ArrayList<>();
