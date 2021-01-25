@@ -2,14 +2,11 @@ package com.haw.se1lab.common.api.exception;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.haw.se1lab.common.api.datatype.CustomerNumber;
 
 /**
- * Represents the exception when a customer could not be found by the given
- * search criteria.
+ * Represents the exception when a customer could not be found by the given search criteria.
  * 
  * @author Arne Busch
  */
@@ -19,7 +16,6 @@ import com.haw.se1lab.common.api.datatype.CustomerNumber;
 //
 //@Value
 //@EqualsAndHashCode(callSuper=false)
-@ResponseStatus(HttpStatus.NOT_FOUND)
 public class CustomerNotFoundException extends Exception {
 
 	/* ---- Class Fields ---- */

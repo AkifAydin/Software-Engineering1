@@ -38,8 +38,7 @@ import io.restassured.http.ContentType;
  */
 @ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // test
-																											// environment
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) // environment
 public class CustomerFacadeTest {
 
 	/*

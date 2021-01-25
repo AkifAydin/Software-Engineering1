@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,8 @@ import com.haw.se1lab.facade.api.CustomerFacade;
 import com.haw.se1lab.logic.api.usecase.CustomerUseCase;
 
 /**
- * Default implementation for {@link CustomerFacade}. This implementation uses
- * REST to provide the defined functionality.
+ * Default implementation for {@link CustomerFacade}. This implementation uses REST to provide the defined
+ * functionality.
  * 
  * @author Arne Busch
  */
@@ -72,6 +73,18 @@ public class CustomerFacadeImpl implements CustomerFacade {
 	@Override
 	public void deleteCustomer(@PathVariable("id") long id) throws CustomerNotFoundException {
 		customerUseCase.deleteCustomer(id);
+	}
+
+	@ExceptionHandler(CustomerNotFoundException.class)
+	@ResponseStatus(code = HttpStatus.NOT_FOUND, reason = "Customer not found.")
+	private void handleCustomerNotFoundException() {
+		// nothing to do -> just set the HTTP response status as defined in @ResponseStatus
+	}
+
+	@ExceptionHandler(CustomerAlreadyExistingException.class)
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "Customer already exists.")
+	private void handleCustomerAlreadyExistingException() {
+		// nothing to do -> just set the HTTP response status as defined in @ResponseStatus
 	}
 
 }
