@@ -121,7 +121,7 @@ public class Customer {
 	@ManyToMany( // this entity can have multiple children and every child can have multiple parents
 			fetch = FetchType.EAGER // loads all children when this entity is loaded (not only when accessing them)
 	)
-	@OrderBy("name ASC")
+	@OrderBy("name ASC") // orders the courses by the attribute "name" (ascending) when loading them from the DB
 	@Size(max = 100) // adds a constraint for this field (checked by Hibernate during saving)
 	// association realized by junction table; default table name: CUSTOMER_COURSES
 	private List<Course> courses = new ArrayList<>();
