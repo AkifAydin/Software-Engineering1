@@ -58,6 +58,7 @@ dependencies {
     testImplementation 'org.hamcrest:java-hamcrest:2.0.0.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+    testCompileOnly 'org.junit.platform:junit-platform-commons:1.7.0'
     testCompileOnly 'org.projectlombok:lombok:1.18.12'
 
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
