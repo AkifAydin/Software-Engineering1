@@ -11,5 +11,3 @@ build-and-test:
     when: always
     paths:
       - build/reports/
-  only:
-    - master
