@@ -6,6 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class Application {
 
+	// IMPORTANT: This class must lie in the root application package, i.e. next to or above all other classes/packages
+	// Spring component scan only recognizes classes below main application class (the one with @SpringBootApplication)
+
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
