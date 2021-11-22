@@ -1,27 +1,33 @@
 package com.haw.se1lab;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TodoList {
     //Attribute
-    private String listTitle;
+    private String name;
     private final Date createdAt;
     private boolean visibleForOthers;
 
+    private final List<Task> tasks;
+
     //Konstruktor
-    public TodoList(String listTitle, boolean visibleForOthers){
-        this.listTitle = listTitle;
+    public TodoList(String name, boolean visibleForOthers){
+        this.name = name;
         this.createdAt = new Date();
         this.visibleForOthers = visibleForOthers;
+
+        this.tasks = new ArrayList<>();
     }
 
     //Getters
-    public String getListTitle() {
-        return listTitle;
+    public String getName() {
+        return name;
     }
 
-    public void setListTitle(String listTitle) {
-        this.listTitle = listTitle;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getCreatedAt() {
@@ -34,5 +40,9 @@ public class TodoList {
 
     public void setVisibleForOthers(boolean visibleForOthers) {
         this.visibleForOthers = visibleForOthers;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
     }
 }

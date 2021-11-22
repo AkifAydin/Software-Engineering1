@@ -20,7 +20,7 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        todoLists = new ArrayList<>();
+        this.todoLists = new ArrayList<>();
     }
 
     //Getter and Setter
