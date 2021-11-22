@@ -1,11 +1,11 @@
 package com.haw.se1lab;
 
-public class UserId {
+public class UserID {
     //Attribute
     private int userid;
 
     //Konstruktor
-    public UserId(int userid) {
+    public UserID(int userid) {
         this.userid = userid;
     }
 

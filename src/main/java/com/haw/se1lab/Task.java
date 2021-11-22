@@ -1,0 +1,72 @@
+package com.haw.se1lab;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class Task {
+    //Attribute
+    private String toDo;
+    private Date todoFrom;
+    private Date toDoTo;
+    private Colour colour;
+    private boolean finished;
+
+    private final List<Subtask> subtasks;
+
+    //Konstruktor
+    public Task(String toDo, Date todoFrom, Date toDoTo, Colour colour){
+        this.toDo = toDo;
+        this.todoFrom = todoFrom;
+        this.toDoTo = toDoTo;
+        this.colour = colour;
+        this.finished = false;
+        this.subtasks = new ArrayList<>();
+    }
+
+
+    //Getter and Setter
+    public String getToDo() {
+        return toDo;
+    }
+
+    public void setToDo(String toDo) {
+        this.toDo = toDo;
+    }
+
+    public Date getTodoFrom() {
+        return todoFrom;
+    }
+
+    public void setTodoFrom(Date todoFrom) {
+        this.todoFrom = todoFrom;
+    }
+
+    public Date getToDoTo() {
+        return toDoTo;
+    }
+
+    public void setToDoTo(Date toDoTo) {
+        this.toDoTo = toDoTo;
+    }
+
+    public Colour getColour() {
+        return colour;
+    }
+
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
+    }
+
+    public List<Subtask> getSubtasks() {
+        return subtasks;
+    }
+}

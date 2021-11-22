@@ -2,21 +2,29 @@ package com.haw.se1lab;
 
 public class Subtask {
     //Attribute
-    private final String subtask;
-    private final boolean subtaskFinished;
+    private String toDo;
+    private boolean finished;
 
     //Konstruktor
-    public Subtask(String subtask, boolean subtaskFinished) {
-        this.subtask = subtask;
-        this.subtaskFinished = subtaskFinished;
+    public Subtask(String toDo, boolean finished) {
+        this.toDo = toDo;
+        this.finished = finished;
     }
 
     //Getters
-    public String getSubtask() {
-        return subtask;
+    public String getToDo() {
+        return toDo;
     }
 
-    public boolean isSubtaskFinished() {
-        return subtaskFinished;
+    public void setToDo(String toDo) {
+        this.toDo = toDo;
+    }
+
+    public boolean isFinished() {
+        return finished;
+    }
+
+    public void setFinished(boolean finished) {
+        this.finished = finished;
     }
 }

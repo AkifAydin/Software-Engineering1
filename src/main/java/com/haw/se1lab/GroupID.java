@@ -1,11 +1,11 @@
 package com.haw.se1lab;
 
-public class GroupNumber {
+public class GroupID {
     //Attribute
     private int groupNumber;
 
     //Konstruktor
-    public GroupNumber(int groupNumber) {
+    public GroupID(int groupNumber) {
         this.groupNumber = groupNumber;
     }
 

@@ -1,42 +1,54 @@
 package com.haw.se1lab;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Group {
     //Attribute
-    private final String groupName;
-    private final GroupNumber groupNumber;
-    private final boolean publicVisible;
-    private final Date validFrom;
-    private final Date validTo;
+    private final GroupID id;
+    private String name;
+    private boolean publicVisible;
+    private final Date createdAt;
+
+    private final List<Subtask> todoLists;
 
     //Konstruktor
-    public Group(String groupName, GroupNumber groupNumber, boolean publicVisible, Date validFrom, Date validTo) {
-        this.groupName = groupName;
-        this.groupNumber = groupNumber;
+    public Group(GroupID id, String name, boolean publicVisible) {
+        this.id = id;
+        this.name = name;
+
         this.publicVisible = publicVisible;
-        this.validFrom = validFrom;
-        this.validTo = validTo;
+        this.createdAt = new Date();
+        this.todoLists = new ArrayList<>();
     }
 
-    //Getters
-    public String getGroupName() {
-        return groupName;
+    //getter and setter
+    public GroupID getId() {
+        return id;
     }
 
-    public GroupNumber getGroupNumber() {
-        return groupNumber;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public boolean isPublicVisible() {
         return publicVisible;
     }
 
-    public Date getValidFrom() {
-        return validFrom;
+    public void setPublicVisible(boolean publicVisible) {
+        this.publicVisible = publicVisible;
     }
 
-    public Date getValidTo() {
-        return validTo;
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public List<Subtask> getTodoLists() {
+        return todoLists;
     }
 }
