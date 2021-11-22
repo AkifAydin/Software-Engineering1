@@ -11,7 +11,7 @@ public class Group {
     private boolean publicVisible;
     private final Date createdAt;
 
-    private final List<Subtask> todoLists;
+    private final List<TodoList> todoLists;
     private final List<User> users;
 
     //Konstruktor
