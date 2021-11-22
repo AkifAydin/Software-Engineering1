@@ -2,8 +2,8 @@ package com.haw.se1lab;
 
 public class Subtask {
     //Attribute
-    private String toDo;
-    private boolean finished;
+    private final String toDo;
+    private final boolean finished;
 
     //Konstruktor
     public Subtask(String toDo, boolean finished) {
@@ -15,16 +15,7 @@ public class Subtask {
     public String getToDo() {
         return toDo;
     }
-
-    public void setToDo(String toDo) {
-        this.toDo = toDo;
-    }
-
     public boolean isFinished() {
         return finished;
-    }
-
-    public void setFinished(boolean finished) {
-        this.finished = finished;
     }
 }
