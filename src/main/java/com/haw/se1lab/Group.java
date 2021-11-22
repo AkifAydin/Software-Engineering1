@@ -7,8 +7,8 @@ import java.util.List;
 public class Group {
     //Attribute
     private final GroupID id;
-    private final String name;
-    private final boolean publicVisible;
+    private String name;
+    private boolean publicVisible;
     private final Date createdAt;
 
     private final List<Subtask> todoLists;
@@ -29,12 +29,23 @@ public class Group {
     public GroupID getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public boolean isPublicVisible() {
         return publicVisible;
     }
+
+    public void setPublicVisible(boolean publicVisible) {
+        this.publicVisible = publicVisible;
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }

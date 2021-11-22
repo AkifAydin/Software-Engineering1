@@ -2,7 +2,7 @@ package com.haw.se1lab;
 
 public class UserID {
     //Attribute
-    private final int userid;
+    private int userid;
 
     //Konstruktor
     public UserID(int userid) {
@@ -12,5 +12,10 @@ public class UserID {
     //Getter
     public int getUserid() {
         return userid;
+    }
+
+    //Setter
+    public void setUserid(int userid) {
+        this.userid = userid;
     }
 }

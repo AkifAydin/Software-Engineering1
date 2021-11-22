@@ -2,7 +2,7 @@ package com.haw.se1lab;
 
 public class GroupID {
     //Attribute
-    private final int groupNumber;
+    private int groupNumber;
 
     //Konstruktor
     public GroupID(int groupNumber) {
@@ -12,5 +12,10 @@ public class GroupID {
     //Getter
     public int getGroupNumber() {
         return groupNumber;
+    }
+
+    //Setter
+    public void setGroupNumber(int groupNumber) {
+        this.groupNumber = groupNumber;
     }
 }
