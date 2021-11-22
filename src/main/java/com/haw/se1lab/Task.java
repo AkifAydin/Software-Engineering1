@@ -9,17 +9,17 @@ public class Task {
     private String toDo;
     private Date todoFrom;
     private Date toDoTo;
-    private Colour colour;
+    private ColourTyp colourTyp;
     private boolean finished;
 
     private final List<Subtask> subtasks;
 
     //Konstruktor
-    public Task(String toDo, Date todoFrom, Date toDoTo, Colour colour){
+    public Task(String toDo, Date todoFrom, Date toDoTo, ColourTyp colourTyp){
         this.toDo = toDo;
         this.todoFrom = todoFrom;
         this.toDoTo = toDoTo;
-        this.colour = colour;
+        this.colourTyp = colourTyp;
         this.finished = false;
         this.subtasks = new ArrayList<>();
     }
@@ -50,12 +50,12 @@ public class Task {
         this.toDoTo = toDoTo;
     }
 
-    public Colour getColour() {
-        return colour;
+    public ColourTyp getColour() {
+        return colourTyp;
     }
 
-    public void setColour(Colour colour) {
-        this.colour = colour;
+    public void setColour(ColourTyp colourTyp) {
+        this.colourTyp = colourTyp;
     }
 
     public boolean isFinished() {

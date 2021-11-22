@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Group {
     //Attribute
-    private final GroupID id;
+    private final GroupIDTyp id;
     private String name;
     private boolean publicVisible;
     private final Date createdAt;
@@ -15,7 +15,7 @@ public class Group {
     private final List<User> users;
 
     //Konstruktor
-    public Group(GroupID id, String name, boolean publicVisible) {
+    public Group(GroupIDTyp id, String name, boolean publicVisible) {
         this.id = id;
         this.name = name;
 
@@ -26,7 +26,7 @@ public class Group {
     }
 
     //getter and setter
-    public GroupID getId() {
+    public GroupIDTyp getId() {
         return id;
     }
 
@@ -50,7 +50,7 @@ public class Group {
         return createdAt;
     }
 
-    public List<Subtask> getTodoLists() {
+    public List<TodoList> getTodoLists() {
         return todoLists;
     }
 

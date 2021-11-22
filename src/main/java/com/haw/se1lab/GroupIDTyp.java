@@ -1,11 +1,11 @@
 package com.haw.se1lab;
 
-public class GroupID {
+public class GroupIDTyp {
     //Attribute
     private final int groupID;
 
     //Konstruktor
-    public GroupID(int groupID) {
+    public GroupIDTyp(int groupID) {
         this.groupID = groupID;
     }
 

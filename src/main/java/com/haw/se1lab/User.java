@@ -6,7 +6,7 @@ import java.util.List;
 public class User {
 
     //Attribute
-    private final UserID id;  //UserId
+    private final UserIDTyp id;  //UserId
     private String firstName;
     private String lastName;
     private String email;
@@ -14,7 +14,7 @@ public class User {
     private final List<TodoList> todoLists;
 
     //Konstruktor
-    public User(UserID id, String firstName, String lastName, String email, String password) {
+    public User(UserIDTyp id, String firstName, String lastName, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -24,7 +24,7 @@ public class User {
     }
 
     //Getter and Setter
-    public UserID getId() {
+    public UserIDTyp getId() {
         return id;
     }
 
