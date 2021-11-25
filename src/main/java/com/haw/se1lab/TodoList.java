@@ -11,6 +11,7 @@ public class TodoList {
     private boolean visibleForOthers;
 
     private final List<Task> tasks;
+    private final List<User> owner;
 
     //Konstruktor
     public TodoList(String name, boolean visibleForOthers){
@@ -19,6 +20,7 @@ public class TodoList {
         this.visibleForOthers = visibleForOthers;
 
         this.tasks = new ArrayList<>();
+        this.owner = new ArrayList<>();
     }
 
     //Getters
@@ -45,4 +47,6 @@ public class TodoList {
     public List<Task> getTasks() {
         return tasks;
     }
+
+    public List<User> getOwner() { return owner; }
 }

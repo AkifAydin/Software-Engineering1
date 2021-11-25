@@ -12,7 +12,7 @@ public class Group {
     private final Date createdAt;
 
     private final List<TodoList> todoLists;
-    private final List<User> users;
+    private final List<User> members;
 
     //Konstruktor
     public Group(GroupIDTyp id, String name, boolean publicVisible) {
@@ -22,7 +22,7 @@ public class Group {
         this.publicVisible = publicVisible;
         this.createdAt = new Date();
         this.todoLists = new ArrayList<>();
-        this.users = new ArrayList<>();
+        this.members = new ArrayList<>();
     }
 
     //getter and setter
@@ -54,7 +54,7 @@ public class Group {
         return todoLists;
     }
 
-    public List<User> getUsers() {
-        return users;
+    public List<User> getMembers() {
+        return members;
     }
 }
