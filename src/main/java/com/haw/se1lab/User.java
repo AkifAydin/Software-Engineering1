@@ -11,7 +11,6 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    private final List<TodoList> todoLists;
 
     //Konstruktor
     public User(UserIDTyp id, String firstName, String lastName, String email, String password) {
@@ -20,7 +19,6 @@ public class User {
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.todoLists = new ArrayList<>();
     }
 
     //Getter and Setter
@@ -60,7 +58,4 @@ public class User {
         this.password = password;
     }
 
-    public List<TodoList> getTodoLists() {
-        return todoLists;
-    }
 }
