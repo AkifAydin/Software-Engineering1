@@ -8,19 +8,21 @@ public class TodoList {
     //Attribute
     private String name;
     private final Date createdAt;
+    private final User owner;
     private boolean visibleForOthers;
 
     private final List<Task> tasks;
-    private final List<User> User;
+    private final Group group;
 
     //Konstruktor
-    public TodoList(String name, boolean visibleForOthers){
+    public TodoList(String name, boolean visibleForOthers, User owner, Group group){
         this.name = name;
+        this.owner = owner;
+        this.group = group;
         this.createdAt = new Date();
         this.visibleForOthers = visibleForOthers;
 
         this.tasks = new ArrayList<>();
-        this.User = new ArrayList<>();
     }
 
     //Getters
@@ -48,5 +50,8 @@ public class TodoList {
         return tasks;
     }
 
-    public List<User> getOwner() { return User; }
+    public User getOwner() { return owner; }
+
+    public Group getGroup() { return group; }
+
 }

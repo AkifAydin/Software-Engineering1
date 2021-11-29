@@ -6,28 +6,25 @@ import java.util.List;
 
 public class Group {
     //Attribute
-    private final GroupIDTyp id;
+    private final GroupIDTyp groupId;
+    private final Date createdAt;
     private String name;
     private boolean publicVisible;
-    private final Date createdAt;
 
-    private final List<TodoList> todoLists;
     private final List<User> members;
 
     //Konstruktor
-    public Group(GroupIDTyp id, String name, boolean publicVisible) {
-        this.id = id;
+    public Group(GroupIDTyp groupId, String name, boolean publicVisible) {
+        this.groupId = groupId;
         this.name = name;
-
         this.publicVisible = publicVisible;
         this.createdAt = new Date();
-        this.todoLists = new ArrayList<>();
         this.members = new ArrayList<>();
     }
 
     //getter and setter
-    public GroupIDTyp getId() {
-        return id;
+    public GroupIDTyp getGroupId() {
+        return groupId;
     }
 
     public String getName() {
@@ -50,9 +47,6 @@ public class Group {
         return createdAt;
     }
 
-    public List<TodoList> getTodoLists() {
-        return todoLists;
-    }
 
     public List<User> getMembers() {
         return members;

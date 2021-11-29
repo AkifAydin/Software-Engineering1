@@ -6,15 +6,15 @@ import java.util.List;
 public class User {
 
     //Attribute
-    private final UserIDTyp id;  //UserId
+    private final UserIDTyp userId;  //UserId
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
     //Konstruktor
-    public User(UserIDTyp id, String firstName, String lastName, String email, String password) {
-        this.id = id;
+    public User(UserIDTyp userId, String firstName, String lastName, String email, String password) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -23,7 +23,7 @@ public class User {
 
     //Getter and Setter
     public UserIDTyp getId() {
-        return id;
+        return userId;
     }
 
     public String getFirstName() {
