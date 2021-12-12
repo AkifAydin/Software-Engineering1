@@ -1,9 +1,14 @@
-package com.haw.se1lab;
+package com.haw.se1lab.todolist.dataaccess.api.entity;
 
+import com.haw.se1lab.todolist.common.api.datatype.ColourTyp;
+
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity // marks this class as an entity
+// default table name: Task
 public class Task {
     //Attribute
     private String toDo;

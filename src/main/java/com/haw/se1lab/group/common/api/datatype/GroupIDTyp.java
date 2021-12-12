@@ -1,4 +1,5 @@
-package com.haw.se1lab;
+package com.haw.se1lab.group.common.api.datatype;
+
 
 public class GroupIDTyp {
     //Attribute

@@ -1,9 +1,16 @@
-package com.haw.se1lab;
+package com.haw.se1lab.todolist.dataaccess.api.entity;
 
+
+import com.haw.se1lab.group.dataaccess.api.entity.Group;
+import org.apache.catalina.User;  //KomponentenSchnittstelle
+
+import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity // marks this class as an entity
+// default table name: TodoList
 public class TodoList {
     //Attribute
     private String name;

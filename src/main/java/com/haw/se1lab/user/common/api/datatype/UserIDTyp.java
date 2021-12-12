@@ -1,4 +1,4 @@
-package com.haw.se1lab;
+package com.haw.se1lab.user.common.api.datatype;
 
 public class UserIDTyp {
     //Attribute

@@ -1,9 +1,19 @@
-package com.haw.se1lab;
+package com.haw.se1lab.group.dataaccess.api.entity;
 
+
+import com.haw.se1lab.group.common.api.datatype.GroupIDTyp;
+import org.apache.catalina.User; //KomponentenSchnittstelle
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity // marks this class as an entity
+// default table name: Group
 public class Group {
     //Attribute
     private final GroupIDTyp groupId;
@@ -11,6 +21,11 @@ public class Group {
     private String name;
     private boolean publicVisible;
 
+    @OneToMany( // this entity can have multiple children, but every child can have only one parent
+            cascade = CascadeType.ALL, // also removes children when this entity is removed
+            orphanRemoval = true, // removes children after being detached from this entity without being re-attached
+            fetch = FetchType.LAZY // only loads children on access (prevent fetch error for multiple bags)
+    )
     private final List<User> members;
 
     //Konstruktor

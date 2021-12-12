@@ -1,5 +1,9 @@
-package com.haw.se1lab;
+package com.haw.se1lab.todolist.dataaccess.api.entity;
 
+import javax.persistence.Entity;
+
+@Entity // marks this class as an entity
+// default table name: Subtask
 public class Subtask {
     //Attribute
     private String toDo;

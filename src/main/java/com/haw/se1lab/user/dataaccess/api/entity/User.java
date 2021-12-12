@@ -1,8 +1,17 @@
-package com.haw.se1lab;
+package com.haw.se1lab.user.dataaccess.api.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.haw.se1lab.user.common.api.datatype.UserIDTyp;
 
+import javax.persistence.Entity;
+
+/**
+ * Represents a user of the application. user can create TodoList with Tasks and Subtasks.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
+@Entity // marks this class as an entity
+// default table name: USER
 public class User {
 
     //Attribute
