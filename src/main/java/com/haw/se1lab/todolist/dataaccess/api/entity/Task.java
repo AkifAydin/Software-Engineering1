@@ -3,6 +3,8 @@ package com.haw.se1lab.todolist.dataaccess.api.entity;
 import com.haw.se1lab.todolist.common.api.datatype.ColourTyp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,16 +18,27 @@ import java.util.List;
 @Entity // marks this class as an entity
 // default table name: TASK
 public class Task {
-    //Attribute
-    private String toDo;
-    private Date todoFrom;
-    private Date toDoTo;
-    private ColourTyp colour;
-    private boolean finished;
+
+    /* ---- Member Fields ---- */
 
     @Id // the Tasks unique primary key in the database
     @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
     private Long id;
+
+    private String toDo;
+
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    private Date todoFrom;
+
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    private Date toDoTo;
+
+    @Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    // default column name: COLOUR
+    private ColourTyp colour;
+
+    private boolean finished;
 
     @OneToMany
     private List<Subtask> subtasks;
@@ -89,5 +102,13 @@ public class Task {
 
     public List<Subtask> getSubtasks() {
         return subtasks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

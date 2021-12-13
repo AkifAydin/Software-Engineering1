@@ -2,10 +2,7 @@ package com.haw.se1lab.user.dataaccess.api.entity;
 
 import com.haw.se1lab.user.common.api.datatype.UserIDTyp;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -13,13 +10,17 @@ import javax.validation.constraints.NotNull;
  *
  * @author Janat Haref, Benedikt Weyer, Akif Aydin
  */
-
 @Entity // marks this class as an entity
 // default table name: USER
 public class User {
 
     /* ---- Attribute ---- */
-    //statt final
+
+    @Id // the Users unique primary key in the database
+    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+    private Long id;
+
+    @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
     private UserIDTyp userId;  //UserId
@@ -29,9 +30,6 @@ public class User {
     private String email;
     private String password;
 
-    @Id // the Users unique primary key in the database
-    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
-    private Long id;
 
     /* ---- Constructors ---- */
     // default constructor (required by Hibernate)
@@ -47,7 +45,7 @@ public class User {
     }
 
     //Getter and Setter
-    public UserIDTyp getId() {
+    public UserIDTyp getUserId() {
         return userId;
     }
 
@@ -83,4 +81,11 @@ public class User {
         this.password = password;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

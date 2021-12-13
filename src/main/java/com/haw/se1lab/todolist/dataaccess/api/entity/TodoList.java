@@ -2,13 +2,11 @@ package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 
 import com.haw.se1lab.group.dataaccess.api.entity.Group;
-import org.apache.catalina.User;
+import com.haw.se1lab.user.dataaccess.api.entity.User;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.persistence.Id;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +22,11 @@ import java.util.List;
 public class TodoList {
 
     /* ---- Member Fields ---- */
+
+    @Id // the Todolists unique primary key in the database
+    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+    private Long id;
+
     private String name;
 
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
@@ -34,13 +37,10 @@ public class TodoList {
 
     private boolean visibleForOthers;
 
-    @Id // the Todolists unique primary key in the database
-    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
-    private Long id;
-
     @OneToMany
     private List<Task> tasks;
 
+    @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private Group group;
 
@@ -90,4 +90,11 @@ public class TodoList {
 
     public Group getGroup() { return group; }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }

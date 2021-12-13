@@ -15,12 +15,14 @@ import javax.persistence.Id;
 // default table name: SUBTASK
 public class Subtask {
     //Attribute
-    private String toDo;
-    private boolean finished;
 
     @Id // the Subtasks unique primary key in the database
     @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
     private Long id;
+
+    private String toDo;
+    private boolean finished;
+
 
     /* ---- Constructors ---- */
 
@@ -48,5 +50,13 @@ public class Subtask {
 
     public void setFinished(boolean finished) {
         this.finished = finished;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
