@@ -2,10 +2,14 @@ package com.haw.se1lab.user.dataaccess.api.entity;
 
 import com.haw.se1lab.user.common.api.datatype.UserIDTyp;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 /**
- * Represents a user of the application. user can create TodoList with Tasks and Subtasks.
+ * Represents an user of the application. user can create TodoList with Tasks and Subtasks.
  *
  * @author Janat Haref, Benedikt Weyer, Akif Aydin
  */
@@ -14,14 +18,26 @@ import javax.persistence.Entity;
 // default table name: USER
 public class User {
 
-    //Attribute
-    private final UserIDTyp userId;  //UserId
+    /* ---- Attribute ---- */
+    //statt final
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
+    private UserIDTyp userId;  //UserId
+
     private String firstName;
     private String lastName;
     private String email;
     private String password;
 
-    //Konstruktor
+    @Id // the Users unique primary key in the database
+    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+    private Long id;
+
+    /* ---- Constructors ---- */
+    // default constructor (required by Hibernate)
+    User() {
+    }
+
     public User(UserIDTyp userId, String firstName, String lastName, String email, String password) {
         this.userId = userId;
         this.firstName = firstName;

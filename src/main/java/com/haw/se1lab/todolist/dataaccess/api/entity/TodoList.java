@@ -2,26 +2,55 @@ package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 
 import com.haw.se1lab.group.dataaccess.api.entity.Group;
-import org.apache.catalina.User;  //KomponentenSchnittstelle
+import org.apache.catalina.User;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents a TodoList.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 @Entity // marks this class as an entity
-// default table name: TodoList
+// default table name: TODOLIST
 public class TodoList {
-    //Attribute
+
+    /* ---- Member Fields ---- */
     private String name;
-    private final Date createdAt;
-    private final User owner;
+
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    private Date createdAt;
+
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    private User owner;
+
     private boolean visibleForOthers;
 
-    private final List<Task> tasks;
-    private final Group group;
+    @Id // the Todolists unique primary key in the database
+    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+    private Long id;
 
-    //Konstruktor
+    @OneToMany
+    private List<Task> tasks;
+
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    private Group group;
+
+
+    /* ---- Constructors ---- */
+
+    // default constructor (required by Hibernate)
+    TodoList(){
+    }
+
     public TodoList(String name, boolean visibleForOthers, User owner, Group group){
         this.name = name;
         this.owner = owner;

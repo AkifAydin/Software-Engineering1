@@ -2,13 +2,19 @@ package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 import com.haw.se1lab.todolist.common.api.datatype.ColourTyp;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Represents Tasks of a TodoList. user can create Tasks to keep track of there tasks.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 @Entity // marks this class as an entity
-// default table name: Task
+// default table name: TASK
 public class Task {
     //Attribute
     private String toDo;
@@ -17,9 +23,19 @@ public class Task {
     private ColourTyp colour;
     private boolean finished;
 
-    private final List<Subtask> subtasks;
+    @Id // the Tasks unique primary key in the database
+    @GeneratedValue // lets Hibernate take care of assigning an ID to new database entries
+    private Long id;
 
-    //Konstruktor
+    @OneToMany
+    private List<Subtask> subtasks;
+
+    /* ---- Constructors ---- */
+
+    // default constructor (required by Hibernate)
+    Task(){
+    }
+
     public Task(String toDo, Date todoFrom, Date toDoTo, ColourTyp colour){
         this.toDo = toDo;
         this.todoFrom = todoFrom;
