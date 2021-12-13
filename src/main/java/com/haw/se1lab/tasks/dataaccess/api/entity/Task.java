@@ -1,6 +1,4 @@
-package com.haw.se1lab.subtasks.dataaccess.api.entity;
-
-import com.haw.se1lab.todolist.common.api.datatype.ColourTyp;
+package com.haw.se1lab.tasks.dataaccess.api.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -35,7 +33,7 @@ public class Task {
     @Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     // default column name: COLOUR
-    private ColourTyp colour;
+
 
     private boolean finished;
 
@@ -45,14 +43,14 @@ public class Task {
     /* ---- Constructors ---- */
 
     // default constructor (required by Hibernate)
-    Task(){
+    public Task(){
     }
 
-    public Task(String toDo, Date todoFrom, Date toDoTo, ColourTyp colour){
+    public Task(String toDo, Date todoFrom, Date toDoTo){
         this.toDo = toDo;
         this.todoFrom = todoFrom;
         this.toDoTo = toDoTo;
-        this.colour = colour;
+
         this.finished = false;
         this.subtasks = new ArrayList<>();
     }
@@ -81,14 +79,6 @@ public class Task {
 
     public void setToDoTo(Date toDoTo) {
         this.toDoTo = toDoTo;
-    }
-
-    public ColourTyp getColour() {
-        return colour;
-    }
-
-    public void setColour(ColourTyp colour) {
-        this.colour = colour;
     }
 
     public boolean isFinished() {

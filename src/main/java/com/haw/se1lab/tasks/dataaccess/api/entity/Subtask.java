@@ -1,4 +1,4 @@
-package com.haw.se1lab.subtasks.dataaccess.api.entity;
+package com.haw.se1lab.tasks.dataaccess.api.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,13 +27,15 @@ public class Subtask {
     /* ---- Constructors ---- */
 
     // default constructor (required by Hibernate)
-    Subtask(){
+    public Subtask() {
     }
 
     public Subtask(String toDo, boolean finished) {
         this.toDo = toDo;
         this.finished = finished;
     }
+
+
 
     //Getters
     public String getToDo() {

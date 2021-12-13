@@ -2,6 +2,7 @@ package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 
 import com.haw.se1lab.group.dataaccess.api.entity.Group;
+import com.haw.se1lab.tasks.dataaccess.api.entity.Task;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import javax.persistence.*;
@@ -32,6 +33,7 @@ public class TodoList {
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private Date createdAt;
 
+    @ManyToOne
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private User owner;
 
@@ -40,7 +42,8 @@ public class TodoList {
     @OneToMany
     private List<Task> tasks;
 
-    @Embedded // causes this field's attributes to be stored in columns within this entity's table
+    @ManyToOne
+    // @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private Group group;
 
@@ -48,7 +51,7 @@ public class TodoList {
     /* ---- Constructors ---- */
 
     // default constructor (required by Hibernate)
-    TodoList(){
+    public TodoList(){
     }
 
     public TodoList(String name, boolean visibleForOthers, User owner, Group group){
