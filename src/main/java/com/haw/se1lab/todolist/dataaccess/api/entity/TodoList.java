@@ -1,7 +1,7 @@
 package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 
-import com.haw.se1lab.group.dataaccess.api.entity.Group;
+import com.haw.se1lab.group.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.tasks.dataaccess.api.entity.Task;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
@@ -45,7 +45,7 @@ public class TodoList {
     @ManyToOne
     // @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
-    private Group group;
+    private WorkGroup workGroup;
 
 
     /* ---- Constructors ---- */
@@ -54,10 +54,10 @@ public class TodoList {
     public TodoList(){
     }
 
-    public TodoList(String name, boolean visibleForOthers, User owner, Group group){
+    public TodoList(String name, boolean visibleForOthers, User owner, WorkGroup workGroup){
         this.name = name;
         this.owner = owner;
-        this.group = group;
+        this.workGroup = workGroup;
         this.createdAt = new Date();
         this.visibleForOthers = visibleForOthers;
 
@@ -91,7 +91,7 @@ public class TodoList {
 
     public User getOwner() { return owner; }
 
-    public Group getGroup() { return group; }
+    public WorkGroup getGroup() { return workGroup; }
 
     public Long getId() {
         return id;

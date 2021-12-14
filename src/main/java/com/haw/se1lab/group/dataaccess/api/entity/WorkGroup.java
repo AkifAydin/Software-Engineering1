@@ -20,7 +20,7 @@ import java.util.List;
 
 @Entity // marks this class as an entity
 // default table name: GROUP
-public class Group{
+public class WorkGroup {
     //Attribute
 
     @Id // the Users unique primary key in the database
@@ -47,10 +47,10 @@ public class Group{
     /* ---- Constructors ---- */
 
     // default constructor (required by Hibernate)
-    Group(){
+    WorkGroup(){
     }
 
-    public Group(GroupIDTyp groupId, String name, boolean publicVisible) {
+    public WorkGroup(GroupIDTyp groupId, String name, boolean publicVisible) {
         this.groupId = groupId;
         this.name = name;
         this.publicVisible = publicVisible;

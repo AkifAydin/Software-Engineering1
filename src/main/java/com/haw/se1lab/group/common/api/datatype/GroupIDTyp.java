@@ -13,8 +13,7 @@ public class GroupIDTyp {
     }
 
     //Getter
-    public int getGroupNumber() {
+    public int getGroupID() {
         return groupID;
     }
-
 }

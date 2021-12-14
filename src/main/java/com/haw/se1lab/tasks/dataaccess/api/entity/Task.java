@@ -30,11 +30,6 @@ public class Task {
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private Date toDoTo;
 
-    @Enumerated(EnumType.STRING) // causes the value of this enum-type field to be stored under the enum value's name
-    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
-    // default column name: COLOUR
-
-
     private boolean finished;
 
     @OneToMany
