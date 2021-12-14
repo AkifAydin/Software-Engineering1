@@ -24,11 +24,6 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
      */
     Optional<Task> findByToDo(String todoName);
 
-    //Optional<Task> findByToDoFromAndToDoTo(Date ToDoFrom, Date ToDoTo);
-
-    Optional<Task> findByFinished(Date groupDate);
-
-    //Prüfen und schauen wie List funktioniert
     List<Task> findByFinished(Boolean finished);
 
 }
