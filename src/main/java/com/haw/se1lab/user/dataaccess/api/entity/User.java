@@ -23,7 +23,7 @@ public class User {
     @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
-    private UserIDTyp userId;  //UserId
+    private UserIDTyp userIDTyp;  //UserId
 
     private String firstName;
     private String lastName;
@@ -36,8 +36,8 @@ public class User {
     User() {
     }
 
-    public User(UserIDTyp userId, String firstName, String lastName, String email, String password) {
-        this.userId = userId;
+    public User(UserIDTyp userIDTyp, String firstName, String lastName, String email, String password) {
+        this.userIDTyp = userIDTyp;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -45,8 +45,8 @@ public class User {
     }
 
     //Getter and Setter
-    public UserIDTyp getUserId() {
-        return userId;
+    public UserIDTyp getUserIDTyp() {
+        return userIDTyp;
     }
 
     public String getFirstName() {
