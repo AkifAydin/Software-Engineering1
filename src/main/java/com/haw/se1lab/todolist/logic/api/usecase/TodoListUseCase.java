@@ -15,4 +15,12 @@ public interface TodoListUseCase {
      */
     List<TodoList> findAllTodoListsFromUser(User user);
 
+    /**
+     * Finds all todolists from an user and sorts the todolists by their id (ascending order)
+     *
+     * @param user logged in user
+     * @return returns all the lists from an user
+     */
+    List<TodoList> findAllTodoListsFromUserSortedById(User user);
+
 }
