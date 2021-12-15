@@ -1,6 +1,6 @@
-package com.haw.se1lab.workinggroup.dataaccess.api.entity;
+package com.haw.se1lab.workgroup.dataaccess.api.entity;
 
-import com.haw.se1lab.workinggroup.common.api.datatype.WorkGroupIDTyp;
+import com.haw.se1lab.workgroup.common.api.datatype.WorkGroupIDTyp;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import javax.persistence.*;
@@ -38,7 +38,7 @@ public class WorkGroup {
     @Embedded // causes this field's attributes to be stored in columns within this entity's table
     @AttributeOverride( // replaces the default column names for the embedded attributes by more meaningful ones
             name = "code", // the name of the embedded attribute
-            column = @Column(name = "GROUP_ID") // the column name in this entity's table
+            column = @Column(name = "WORK_GROUP_ID") // the column name in this entity's table
     )
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)

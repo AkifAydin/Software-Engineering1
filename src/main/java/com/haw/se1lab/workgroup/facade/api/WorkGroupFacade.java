@@ -1,6 +1,6 @@
-package com.haw.se1lab.workinggroup.facade.api;
+package com.haw.se1lab.workgroup.facade.api;
 
-import com.haw.se1lab.workinggroup.dataaccess.api.entity.WorkGroup;
+import com.haw.se1lab.workgroup.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import java.util.List;
