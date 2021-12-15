@@ -10,7 +10,7 @@ public interface UserUseCase {
      *
      * @return the found users or an empty list if none were found
      */
-    List<User> findAllUsers();
+    //List<User> findAllUsers();
 
     /**
      * Returns the user with the given ID.
@@ -18,7 +18,7 @@ public interface UserUseCase {
      * @param id the user's technical ID
      * @return the found user
      */
-    User findUserById(long id);
+    //User findUserById(long id);
 
     /**
      * Returns the user with the given email.
@@ -27,15 +27,6 @@ public interface UserUseCase {
      * @return the found user
      */
     User findUserByEmail(String email);
-
-    /**
-     * Checks if the user
-     *
-     * @param email the users email; must not be <code>null</code>
-     * @return the found user
-     */
-    boolean isEmailUsed(String email);
-
 
 
     /**
@@ -47,6 +38,13 @@ public interface UserUseCase {
      */
     boolean checkPassword(User user, String password);
 
+    /**
+     * Creates a new Session for a user and returns the session token
+     *
+     * @param user the user for which the session is created; must not be <code>null</code>
+     * @return the session token
+     */
+    String createSession(User user);
 
 
 }

@@ -1,7 +1,7 @@
-package com.haw.se1lab.group.dataaccess.api.repo;
+package com.haw.se1lab.workinggroup.dataaccess.api.repo;
 
-import com.haw.se1lab.group.common.api.datatype.GroupIDTyp;
-import com.haw.se1lab.group.dataaccess.api.entity.WorkGroup;
+import com.haw.se1lab.workinggroup.common.api.datatype.WorkGroupIDTyp;
+import com.haw.se1lab.workinggroup.dataaccess.api.entity.WorkGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.transaction.Transactional;
@@ -25,7 +25,7 @@ public interface WorkGroupRepository extends JpaRepository<WorkGroup, Long> {
      */
     Optional<WorkGroup> findByName(String groupName);
 
-    Optional<WorkGroup> findByGroupIDTyp(GroupIDTyp groupId);
+    Optional<WorkGroup> findByGroupIDTyp(WorkGroupIDTyp groupId);
 
     Optional<WorkGroup> findByCreatedAt(Date groupDate);
 
@@ -36,6 +36,6 @@ public interface WorkGroupRepository extends JpaRepository<WorkGroup, Long> {
      */
     // equivalent SQL query: delete from WORKGROUP where GROUP_ID_TYP = [GroupIDTyp.groupID]
     @Transactional // causes the method to be executed in a database transaction (required for write operations)
-    void deleteByGroupIDTyp(GroupIDTyp groupID);
+    void deleteByGroupIDTyp(WorkGroupIDTyp groupID);
 
 }

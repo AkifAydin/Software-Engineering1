@@ -1,6 +1,6 @@
-package com.haw.se1lab.group.dataaccess.api.entity;
+package com.haw.se1lab.workinggroup.dataaccess.api.entity;
 
-import com.haw.se1lab.group.common.api.datatype.GroupIDTyp;
+import com.haw.se1lab.workinggroup.common.api.datatype.WorkGroupIDTyp;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import javax.persistence.*;
@@ -42,7 +42,7 @@ public class WorkGroup {
     )
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
-    private GroupIDTyp groupIDTyp;
+    private WorkGroupIDTyp workGroupIDTyp;
 
 
     @ManyToMany()
@@ -54,8 +54,8 @@ public class WorkGroup {
     WorkGroup(){
     }
 
-    public WorkGroup(GroupIDTyp groupIDTyp, String name, boolean publicVisible) {
-        this.groupIDTyp = groupIDTyp;
+    public WorkGroup(WorkGroupIDTyp workGroupIDTyp, String name, boolean publicVisible) {
+        this.workGroupIDTyp = workGroupIDTyp;
         this.name = name;
         this.publicVisible = publicVisible;
         this.createdAt = new Date();
@@ -63,8 +63,8 @@ public class WorkGroup {
     }
 
     //getter and setter
-    public GroupIDTyp getGroupIDTyp() {
-        return groupIDTyp;
+    public WorkGroupIDTyp getGroupIDTyp() {
+        return workGroupIDTyp;
     }
 
     public String getName() {

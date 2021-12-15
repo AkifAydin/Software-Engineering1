@@ -1,17 +1,17 @@
-package com.haw.se1lab.group.logic.api.usecase;
+package com.haw.se1lab.workinggroup.logic.api.usecase;
 
-import com.haw.se1lab.group.dataaccess.api.entity.WorkGroup;
+import com.haw.se1lab.workinggroup.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import java.util.List;
 
-public interface GroupUseCase {
+public interface WorkGroupUseCase {
     /**
      * Finds all groups
      *
      * @return returns all groups
      */
-    List<WorkGroup> findAllGroups();
+    //List<WorkGroup> findAllGroups();
 
     /**
      * Returns the group with the given ID.
@@ -19,7 +19,7 @@ public interface GroupUseCase {
      * @param id the group's technical ID
      * @return the found group (returns null if no group was found)
      */
-    WorkGroup findGroupById(long id);
+    //WorkGroup findGroupById(long id);
 
     /**
      * Finds all groups a user has joined or created

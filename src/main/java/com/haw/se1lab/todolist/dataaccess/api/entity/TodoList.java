@@ -1,7 +1,7 @@
 package com.haw.se1lab.todolist.dataaccess.api.entity;
 
 
-import com.haw.se1lab.group.dataaccess.api.entity.WorkGroup;
+import com.haw.se1lab.workinggroup.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.tasks.dataaccess.api.entity.Task;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 

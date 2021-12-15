@@ -10,7 +10,7 @@ public interface UserFacade {
      *
      * @return the found user or an empty list if none were found
      */
-    List<User> getUser();
+    //List<User> getUser();
 
     /**
      * Returns the user with the given ID.
@@ -18,7 +18,7 @@ public interface UserFacade {
      * @param id the user's technical ID
      * @return the found user
      */
-    User getUser(long id);
+    //User getUser(long id);
 
     /**
      * Creates a user with the given data.
@@ -26,7 +26,7 @@ public interface UserFacade {
      * @param user the user to be created; must not be <code>null</code>
      * @return the created user
      */
-    User createUser(User user);
+    //User createUser(User user);
 
     /**
      * Updates a user with the given data.
@@ -34,14 +34,14 @@ public interface UserFacade {
      * @param user the user to be updated; must not be <code>null</code>
      * @return the updated user
      */
-    User updateUser(User user);
+    //User updateUser(User user);
 
     /**
      * Deletes the user with the given ID.
      *
      * @param id the user's technical ID
      */
-    void deleteUser(long id);
+    //void deleteUser(long id);
 
 
     /**

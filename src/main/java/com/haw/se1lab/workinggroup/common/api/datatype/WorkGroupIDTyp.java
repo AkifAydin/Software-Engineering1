@@ -1,14 +1,14 @@
-package com.haw.se1lab.group.common.api.datatype;
+package com.haw.se1lab.workinggroup.common.api.datatype;
 
 import javax.persistence.Embeddable;
 
 @Embeddable // indicates that the type's attributes can be stored in columns of the owning entity's table
-public class GroupIDTyp {
+public class WorkGroupIDTyp {
     //Attribute
     private final int groupID;
 
     //Konstruktor
-    public GroupIDTyp(int groupID) {
+    public WorkGroupIDTyp(int groupID) {
         this.groupID = groupID;
     }
 
