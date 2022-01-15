@@ -1,7 +1,8 @@
-package com.haw.se1lab.todolist.dataaccess.api.repo;
+package com.haw.se1lab.todolist.logic.api.usecase;
 
 import com.haw.se1lab.Application;
 import com.haw.se1lab.todolist.dataaccess.api.entity.TodoList;
+import com.haw.se1lab.todolist.dataaccess.api.repo.TodoListRepository;
 import com.haw.se1lab.user.common.api.datatype.UserIDTyp;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 import com.haw.se1lab.user.dataaccess.api.repo.UserRepository;
@@ -20,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -28,8 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
 @ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class TodoListRepositoryTest {
-
+public class TodoListUseCaseTest {
     @Autowired
     private TodoListRepository todoListRepository;
 
@@ -42,7 +43,7 @@ public class TodoListRepositoryTest {
     private User user1;
     private User user2;
 
-    private TodoList todoListEntry1, todoListEntry2, todoListEntry3;
+    private TodoList todoListEntry1, todoListEntry2, todoListEntry3, todoListEntry4, todoListEntry5;
 
     private WorkGroup workGroup;
 
@@ -57,6 +58,8 @@ public class TodoListRepositoryTest {
         todoListEntry1 = new TodoList("Wohnwagen Todo", false, user1, workGroup);
         todoListEntry2 = new TodoList("Einkaufliste", false, user1, workGroup);
         todoListEntry3 = new TodoList("Hausaufgaben Liste", false, user2, workGroup);
+        todoListEntry4 = new TodoList("Film Liste", false, user2, workGroup);
+        todoListEntry5 = new TodoList("Serien Liste", false, user2, workGroup);
 
         //save to db
         userRepository.save(user1);
@@ -67,6 +70,8 @@ public class TodoListRepositoryTest {
         todoListRepository.save(todoListEntry1);
         todoListRepository.save(todoListEntry2);
         todoListRepository.save(todoListEntry3);
+        todoListRepository.save(todoListEntry4);
+        todoListRepository.save(todoListEntry5);
     }
 
     @AfterEach
@@ -75,6 +80,8 @@ public class TodoListRepositoryTest {
         todoListRepository.delete(todoListEntry1);
         todoListRepository.delete(todoListEntry2);
         todoListRepository.delete(todoListEntry3);
+        todoListRepository.delete(todoListEntry4);
+        todoListRepository.delete(todoListEntry5);
 
         userRepository.delete(user1);
         userRepository.delete(user2);
@@ -85,23 +92,34 @@ public class TodoListRepositoryTest {
     @Test
     public void findAllTodoListsFromUserSortedById(){
         List<TodoList> listsOfUser1 = todoListRepository.findByOwner(user1);
+        List<TodoList> listsOfUser1SortedShould = new ArrayList<>(Arrays.asList(todoListEntry1, todoListEntry2));
+        listsOfUser1SortedShould.sort(Comparator.comparing(TodoList::getId));
 
         //test listsOfUser1
         //test size
         assertThat(listsOfUser1).hasSize(2);
-        //test content
+        //test sorted
+        assertThat(listsOfUser1).isSortedAccordingTo(Comparator.comparing(TodoList::getId));
+        //test entries
         assertThat(listsOfUser1).anyMatch(tdl -> tdl.getId().equals(todoListEntry1.getId()));
         assertThat(listsOfUser1).anyMatch(tdl -> tdl.getId().equals(todoListEntry2.getId()));
         assertThat(listsOfUser1).noneMatch(tdl -> tdl.getId().equals(todoListEntry3.getId()));
+        assertThat(listsOfUser1).noneMatch(tdl -> tdl.getId().equals(todoListEntry4.getId()));
+        assertThat(listsOfUser1).noneMatch(tdl -> tdl.getId().equals(todoListEntry5.getId()));
 
 
         List<TodoList> listsOfUser2 = todoListRepository.findByOwner(user2);
 
         //test listsOfUser2
-        assertThat(listsOfUser2).hasSize(1);
-        //test content
+        //test size
+        assertThat(listsOfUser2).hasSize(3);
+        //test sorted
+        assertThat(listsOfUser2).isSortedAccordingTo(Comparator.comparing(TodoList::getId));
+        //test entries
         assertThat(listsOfUser2).noneMatch(tdl -> tdl.getId().equals(todoListEntry1.getId()));
         assertThat(listsOfUser2).noneMatch(tdl -> tdl.getId().equals(todoListEntry2.getId()));
         assertThat(listsOfUser2).anyMatch(tdl -> tdl.getId().equals(todoListEntry3.getId()));
+        assertThat(listsOfUser2).anyMatch(tdl -> tdl.getId().equals(todoListEntry4.getId()));
+        assertThat(listsOfUser2).anyMatch(tdl -> tdl.getId().equals(todoListEntry5.getId()));
     }
 }
