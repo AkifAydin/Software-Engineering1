@@ -44,7 +44,7 @@ public class TodoList {
 
     @ManyToOne
     // @Embedded // causes this field's attributes to be stored in columns within this entity's table
-    //@NotNull // adds a constraint for this field (checked by Hibernate during saving)
+    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private WorkGroup workGroup;
 
 
@@ -91,7 +91,7 @@ public class TodoList {
 
     public User getOwner() { return owner; }
 
-    public WorkGroup getGroup() { return workGroup; }
+    public WorkGroup getWorkGroup() { return workGroup; }
 
     public Long getId() {
         return id;

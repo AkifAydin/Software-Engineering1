@@ -83,7 +83,7 @@ public class TodoListRepositoryTest {
     }
 
     @Test
-    public void findAllTodoListsFromUserSortedById(){
+    public void findByOwner(){
         List<TodoList> listsOfUser1 = todoListRepository.findByOwner(user1);
 
         //test listsOfUser1

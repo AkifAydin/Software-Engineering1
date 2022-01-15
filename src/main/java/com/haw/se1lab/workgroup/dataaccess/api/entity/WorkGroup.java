@@ -36,10 +36,6 @@ public class WorkGroup {
 
     //@Embedded // causes this field's attributes to be stored in columns within this entity's table
     @Embedded // causes this field's attributes to be stored in columns within this entity's table
-    @AttributeOverride( // replaces the default column names for the embedded attributes by more meaningful ones
-            name = "code", // the name of the embedded attribute
-            column = @Column(name = "WORK_GROUP_ID") // the column name in this entity's table
-    )
     @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     @Column(unique = true) // adds a uniqueness constraint for this field's column (business key column)
     private WorkGroupIDTyp workGroupIDTyp;
@@ -51,7 +47,8 @@ public class WorkGroup {
     /* ---- Constructors ---- */
 
     // default constructor (required by Hibernate)
-    WorkGroup(){
+    public WorkGroup() {
+
     }
 
     public WorkGroup(WorkGroupIDTyp workGroupIDTyp, String name, boolean publicVisible) {
@@ -62,8 +59,10 @@ public class WorkGroup {
         this.members = new ArrayList<>();
     }
 
+
+
     //getter and setter
-    public WorkGroupIDTyp getGroupIDTyp() {
+    public WorkGroupIDTyp getWorkGroupIDTyp() {
         return workGroupIDTyp;
     }
 
