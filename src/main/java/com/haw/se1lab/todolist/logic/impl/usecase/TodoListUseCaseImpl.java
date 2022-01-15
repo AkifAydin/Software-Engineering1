@@ -23,9 +23,7 @@ public class TodoListUseCaseImpl implements TodoListUseCase {
 
     @Override
     public List<TodoList> findAllTodoListsFromUser(User user) {
-        return todoListRepository.findAll().stream()
-                .filter(e -> e.getOwner().equals(user))
-                .collect(Collectors.toList());
+        return todoListRepository.findByOwner(user);
     }
 
     @Override
