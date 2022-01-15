@@ -20,23 +20,23 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
-     * Returns the {@link WorkGroup} entity with the given UserID.
+     * Returns the {@link User} entity with the given UserID.
      *
      * @param userId the user id
      * @return an {@link Optional} containing the found user
      */
     @Query("select u from User u where u.id = :userId")
-    Optional<WorkGroup> findByUserIDTyp(@Param("userId") UserIDTyp userId);
+    Optional<User> findByUserIDTyp(@Param("userId") UserIDTyp userId);
 
     /**
-     * Returns the {@link WorkGroup} entity with the given email and password.
+     * Returns the {@link User} entity with the given email and password.
      *
      * @param email the user email
      * @param password the user password
      * @return an {@link Optional} containing the found user
      */
     @Query("select u from User u where u.email = :email and u.password = :password")
-    Optional<WorkGroup> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     /**
      * Deletes the {@link User} entity with the given UserID.
