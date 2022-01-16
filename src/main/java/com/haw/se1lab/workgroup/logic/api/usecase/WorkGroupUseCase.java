@@ -1,5 +1,6 @@
 package com.haw.se1lab.workgroup.logic.api.usecase;
 
+import com.haw.se1lab.workgroup.common.api.datatype.exception.IllegalGroupAccessException;
 import com.haw.se1lab.workgroup.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
@@ -44,12 +45,10 @@ public interface WorkGroupUseCase {
      * Edit a Group
      *
      * @param user logged in user
-     * @param group group to edit
-     * @param groupName new name of the group
-     * @param publicVisible new public visibility of the group
-     * @param addedUsers new user list of the group (excluding the user that created the group)
+     * @param group edited group
+     * @return returns the edited group
      */
-    void editGroup(User user, WorkGroup group, String groupName, boolean publicVisible, List<User> addedUsers);
+    WorkGroup editGroup(User user, WorkGroup group) throws IllegalGroupAccessException;
 
     /**
      * Generate invite link to a group
@@ -57,7 +56,7 @@ public interface WorkGroupUseCase {
      * @param group group from where the invite link is from
      * @return returns the invite link as a string
      */
-    String createInviteLink(WorkGroup group);
+    String createInviteLink(User user, WorkGroup group) throws IllegalGroupAccessException;
 
     /**
      * Checks if User is in Group

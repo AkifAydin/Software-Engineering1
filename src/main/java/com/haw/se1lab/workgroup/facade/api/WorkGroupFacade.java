@@ -1,5 +1,6 @@
 package com.haw.se1lab.workgroup.facade.api;
 
+import com.haw.se1lab.workgroup.common.api.datatype.exception.IllegalGroupAccessException;
 import com.haw.se1lab.workgroup.dataaccess.api.entity.WorkGroup;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
@@ -33,10 +34,9 @@ public interface WorkGroupFacade {
      * Creates a new Group
      *
      * @param user logged in user that creates the group
-     * @param group new group
      * @return returns the new created group
      */
-    WorkGroup createGroup(User user, WorkGroup group);
+    WorkGroup createGroup(User user, String groupName, boolean publicVisible, List<User> addedUsers);
 
     /**
      * Edit a Group
@@ -45,7 +45,7 @@ public interface WorkGroupFacade {
      * @param group edited group
      * @return return edited group
      */
-    WorkGroup editGroup(User user, WorkGroup group);
+    WorkGroup editGroup(User user, WorkGroup group) throws IllegalGroupAccessException;
 
     /**
      * Get generated invite link
@@ -54,5 +54,5 @@ public interface WorkGroupFacade {
      * @param group group from where the invite link is from
      * @return returns the invite link
      */
-    String getInviteLink(User user, WorkGroup group);
+    String getInviteLink(User user, WorkGroup group) throws IllegalGroupAccessException;
 }

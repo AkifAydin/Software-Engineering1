@@ -21,7 +21,7 @@ public class TodoListFacadeImpl implements TodoListFacade {
     @Autowired
     private TodoListUseCase todoListUseCase;
 
-    @PostMapping
+    @PostMapping("/getByUser")
     @Override
     public List<TodoList> getAllTodoListsFromUser(@RequestBody User user) {
         return todoListUseCase.findAllTodoListsFromUser(user);

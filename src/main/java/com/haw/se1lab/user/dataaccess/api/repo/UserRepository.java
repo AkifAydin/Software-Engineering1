@@ -39,6 +39,15 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     /**
+     * Returns the {@link User} entity with the given email and password.
+     *
+     * @param email the user email
+     * @return an {@link Optional} containing the found user
+     */
+    @Query("select u from User u where u.email = :email")
+    Optional<User> findByEmail(@Param("email") String email);
+
+    /**
      * Deletes the {@link User} entity with the given UserID.
      *
      * @param userId the customer number to be deleted

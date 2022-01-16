@@ -1,5 +1,6 @@
 package com.haw.se1lab.workgroup.dataaccess.api.repo;
 
+import com.haw.se1lab.user.dataaccess.api.entity.User;
 import com.haw.se1lab.workgroup.common.api.datatype.WorkGroupIDTyp;
 import com.haw.se1lab.workgroup.dataaccess.api.entity.WorkGroup;
 import org.springframework.data.jpa.repository.JpaRepository;

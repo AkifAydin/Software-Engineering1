@@ -1,5 +1,6 @@
 package com.haw.se1lab.user.logic.api.usecase;
 
+import com.haw.se1lab.user.common.api.datatype.exception.UserNotFoundException;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public interface UserUseCase {
      * @param email the users email; must not be <code>null</code>
      * @return the found user
      */
-    User findUserByEmail(String email);
+    User findUserByEmail(String email) throws UserNotFoundException;
 
 
     /**

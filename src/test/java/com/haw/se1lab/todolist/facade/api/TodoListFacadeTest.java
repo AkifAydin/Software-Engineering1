@@ -94,13 +94,16 @@ public class TodoListFacadeTest {
 
     @Test
     public void findByOwner(){
+        //given
         List<TodoList> outList1 = given()
         .contentType(ContentType.JSON)
         .body(user1)
 
+        //when
         .when()
-        .post("/todolist")
+        .post("/todolist/getByUser")
 
+        //then
         .then()
         .statusCode(HttpStatus.OK.value())
         .extract().body().jsonPath().getList(".", TodoList.class);
@@ -114,13 +117,16 @@ public class TodoListFacadeTest {
         assertThat(outList1).noneMatch(tdl -> tdl.getId().equals(todoListEntry3.getId()));
 
 
+        //given
         List<TodoList> outList2 = given()
         .contentType(ContentType.JSON)
         .body(user2)
 
+        //when
         .when()
-        .post("/todolist")
+        .post("/todolist/getByUser")
 
+        //then
         .then()
         .statusCode(HttpStatus.OK.value())
         .extract().body().jsonPath().getList(".", TodoList.class);

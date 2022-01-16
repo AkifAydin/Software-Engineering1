@@ -1,5 +1,7 @@
 package com.haw.se1lab.user.facade.api;
 
+import com.haw.se1lab.user.common.api.datatype.exception.UserNotFoundException;
+import com.haw.se1lab.user.common.api.datatype.exception.WrongPasswordException;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 
 import java.util.List;
@@ -51,5 +53,5 @@ public interface UserFacade {
      * @param password users input password
      * @return returns the logged in user
      */
-    User login(String email, String password);
+    User login(String email, String password) throws UserNotFoundException, WrongPasswordException;
 }
