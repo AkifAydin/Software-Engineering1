@@ -48,27 +48,22 @@ public class TodoListUseCaseTest {
 
     private TodoList todoListEntry1, todoListEntry2, todoListEntry3, todoListEntry4, todoListEntry5;
 
-    private WorkGroup workGroup;
-
     @BeforeEach
     public void setup(){
-        workGroup = new WorkGroup(new WorkGroupIDTyp(1), "all group", true);
 
         //create instances
         user1 = new User(new UserIDTyp(1), "Peter", "Lustig", "peter.lustig@gmail.com", "ichmagkekse");
         user2 = new User(new UserIDTyp(2), "Helga", "Wiedenfeld", "helga.wiedenfeld@gmail.com", "ichmagkeinekekse");
 
-        todoListEntry1 = new TodoList("Wohnwagen Todo", false, user1, workGroup);
-        todoListEntry2 = new TodoList("Einkaufliste", false, user1, workGroup);
-        todoListEntry3 = new TodoList("Hausaufgaben Liste", false, user2, workGroup);
-        todoListEntry4 = new TodoList("Film Liste", false, user2, workGroup);
-        todoListEntry5 = new TodoList("Serien Liste", false, user2, workGroup);
+        todoListEntry1 = new TodoList("Wohnwagen Todo", false, user1, null);
+        todoListEntry2 = new TodoList("Einkaufliste", false, user1, null);
+        todoListEntry3 = new TodoList("Hausaufgaben Liste", false, user2, null);
+        todoListEntry4 = new TodoList("Film Liste", false, user2, null);
+        todoListEntry5 = new TodoList("Serien Liste", false, user2, null);
 
         //save to db
         userRepository.save(user1);
         userRepository.save(user2);
-
-        workGroupRepository.save(workGroup);
 
         todoListRepository.save(todoListEntry1);
         todoListRepository.save(todoListEntry2);
@@ -88,8 +83,6 @@ public class TodoListUseCaseTest {
 
         userRepository.delete(user1);
         userRepository.delete(user2);
-
-        workGroupRepository.delete(workGroup);
     }
 
     @Test

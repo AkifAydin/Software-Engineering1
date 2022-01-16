@@ -16,7 +16,7 @@ public class UserFacadeImpl implements UserFacade {
     @Autowired
     private UserUseCase userUseCase;
 
-    @PostMapping(path = "/login")
+    @PostMapping("/login")
     @Override
     public User login(@RequestBody String email, @RequestBody String password) throws UserNotFoundException, WrongPasswordException {
         User u = userUseCase.findUserByEmail(email);

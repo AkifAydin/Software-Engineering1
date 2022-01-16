@@ -44,7 +44,6 @@ public class TodoList {
 
     @ManyToOne
     // @Embedded // causes this field's attributes to be stored in columns within this entity's table
-    @NotNull // adds a constraint for this field (checked by Hibernate during saving)
     private WorkGroup workGroup;
 
 
