@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Default implementation for {@link TodoListFacade}.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 @Component
 @RestController
 @RequestMapping(path = "/todolist")

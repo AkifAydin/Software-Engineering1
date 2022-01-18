@@ -19,6 +19,8 @@ import java.util.List;
 // -> Spring Data automatically creates a Spring bean for this repository which can then be used using @Autowired
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
+    /* ---- Custom Query Methods ---- */
+
     /**
      * Returns the {@link Task} entity with the given todoName.
      *

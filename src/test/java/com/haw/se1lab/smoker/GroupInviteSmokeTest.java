@@ -37,6 +37,18 @@ import java.util.stream.Collectors;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Test class with smoke tests for use case scenarios in the components. The test cases here include complex
+ * interactions with the application core and are supposed to detect when fundamental functionality needed for use case
+ * execution is broken. Moreover, the tests in this class perform facade calls in a way which is similar to how these
+ * calls are made from a client application when a user goes through a use case scenario - except that facade calls are
+ * performed directly and not via the REST API. Therefore, these tests can be viewed as a kind of simulation of a user
+ * test. Consequentially, a user test for the use case scenarios handled here should not be performed as long as tests
+ * in this class fail.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //environment
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
 @ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))

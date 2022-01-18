@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+/**
+ * Default implementation for {@link TodoListUseCase}.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 //Sorgt für Berücksichtigung beim Autowiring
 //Component can also be used
 @Service // causes Spring to automatically create a Spring bean for this class which can then be used using @Autowired
@@ -28,10 +35,13 @@ public class TodoListUseCaseImpl implements TodoListUseCase {
 
     @Override
     public List<TodoList> findAllTodoListsFromUserSortedById(User user) {
+        //list of unsorted users
         List<TodoList> list = findAllTodoListsFromUser(user);
 
+        //initializierung der Sorting Strategy
         TodoListSortingStrategy sortingStrategy = TodoListSortingUtil.getSortingStrategy(list);
 
+        //return sortierte Liste
         return sortingStrategy.sort(list);
     }
 }

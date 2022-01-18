@@ -28,21 +28,28 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * Test class for {@link TodoListFacade}.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
+
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //environment
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
 @ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TodoListFacadeTest {
-    @LocalServerPort
+
+    @LocalServerPort      // causes the field to be initialized with the local server port used for REST calls
     private int port;
 
-    @Autowired
+    @Autowired      // automatically initializes the field with a Spring bean of a matching type
     private TodoListRepository todoListRepository;
 
-    @Autowired
+    @Autowired      // automatically initializes the field with a Spring bean of a matching type
     private UserRepository userRepository;
 
-    @Autowired
+    @Autowired      // automatically initializes the field with a Spring bean of a matching type
     private WorkGroupRepository workGroupRepository;
 
     private User user1;
@@ -50,7 +57,7 @@ public class TodoListFacadeTest {
 
     private TodoList todoListEntry1, todoListEntry2, todoListEntry3;
 
-    @BeforeEach
+    @BeforeEach      // causes this method to be executed before each test method execution
     public void setup(){
 
         //create instances
@@ -71,7 +78,7 @@ public class TodoListFacadeTest {
 
         //set rest data
         RestAssured.port = port;
-        RestAssured.basePath = "";
+        RestAssured.basePath = "/todolist";
     }
 
     @AfterEach
@@ -94,7 +101,7 @@ public class TodoListFacadeTest {
 
         //when
         .when()
-        .post("/todolist/getByUser")
+        .post("/getByUser")
 
         //then
         .then()
@@ -117,7 +124,7 @@ public class TodoListFacadeTest {
 
         //when
         .when()
-        .post("/todolist/getByUser")
+        .post("/getByUser")
 
         //then
         .then()

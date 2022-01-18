@@ -3,6 +3,7 @@ package com.haw.se1lab.todolist.logic.api.usecase;
 import com.haw.se1lab.Application;
 import com.haw.se1lab.todolist.dataaccess.api.entity.TodoList;
 import com.haw.se1lab.todolist.dataaccess.api.repo.TodoListRepository;
+import com.haw.se1lab.todolist.facade.api.TodoListFacade;
 import com.haw.se1lab.user.common.api.datatype.UserIDTyp;
 import com.haw.se1lab.user.dataaccess.api.entity.User;
 import com.haw.se1lab.user.dataaccess.api.repo.UserRepository;
@@ -25,6 +26,12 @@ import java.util.Comparator;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+
+/**
+ * Test class for {@link TodoListUseCase}.
+ *
+ * @author Janat Haref, Benedikt Weyer, Akif Aydin
+ */
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) //environment
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
