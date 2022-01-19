@@ -49,13 +49,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author Janat Haref, Benedikt Weyer, Akif Aydin
  */
 
-@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) //environment
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE) //environment
 @ExtendWith(SpringExtension.class) // required to use Spring TestContext Framework in JUnit 5
 @ActiveProfiles("test") // causes exclusive creation of general and test-specific beans (marked by @Profile("test"))
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class GroupInviteSmokeTest {
-    @LocalServerPort
-    private int port;
 
     @Autowired
     private UserFacade userFacade;
@@ -93,10 +91,6 @@ public class GroupInviteSmokeTest {
 
         todoListRepository.save(todoListEntry1);
         todoListRepository.save(todoListEntry2);
-
-        //set rest data
-        RestAssured.port = port;
-        RestAssured.basePath = "";
     }
 
     @AfterEach

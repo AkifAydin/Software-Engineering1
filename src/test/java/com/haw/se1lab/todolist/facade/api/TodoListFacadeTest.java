@@ -49,8 +49,6 @@ public class TodoListFacadeTest {
     @Autowired      // automatically initializes the field with a Spring bean of a matching type
     private UserRepository userRepository;
 
-    @Autowired      // automatically initializes the field with a Spring bean of a matching type
-    private WorkGroupRepository workGroupRepository;
 
     private User user1;
     private User user2;

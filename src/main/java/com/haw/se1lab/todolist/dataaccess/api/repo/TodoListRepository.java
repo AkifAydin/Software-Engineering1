@@ -27,4 +27,6 @@ public interface TodoListRepository extends JpaRepository<TodoList, Long> {
     @Query("select t from TodoList t where t.owner = :user")
     List<TodoList> findByOwner(@Param("user") User user);
 
+    List<TodoList> findByOwner_Id(long userId);
+
 }

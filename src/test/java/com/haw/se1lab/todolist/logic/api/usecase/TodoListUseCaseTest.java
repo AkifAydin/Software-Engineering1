@@ -47,9 +47,6 @@ public class TodoListUseCaseTest {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private WorkGroupRepository workGroupRepository;
-
     private User user1;
     private User user2;
 

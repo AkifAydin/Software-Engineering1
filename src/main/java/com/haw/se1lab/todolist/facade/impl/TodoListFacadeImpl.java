@@ -19,7 +19,6 @@ import java.util.List;
  * @author Janat Haref, Benedikt Weyer, Akif Aydin
  */
 
-@Component
 @RestController
 @RequestMapping(path = "/todolist")
 public class TodoListFacadeImpl implements TodoListFacade {
